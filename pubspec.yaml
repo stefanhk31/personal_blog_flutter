@@ -7,12 +7,17 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+  api_client:
+    path: packages/api_client
   bloc: ^8.1.2
+  butter_cms_client:
+    path: packages/butter_cms_client
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3
   flutter_localizations:
     sdk: flutter
+  http: ^1.2.0
   intl: ^0.18.0
 
 dev_dependencies:
