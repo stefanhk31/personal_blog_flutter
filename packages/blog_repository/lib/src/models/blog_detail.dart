@@ -1,3 +1,4 @@
+import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:equatable/equatable.dart';
 
 /// Represents detailed contend of a blog post.
@@ -8,6 +9,13 @@ class BlogDetail extends Equatable {
     required this.published,
     required this.body,
   });
+
+  /// Creates a [BlogDetail] from the Butter CMS [Post] model.
+  factory BlogDetail.fromButter(Blog blog) => BlogDetail(
+        title: blog.title,
+        published: blog.published,
+        body: blog.body,
+      );
 
   //// Title of the blog post
   final String title;
