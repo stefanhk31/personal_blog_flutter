@@ -1,3 +1,4 @@
+import 'package:blog_repository/src/models/blog_post.dart';
 import 'package:butter_cms_client/butter_cms_client.dart';
 
 /// {@template blog_repository}
@@ -9,4 +10,14 @@ class BlogRepository {
       : _butterCmsClient = butterCmsClient;
 
   final ButterCmsClient _butterCmsClient;
+
+  /// Gets a list of [BlogPost] objects.
+  Future<List<BlogPost>> getBlogPosts() async {
+    try {
+      final blogs = await _butterCmsClient.fetchBlogPosts();
+      return blogs.data.map(BlogPost.fromButter).toList();
+    } on Exception {
+      rethrow;
+    }
+  }
 }
