@@ -10,7 +10,7 @@ class BlogDetail extends Equatable {
     required this.body,
   });
 
-  /// Creates a [BlogDetail] from the Butter CMS [Post] model.
+  /// Creates a [BlogDetail] from the Butter CMS [Blog] model.
   factory BlogDetail.fromButter(Blog blog) => BlogDetail(
         title: blog.title,
         published: blog.published,
