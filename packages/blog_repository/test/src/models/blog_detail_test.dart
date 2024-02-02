@@ -42,15 +42,17 @@ void main() {
     });
 
     test('supports value equality', () {
+      final published = DateTime.now();
+
       final instance1 = BlogDetail(
         title: 'title',
-        published: DateTime.now(),
+        published: published,
         body: 'body',
       );
 
       final instance2 = BlogDetail(
         title: 'title',
-        published: DateTime.now(),
+        published: published,
         body: 'body',
       );
 

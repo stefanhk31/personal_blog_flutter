@@ -48,17 +48,18 @@ void main() {
     });
 
     test('supports value equality', () {
+      final now = DateTime.now();
       final instance1 = BlogPreview(
         title: 'title',
         description: 'description',
-        published: DateTime.now(),
+        published: now,
         authorName: 'authorName',
       );
 
       final instance2 = BlogPreview(
         title: 'title',
         description: 'description',
-        published: DateTime.now(),
+        published: now,
         authorName: 'authorName',
       );
 

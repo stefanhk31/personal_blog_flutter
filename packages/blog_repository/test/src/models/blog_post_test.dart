@@ -41,16 +41,17 @@ void main() {
     });
 
     test('supports value equality', () {
+      final now = DateTime.now();
       final instance1 = BlogPost(
         preview: BlogPreview(
           title: 'title',
           description: 'description',
-          published: DateTime.now(),
+          published: now,
           authorName: 'authorName',
         ),
         detail: BlogDetail(
           title: 'title',
-          published: DateTime.now(),
+          published: now,
           body: 'body',
         ),
       );
@@ -59,12 +60,12 @@ void main() {
         preview: BlogPreview(
           title: 'title',
           description: 'description',
-          published: DateTime.now(),
+          published: now,
           authorName: 'authorName',
         ),
         detail: BlogDetail(
           title: 'title',
-          published: DateTime.now(),
+          published: now,
           body: 'body',
         ),
       );
