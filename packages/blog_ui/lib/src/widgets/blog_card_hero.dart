@@ -1,5 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 /// Widget representing a hero banner on top of a blog card.
 class BlogCardHero extends StatelessWidget {

@@ -1,6 +1,4 @@
 import 'package:blog_ui/src/theme/theme.dart';
-import 'package:blog_ui/src/widgets/author_avatar.dart';
-import 'package:blog_ui/src/widgets/blog_card_hero.dart';
 import 'package:blog_ui/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
