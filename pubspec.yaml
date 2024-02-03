@@ -10,6 +10,8 @@ dependencies:
   api_client:
     path: packages/api_client
   bloc: ^8.1.2
+  blog_repository:
+    path: packages/blog_repository
   butter_cms_client:
     path: packages/butter_cms_client
   flutter:
