@@ -1,3 +1,7 @@
+import 'package:blog_ui/src/theme/theme.dart';
+import 'package:blog_ui/src/widgets/author_avatar.dart';
+import 'package:blog_ui/src/widgets/blog_card_hero.dart';
+import 'package:blog_ui/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 /// Widget to display a card with a preview of a blog post.
@@ -42,46 +46,36 @@ class BlogCard extends StatelessWidget {
       child: Card(
         elevation: 5,
         clipBehavior: Clip.hardEdge,
-        margin: const EdgeInsets.only(bottom: 20),
-        surfaceTintColor: Colors.white,
+        margin: BlogSpacing.bottomMargin,
+        surfaceTintColor: BlogColors.seedWhite,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             if (imageUrl != null)
-              Hero(
+              BlogCardHero(
                 tag: imageTag ?? 'hero-image-tag',
-                child: Image.network(imageUrl!, fit: BoxFit.cover),
+                imageUrl: imageUrl!,
               ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: BlogSpacing.horizontalPadding,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 15),
-                  Text(title,
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 5),
-                  Text(subtitle,
-                      style: const TextStyle(
-                          fontSize: 16, color: Colors.blueGrey)),
-                  const SizedBox(height: 10),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: authorImage != null
-                        ? CircleAvatar(
-                            radius: 20,
-                            backgroundImage: NetworkImage(authorImage!),
-                          )
-                        : null,
-                    title: Text(
-                      author,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                  BlogSpacing.largeVerticalSpacing,
+                  Text(
+                    title,
+                    style: BlogTextStyles.cardTitle,
+                  ),
+                  BlogSpacing.smallVerticalSpacing,
+                  Text(
+                    subtitle,
+                    style: BlogTextStyles.cardSubtitle,
+                  ),
+                  BlogSpacing.mediumVerticalSpacing,
+                  AuthorTile(
+                    author: author,
+                    authorImage: authorImage,
                   ),
                 ],
               ),
