@@ -12,6 +12,8 @@ dependencies:
   bloc: ^8.1.2
   blog_repository:
     path: packages/blog_repository
+  blog_ui:
+    path: packages/blog_ui
   butter_cms_client:
     path: packages/butter_cms_client
   equatable: ^2.0.5
