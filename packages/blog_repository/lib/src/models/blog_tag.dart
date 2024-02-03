@@ -22,5 +22,5 @@ class BlogTag extends Equatable {
   final String slug;
 
   @override
-  List<Object?> get props => [name, slug];
+  List<Object> get props => [name, slug];
 }

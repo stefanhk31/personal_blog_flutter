@@ -35,22 +35,12 @@ void main() {
         firstName: 'firstName',
         lastName: 'lastName',
         slug: 'slug',
-        bio: 'bio',
-        linkedinUrl: 'linkedinUrl',
-        facebookUrl: 'facebookUrl',
-        twitterUrl: 'twitterUrl',
-        profileImage: 'profileImage',
       );
 
       const instance2 = BlogAuthor(
         firstName: 'firstName',
         lastName: 'lastName',
         slug: 'slug',
-        bio: 'bio',
-        linkedinUrl: 'linkedinUrl',
-        facebookUrl: 'facebookUrl',
-        twitterUrl: 'twitterUrl',
-        profileImage: 'profileImage',
       );
 
       expect(instance1, equals(instance2));

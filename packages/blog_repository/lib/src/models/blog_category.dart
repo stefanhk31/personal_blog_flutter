@@ -22,5 +22,5 @@ class BlogCategory extends Equatable {
   final String slug;
 
   @override
-  List<Object?> get props => [name, slug];
+  List<Object> get props => [name, slug];
 }
