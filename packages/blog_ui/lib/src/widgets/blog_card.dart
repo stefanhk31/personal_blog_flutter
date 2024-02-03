@@ -39,13 +39,14 @@ class BlogCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: onTap,
       child: Card(
         elevation: 5,
         clipBehavior: Clip.hardEdge,
         margin: BlogSpacing.bottomMargin,
-        surfaceTintColor: BlogColors.seedWhite,
+        surfaceTintColor: theme.colorScheme.surface,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -68,7 +69,9 @@ class BlogCard extends StatelessWidget {
                   BlogSpacing.smallVerticalSpacing,
                   Text(
                     subtitle,
-                    style: BlogTextStyles.cardSubtitle,
+                    style: BlogTextStyles.cardSubtitle.copyWith(
+                      color: theme.colorScheme.primary,
+                    ),
                   ),
                   BlogSpacing.mediumVerticalSpacing,
                   AuthorTile(
