@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:blog_repository/src/models/models.dart';
 import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:test/test.dart';
@@ -31,13 +33,13 @@ void main() {
     });
 
     test('supports value equality', () {
-      const instance1 = BlogAuthor(
+      final instance1 = BlogAuthor(
         firstName: 'firstName',
         lastName: 'lastName',
         slug: 'slug',
       );
 
-      const instance2 = BlogAuthor(
+      final instance2 = BlogAuthor(
         firstName: 'firstName',
         lastName: 'lastName',
         slug: 'slug',
