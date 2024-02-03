@@ -12,6 +12,6 @@ void main() {
     // ignore: unused_local_variable
     final blogRepository = BlogRepository(butterCmsClient: butterCmsClient);
 
-    return const App();
+    return App(blogRepository: blogRepository);
   });
 }
