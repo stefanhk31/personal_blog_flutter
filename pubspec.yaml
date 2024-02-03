@@ -14,6 +14,7 @@ dependencies:
     path: packages/blog_repository
   butter_cms_client:
     path: packages/butter_cms_client
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3
