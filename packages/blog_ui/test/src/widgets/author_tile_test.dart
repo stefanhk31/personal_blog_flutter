@@ -1,4 +1,4 @@
-import 'package:blog_ui/src/widgets/widgets.dart';
+import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../helpers/pump_material.dart';
