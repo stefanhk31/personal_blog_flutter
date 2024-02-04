@@ -1,4 +1,5 @@
 import 'package:blog_repository/blog_repository.dart';
+import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_blog_flutter/counter/counter.dart';
@@ -19,12 +20,8 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: blogRepository),
       ],
       child: MaterialApp(
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-          colorScheme: ColorScheme.fromSwatch(
-            accentColor: const Color(0xFF13B9FF),
-          ),
-        ),
+        theme: BlogTheme.themeData,
+        darkTheme: BlogTheme.themeData.copyWith(brightness: Brightness.dark),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: const CounterPage(),
