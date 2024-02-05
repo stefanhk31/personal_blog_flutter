@@ -14,14 +14,32 @@ class BlogOverview extends StatelessWidget {
       child: BlocBuilder<BlogOverviewBloc, BlogOverviewState>(
         builder: (context, state) {
           return switch (state) {
-            BlogOverviewInitial || BlogOverviewLoading => CircularProgressIndicator()
-          }
-          
-          Container(
-              // Add your widget code here
-              );
+            BlogOverviewInitial() ||
+            BlogOverviewLoading() =>
+              const CircularProgressIndicator(),
+            BlogOverviewFailure(message: final message) => Center(
+                child: Text(message),
+              ),
+            BlogOverviewLoaded(posts: final posts) => _BlogOverviewContent(
+                previews: posts.map((e) => e.preview).toList(),
+              )
+          };
         },
       ),
     );
+  }
+}
+
+class _BlogOverviewContent extends StatelessWidget {
+  const _BlogOverviewContent({
+    super.key,
+    required this.previews,
+  });
+
+  final List<BlogPreview> previews;
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
