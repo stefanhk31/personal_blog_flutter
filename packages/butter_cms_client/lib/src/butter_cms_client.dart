@@ -15,7 +15,10 @@ class ButterCmsClient {
   Future<Blogs> fetchBlogPosts() async {
     const butterCmsApiKey = String.fromEnvironment('BUTTER_CMS_API_KEY');
     return _apiClient.get(
-      path: '/v2/posts?auth_token=$butterCmsApiKey',
+      path: '/v2/posts',
+      queryParameters: {
+        'auth_token': butterCmsApiKey,
+      },
       fromJson: Blogs.fromJson,
     );
   }

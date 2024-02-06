@@ -45,10 +45,12 @@ class ApiClient {
   Future<T> get<T>({
     required String path,
     required FromJson<T> fromJson,
+    Map<String, dynamic>? queryParameters,
   }) async {
     return _sendRequest(
       method: HttpMethod.get,
       path: path,
+      queryParameters: queryParameters,
       fromJson: fromJson,
     );
   }
@@ -98,9 +100,10 @@ class ApiClient {
     required String path,
     required FromJson<T> fromJson,
     Map<String, dynamic>? data,
+    Map<String, dynamic>? queryParameters,
   }) async {
     Response response;
-    final url = Uri.https(_baseUrl, path);
+    final url = Uri.https(_baseUrl, path, queryParameters);
     final headers = _token != null ? {'authorization': 'Bearer $_token'} : null;
     final requestBody = data != null ? jsonEncode(data) : null;
     switch (method) {
