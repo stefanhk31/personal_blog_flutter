@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_parenthesis
+
 import 'package:blog_repository/blog_repository.dart';
 import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +18,9 @@ class BlogOverview extends StatelessWidget {
       child: BlocBuilder<BlogOverviewBloc, BlogOverviewState>(
         builder: (context, state) {
           return switch (state) {
-            BlogOverviewInitial() ||
-            BlogOverviewLoading() =>
-              const CircularProgressIndicator(),
+            BlogOverviewInitial() || BlogOverviewLoading() => const Center(
+                child: CircularProgressIndicator(),
+              ),
             BlogOverviewFailure(message: final message) => Center(
                 child: Text(message),
               ),
@@ -41,26 +43,45 @@ class _BlogOverviewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: BlogSpacing.horizontalPadding,
-        child: Column(
-          children: previews.map((preview) {
-            return BlogCard(
-              title: preview.title,
-              subtitle: preview.description,
-              author: preview.authorName,
-              onTap: () {
-                final state = context.read<BlogOverviewBloc>().state
-                    as BlogOverviewLoaded;
-                final post = state.posts
-                    .where((element) => element.preview == preview)
-                    .first;
-                debugPrint(post.detail.toString());
-              },
-            );
-          }).toList(),
-        ),
+    return Container(
+      margin: BlogSpacing.topMargin,
+      child: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: BlogSpacing.horizontalPadding,
+              child: ListView.builder(
+                itemCount: previews.length,
+                itemBuilder: ((context, index) {
+                  final preview = previews[index];
+                  return BlogCard(
+                    title: preview.title,
+                    subtitle: preview.description,
+                    author: preview.authorName,
+                    authorImage: preview.authorImage,
+                    imageUrl: preview.image,
+                    onTap: () {
+                      final state = context.read<BlogOverviewBloc>().state
+                          as BlogOverviewLoaded;
+                      final post = state.posts
+                          .where((element) => element.preview == preview)
+                          .first;
+                      debugPrint(post.detail.toString());
+                    },
+                  );
+                }),
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              SizedBox(
+                height: 75,
+                child: Image.asset('images/butter_cms_black.png'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

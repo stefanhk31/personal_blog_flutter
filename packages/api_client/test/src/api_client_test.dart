@@ -149,6 +149,17 @@ void main() {
         );
       });
 
+      test('successfully calls get with query parameters', () async {
+        await testHttpCall(
+          () => apiClient.get(
+            path: '',
+            fromJson: SampleResponse.fromJson,
+            queryParameters: {'test': 'test'},
+          ),
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        );
+      });
+
       test('successfully deserializes json', () async {
         await testDeserialization(
           json,
