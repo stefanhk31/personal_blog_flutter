@@ -13,9 +13,7 @@ class ButterCmsClient {
 
   /// Fetches a list of blog posts from the ButterCMS API.
   Future<Blogs> fetchBlogPosts() async {
-    //DEBUG: DO NOT COMMIT
-    const butterCmsApiKey =
-        'eed5a15b01b425e625210a444f2fe7e82a635f77'; //String.fromEnvironment('BUTTER_CMS_API_KEY');
+    const butterCmsApiKey = String.fromEnvironment('BUTTER_CMS_API_KEY');
     return _apiClient.get(
       path: '/v2/posts',
       queryParameters: {
