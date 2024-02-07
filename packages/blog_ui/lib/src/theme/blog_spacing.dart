@@ -5,6 +5,9 @@ abstract class BlogSpacing {
   /// Margin to be used at the bottom of a widget.
   static const EdgeInsets bottomMargin = EdgeInsets.only(bottom: 20);
 
+  /// Margin to be used at the top of a widget.
+  static const EdgeInsets topMargin = EdgeInsets.only(top: 20);
+
   /// No padding to be used in a widget.
   static const EdgeInsets noPadding = EdgeInsets.zero;
 

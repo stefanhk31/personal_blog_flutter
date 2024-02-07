@@ -22,6 +22,7 @@ void main() {
           () => apiClient.get(
             path: any(named: 'path'),
             fromJson: Blogs.fromJson,
+            queryParameters: any(named: 'queryParameters'),
           ),
         ).thenAnswer(
           (_) async => Blogs.fromJson(
@@ -37,6 +38,7 @@ void main() {
           () => apiClient.get(
             path: any(named: 'path'),
             fromJson: Blogs.fromJson,
+            queryParameters: any(named: 'queryParameters'),
           ),
         ).thenThrow(NotFound(body: 'body'));
 

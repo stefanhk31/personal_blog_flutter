@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:api_client/api_client.dart';
 import 'package:bloc/bloc.dart';
 import 'package:blog_repository/blog_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -27,6 +28,10 @@ class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
       final posts = await _blogRepository.getBlogPosts();
       emit(BlogOverviewLoaded(posts: posts));
     } on Exception catch (e) {
+      if (e is ApiRequestFailure) {
+        emit(BlogOverviewFailure(message: e.body));
+        return;
+      }
       emit(BlogOverviewFailure(message: e.toString()));
     }
   }

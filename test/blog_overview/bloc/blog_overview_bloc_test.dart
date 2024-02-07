@@ -1,3 +1,4 @@
+import 'package:api_client/api_client.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:blog_repository/blog_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -47,6 +48,21 @@ void main() {
         expect: () => <BlogOverviewState>[
           BlogOverviewLoading(),
           BlogOverviewFailure(message: 'Exception: $failureMessage'),
+        ],
+      );
+
+      blocTest<BlogOverviewBloc, BlogOverviewState>(
+        'emits [BlogOverviewLoading, BlogOverviewFailure] '
+        'with request failure message '
+        'when BlogRepository throws an api request failure',
+        setUp: () => when(blogRepository.getBlogPosts).thenThrow(
+          ApiRequestFailure(statusCode: 404, body: 'Not Found'),
+        ),
+        build: () => BlogOverviewBloc(blogRepository: blogRepository),
+        act: (bloc) => bloc.add(BlogOverviewPostsRequested()),
+        expect: () => <BlogOverviewState>[
+          BlogOverviewLoading(),
+          BlogOverviewFailure(message: 'Not Found'),
         ],
       );
     });
