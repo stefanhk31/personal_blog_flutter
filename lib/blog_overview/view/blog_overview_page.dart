@@ -87,7 +87,7 @@ class _BlogOverviewContent extends StatelessWidget {
             children: [
               SizedBox(
                 height: 75,
-                child: Image.asset('images/butter_cms_black.png'),
+                child: Image.asset('assets/images/butter_cms_black.png'),
               ),
             ],
           ),
