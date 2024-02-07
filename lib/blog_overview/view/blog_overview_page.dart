@@ -1,13 +1,11 @@
-// ignore_for_file: unnecessary_parenthesis
-
 import 'package:blog_repository/blog_repository.dart';
 import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
 
-class BlogOverview extends StatelessWidget {
-  const BlogOverview({super.key});
+class BlogOverviewPage extends StatelessWidget {
+  const BlogOverviewPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,21 +13,30 @@ class BlogOverview extends StatelessWidget {
       create: (context) =>
           BlogOverviewBloc(blogRepository: context.read<BlogRepository>())
             ..add(BlogOverviewPostsRequested()),
-      child: BlocBuilder<BlogOverviewBloc, BlogOverviewState>(
-        builder: (context, state) {
-          return switch (state) {
-            BlogOverviewInitial() || BlogOverviewLoading() => const Center(
-                child: CircularProgressIndicator(),
-              ),
-            BlogOverviewFailure(message: final message) => Center(
-                child: Text(message),
-              ),
-            BlogOverviewLoaded(posts: final posts) => _BlogOverviewContent(
-                previews: posts.map((e) => e.preview).toList(),
-              )
-          };
-        },
-      ),
+      child: const BlogOverview(),
+    );
+  }
+}
+
+class BlogOverview extends StatelessWidget {
+  const BlogOverview({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<BlogOverviewBloc, BlogOverviewState>(
+      builder: (context, state) {
+        return switch (state) {
+          BlogOverviewInitial() || BlogOverviewLoading() => const Center(
+              child: CircularProgressIndicator(),
+            ),
+          BlogOverviewFailure(message: final message) => Center(
+              child: Text(message),
+            ),
+          BlogOverviewLoaded(posts: final posts) => _BlogOverviewContent(
+              previews: posts.map((e) => e.preview).toList(),
+            )
+        };
+      },
     );
   }
 }
@@ -52,7 +59,7 @@ class _BlogOverviewContent extends StatelessWidget {
               padding: BlogSpacing.horizontalPadding,
               child: ListView.builder(
                 itemCount: previews.length,
-                itemBuilder: ((context, index) {
+                itemBuilder: (context, index) {
                   final preview = previews[index];
                   return BlogCard(
                     title: preview.title,
@@ -60,6 +67,8 @@ class _BlogOverviewContent extends StatelessWidget {
                     author: preview.authorName,
                     authorImage: preview.authorImage,
                     imageUrl: preview.image,
+                    // Coverage will be filled with detail page (#8)
+                    // coverage:ignore-start
                     onTap: () {
                       final state = context.read<BlogOverviewBloc>().state
                           as BlogOverviewLoaded;
@@ -68,8 +77,9 @@ class _BlogOverviewContent extends StatelessWidget {
                           .first;
                       debugPrint(post.detail.toString());
                     },
+                    // coverage:ignore-end
                   );
-                }),
+                },
               ),
             ),
           ),
