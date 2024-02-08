@@ -8,6 +8,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
 import 'package:personal_blog_flutter/blog_overview/view/blog_overview_page.dart';
 import 'package:personal_blog_flutter/blog_overview/widgets/header.dart';
+import 'package:personal_blog_flutter/l10n/l10n.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -76,7 +77,8 @@ void main() {
         expect(find.text(failureMessage), findsOneWidget);
       });
 
-      testWidgets('renders header and blog cards', (tester) async {
+      testWidgets('renders header with correct text and blog cards',
+          (tester) async {
         final posts = List.generate(
           3,
           (index) => BlogPost(
@@ -101,6 +103,16 @@ void main() {
           ),
         );
         expect(find.byType(Header), findsOneWidget);
+        final context = tester.element(find.byType(Header));
+        expect(
+          find.text(context.l10n.blogOverviewHeader.toUpperCase()),
+          findsOneWidget,
+        );
+        expect(
+          find.text(context.l10n.blogOverviewHeaderSubtitle),
+          findsOneWidget,
+        );
+
         expect(find.byType(BlogCard), findsNWidgets(3));
       });
     });

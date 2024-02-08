@@ -17,7 +17,13 @@ void main() {
           );
 
       testWidgets('with correct asset when theme is light', (tester) async {
-        await tester.pumpApp(const Footer());
+        await tester.pumpApp(
+          const Column(
+            children: [
+              Footer(),
+            ],
+          ),
+        );
 
         expect(
           assetImageFinder('assets/images/butter_cms_black.png'),
@@ -27,7 +33,11 @@ void main() {
 
       testWidgets('with correct asset when theme is dark', (tester) async {
         await tester.pumpApp(
-          const Footer(),
+          const Column(
+            children: [
+              Footer(),
+            ],
+          ),
           theme: BlogTheme.darkThemeData,
         );
 
@@ -38,7 +48,13 @@ void main() {
       });
 
       testWidgets('with correct text', (tester) async {
-        await tester.pumpApp(const Footer());
+        await tester.pumpApp(
+          const Column(
+            children: [
+              Footer(),
+            ],
+          ),
+        );
 
         final context = tester.element(find.byType(Footer));
 
