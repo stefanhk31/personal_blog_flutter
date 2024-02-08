@@ -94,14 +94,7 @@ class _BlogOverviewContent extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              children: [
-                SizedBox(
-                  height: 75,
-                  child: Image.asset('assets/images/butter_cms_black.png'),
-                ),
-              ],
-            ),
+            const Footer(),
           ],
         ),
       ),
