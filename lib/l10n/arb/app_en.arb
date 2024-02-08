@@ -1,7 +1,12 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+    "copyrightText": "Copyright {year}",
+    "@copyrightText": {
+        "description": "String displaying copyright date",
+        "placeholders": {
+            "year": {
+                "type": "int"
+            }
+        }
     }
 }

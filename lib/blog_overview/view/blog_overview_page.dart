@@ -3,6 +3,7 @@ import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
+import 'package:personal_blog_flutter/l10n/l10n.dart';
 
 class BlogOverviewPage extends StatelessWidget {
   const BlogOverviewPage({super.key});

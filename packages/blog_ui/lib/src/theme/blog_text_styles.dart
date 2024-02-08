@@ -25,4 +25,10 @@ abstract class BlogTextStyles {
     fontSize: 32,
     fontWeight: FontWeight.w800,
   );
+
+  /// Style for the footer text.
+  static const TextStyle footerTextStyle = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+  );
 }
