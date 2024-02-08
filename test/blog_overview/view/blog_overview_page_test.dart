@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
 import 'package:personal_blog_flutter/blog_overview/view/blog_overview_page.dart';
+import 'package:personal_blog_flutter/blog_overview/widgets/header.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -75,7 +76,7 @@ void main() {
         expect(find.text(failureMessage), findsOneWidget);
       });
 
-      testWidgets('renders blog cards', (tester) async {
+      testWidgets('renders header and blog cards', (tester) async {
         final posts = List.generate(
           3,
           (index) => BlogPost(
@@ -99,6 +100,7 @@ void main() {
             child: const BlogOverview(),
           ),
         );
+        expect(find.byType(Header), findsOneWidget);
         expect(find.byType(BlogCard), findsNWidgets(3));
       });
     });
