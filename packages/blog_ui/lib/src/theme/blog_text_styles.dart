@@ -19,4 +19,10 @@ abstract class BlogTextStyles {
     fontSize: 14,
     fontWeight: FontWeight.w600,
   );
+
+  /// Style for the error text.
+  static const TextStyle errorTextStyle = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.w800,
+  );
 }

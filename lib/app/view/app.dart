@@ -20,8 +20,8 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: blogRepository),
       ],
       child: MaterialApp(
-        theme: BlogTheme.themeData,
-        darkTheme: BlogTheme.themeData.copyWith(brightness: Brightness.dark),
+        theme: BlogTheme.lightThemeData,
+        darkTheme: BlogTheme.darkThemeData,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         home: const BlogOverviewPage(),

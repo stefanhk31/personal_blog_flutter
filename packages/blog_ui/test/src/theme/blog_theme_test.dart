@@ -5,19 +5,19 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('BlogTheme', () {
     test('uses material 3', () {
-      expect(BlogTheme.themeData.useMaterial3, isTrue);
+      expect(BlogTheme.lightThemeData.useMaterial3, isTrue);
     });
 
     test('background color is seedWhite', () {
       expect(
-        BlogTheme.themeData.colorScheme.background,
-        equals(BlogColors.seedWhite),
+        BlogTheme.lightThemeData.colorScheme.background,
+        equals(BlogColors.seedLightBackground),
       );
     });
 
     test('visual density is adaptive platform density', () {
       expect(
-        BlogTheme.themeData.visualDensity,
+        BlogTheme.lightThemeData.visualDensity,
         equals(VisualDensity.adaptivePlatformDensity),
       );
     });

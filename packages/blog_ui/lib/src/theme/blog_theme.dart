@@ -3,16 +3,29 @@ import 'package:flutter/material.dart';
 
 /// Base theme of the blog UI.
 class BlogTheme {
-  /// Theme data to access theme properties in build context.
-  static ThemeData get themeData => ThemeData(
+  /// Theme data to access light theme properties in build context.
+  static ThemeData get lightThemeData => ThemeData(
         useMaterial3: true,
-        colorScheme: colorScheme,
+        colorScheme: lightColorScheme,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       );
 
-  /// Color scheme that is used to generate theme colors.
-  static ColorScheme get colorScheme => ColorScheme.fromSeed(
-        seedColor: BlogColors.seedBlueGrey,
-        background: BlogColors.seedWhite,
+  /// Theme data to access dark theme properties in build context.
+  static ThemeData get darkThemeData => ThemeData(
+        useMaterial3: true,
+        colorScheme: darkColorScheme,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      );
+
+  /// Color scheme that is used to generate light theme colors.
+  static ColorScheme get lightColorScheme => ColorScheme.fromSeed(
+        seedColor: BlogColors.seedPurple,
+        background: BlogColors.seedLightBackground,
+      );
+
+  /// Color scheme that is used to generate dark theme colors.
+  static ColorScheme get darkColorScheme => ColorScheme.fromSeed(
+        seedColor: BlogColors.seedLightPurple,
+        background: BlogColors.seedDarkBackground,
       );
 }

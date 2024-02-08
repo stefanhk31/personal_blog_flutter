@@ -15,6 +15,9 @@ abstract class BlogSpacing {
   static const EdgeInsets horizontalPadding =
       EdgeInsets.symmetric(horizontal: 15);
 
+  /// Padding to be used on all sides in a widget.
+  static const EdgeInsets allPadding = EdgeInsets.all(15);
+
   /// Large vertical spacing to place between widgets.
   static const SizedBox largeVerticalSpacing = SizedBox(height: 15);
 
