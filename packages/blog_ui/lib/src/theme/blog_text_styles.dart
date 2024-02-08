@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 /// Class to hold text styles for the blog UI.
@@ -30,5 +32,18 @@ abstract class BlogTextStyles {
   static const TextStyle footerTextStyle = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
+  );
+
+  /// Style for the header text.
+  static const TextStyle headerTextStyle = TextStyle(
+    fontSize: 36,
+    fontWeight: FontWeight.w800,
+  );
+
+  /// Style for the header subtitle text.
+  static const TextStyle headerSubtitleTextStyle = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.italic,
   );
 }
