@@ -95,7 +95,6 @@ class _BlogOverviewContent extends StatelessWidget {
                 ),
               ),
             ),
-            const Footer(),
           ],
         ),
       ),

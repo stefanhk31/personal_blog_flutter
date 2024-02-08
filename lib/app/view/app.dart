@@ -24,7 +24,10 @@ class App extends StatelessWidget {
         darkTheme: BlogTheme.darkThemeData,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        home: const BlogOverviewPage(),
+        home: const Scaffold(
+          body: BlogOverviewPage(),
+          bottomNavigationBar: Footer(),
+        ),
       ),
     );
   }
