@@ -59,8 +59,9 @@ class _BlogOverviewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ColoredBox(
-      color: Theme.of(context).colorScheme.background,
+      color: theme.colorScheme.background,
       child: Container(
         margin: BlogSpacing.topMargin,
         child: Column(
