@@ -1,7 +1,20 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+    "copyrightText": "Copyright {year}",
+    "@copyrightText": {
+        "description": "String displaying copyright date",
+        "placeholders": {
+            "year": {
+                "type": "int"
+            }
+        }
+    },
+    "blogOverviewHeader": "Stefan Hodges-Kluck",
+    "@blogOverviewHeader": {
+        "description": "String displaying header for Blog Overview Page"
+    }, 
+    "blogOverviewHeaderSubtitle": "Developer, adventurer, scholar",
+    "@blogOverviewHeaderSubtitle": {
+        "description": "String displaying header subtitle for Blog Overview Page"
     }
 }

@@ -3,6 +3,8 @@ import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
+import 'package:personal_blog_flutter/blog_overview/widgets/widgets.dart';
+import 'package:personal_blog_flutter/l10n/l10n.dart';
 
 class BlogOverviewPage extends StatelessWidget {
   const BlogOverviewPage({super.key});
@@ -59,12 +61,17 @@ class _BlogOverviewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ColoredBox(
-      color: Theme.of(context).colorScheme.background,
+      color: theme.colorScheme.background,
       child: Container(
         margin: BlogSpacing.topMargin,
         child: Column(
           children: [
+            Header(
+              title: context.l10n.blogOverviewHeader,
+              subtitle: context.l10n.blogOverviewHeaderSubtitle,
+            ),
             Expanded(
               child: Padding(
                 padding: BlogSpacing.horizontalPadding,
@@ -93,14 +100,6 @@ class _BlogOverviewContent extends StatelessWidget {
                   },
                 ),
               ),
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  height: 75,
-                  child: Image.asset('assets/images/butter_cms_black.png'),
-                ),
-              ],
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:blog_repository/blog_repository.dart';
+import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,6 +13,7 @@ extension PumpApp on WidgetTester {
   Future<void> pumpApp(
     Widget widget, {
     BlogRepository? blogRepository,
+    ThemeData? theme,
   }) {
     return mockNetworkImagesFor(
       () => pumpWidget(
@@ -24,6 +26,7 @@ extension PumpApp on WidgetTester {
           child: MaterialApp(
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
+            theme: theme ?? BlogTheme.lightThemeData,
             home: widget,
           ),
         ),
