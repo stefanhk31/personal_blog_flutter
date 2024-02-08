@@ -49,7 +49,7 @@ class BlogCard extends StatelessWidget {
         elevation: 5,
         clipBehavior: Clip.hardEdge,
         margin: BlogSpacing.bottomMargin,
-        surfaceTintColor: theme.colorScheme.surface,
+        color: theme.colorScheme.primaryContainer,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -72,9 +72,7 @@ class BlogCard extends StatelessWidget {
                   BlogSpacing.smallVerticalSpacing,
                   Text(
                     subtitle,
-                    style: BlogTextStyles.cardSubtitle.copyWith(
-                      color: theme.colorScheme.primary,
-                    ),
+                    style: BlogTextStyles.cardSubtitle,
                   ),
                   BlogSpacing.mediumVerticalSpacing,
                   AuthorTile(

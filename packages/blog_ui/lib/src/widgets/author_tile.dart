@@ -25,7 +25,9 @@ class AuthorTile extends StatelessWidget {
           authorImage != null ? AuthorAvatar(imageUrl: authorImage!) : null,
       title: Text(
         author,
-        style: BlogTextStyles.listTileSubtitle,
+        style: BlogTextStyles.listTileSubtitle.copyWith(
+          color: Theme.of(context).colorScheme.secondary,
+        ),
       ),
     );
   }
