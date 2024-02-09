@@ -1,7 +1,7 @@
 import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:equatable/equatable.dart';
 
-/// Represents detailed contend of a blog post.
+/// Represents detailed content of a blog post.
 class BlogDetail extends Equatable {
   /// Default constructor for a blog detail.
   const BlogDetail({
@@ -9,12 +9,12 @@ class BlogDetail extends Equatable {
     required this.published,
     required this.body,
     required this.slug,
-    required this.url,
     required this.author,
     required this.tags,
     required this.categories,
     this.featuredImage,
     this.featuredImageAlt,
+    this.url,
   });
 
   /// Creates a [BlogDetail] from the Butter CMS [Blog] model.
@@ -44,9 +44,6 @@ class BlogDetail extends Equatable {
   /// Unique slug of the blog post.
   final String slug;
 
-  /// Url to access the blog post in Butter CMS.
-  final String url;
-
   /// Author of the blog post.
   final Author author;
 
@@ -61,17 +58,21 @@ class BlogDetail extends Equatable {
 
   /// Optional alternate text for a featured image.
   final String? featuredImageAlt;
+
+  /// Optional url to access the blog post in Butter CMS.
+  final String? url;
+
   @override
   List<Object?> get props => [
         title,
         published,
         body,
         slug,
-        url,
         author,
         tags,
         categories,
         featuredImage,
         featuredImageAlt,
+        url,
       ];
 }

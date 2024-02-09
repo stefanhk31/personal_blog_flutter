@@ -13,10 +13,11 @@ class _MockBlogRepository extends Mock implements BlogRepository {}
 void main() {
   group('BlogDetailBloc', () {
     final blogRepository = _MockBlogRepository();
+    const slug = 'blog-slug';
 
     test('can be instantiated', () {
       expect(
-        BlogDetailBloc(blogRepository: blogRepository),
+        BlogDetailBloc(blogRepository: blogRepository, slug: slug),
         isNotNull,
       );
     });
@@ -29,8 +30,8 @@ void main() {
           when(() => blogRepository.getBlogDetail(slug: any(named: 'slug')))
               .thenAnswer((_) async => _detail);
         },
-        build: () => BlogDetailBloc(blogRepository: blogRepository),
-        act: (bloc) => bloc.add(const BlogDetailRequested(slug: 'slug')),
+        build: () => BlogDetailBloc(blogRepository: blogRepository, slug: slug),
+        act: (bloc) => bloc.add(BlogDetailRequested()),
         expect: () => <BlogDetailState>[
           BlogDetailLoading(),
           BlogDetailLoaded(detail: _detail),
@@ -45,8 +46,11 @@ void main() {
             slug: any(named: 'slug'),
           ),
         ).thenThrow(Exception(failureMessage)),
-        build: () => BlogDetailBloc(blogRepository: blogRepository),
-        act: (bloc) => bloc.add(const BlogDetailRequested(slug: 'slug')),
+        build: () => BlogDetailBloc(
+          blogRepository: blogRepository,
+          slug: slug,
+        ),
+        act: (bloc) => bloc.add(BlogDetailRequested()),
         expect: () => <BlogDetailState>[
           BlogDetailLoading(),
           const BlogDetailFailure(message: 'Exception: $failureMessage'),
@@ -64,8 +68,11 @@ void main() {
         ).thenThrow(
           ApiRequestFailure(statusCode: 404, body: 'Not Found'),
         ),
-        build: () => BlogDetailBloc(blogRepository: blogRepository),
-        act: (bloc) => bloc.add(const BlogDetailRequested(slug: 'slug')),
+        build: () => BlogDetailBloc(
+          blogRepository: blogRepository,
+          slug: slug,
+        ),
+        act: (bloc) => bloc.add(BlogDetailRequested()),
         expect: () => <BlogDetailState>[
           BlogDetailLoading(),
           const BlogDetailFailure(message: 'Not Found'),

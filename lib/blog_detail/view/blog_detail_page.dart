@@ -1,6 +1,5 @@
 import 'package:blog_repository/blog_repository.dart';
 import 'package:blog_ui/blog_ui.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -14,22 +13,19 @@ class BlogDetailPage extends StatelessWidget {
     super.key,
   });
 
-  factory BlogDetailPage.routeBuilder(_, GoRouterState state) {
-    final data = state.extra as BlogDetailPageData?;
-
-    return BlogDetailPage(
-      slug: data?.slug ?? '',
-    );
-  }
+  factory BlogDetailPage.routeBuilder(_, GoRouterState state) => BlogDetailPage(
+        slug: state.matchedLocation.substring(1),
+      );
 
   final String slug;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          BlogDetailBloc(blogRepository: context.read<BlogRepository>())
-            ..add(BlogDetailRequested(slug: slug)),
+      create: (context) => BlogDetailBloc(
+        blogRepository: context.read<BlogRepository>(),
+        slug: slug,
+      )..add(BlogDetailRequested()),
       child: const BlogDetailView(),
     );
   }
@@ -74,42 +70,65 @@ class _BlogDetailContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          if (detail.featuredImage != null) ...[
-            Hero(
-              tag: detail.slug,
-              child: Image.network(
-                detail.featuredImage!,
-                fit: BoxFit.cover,
+      child: Padding(
+        padding: BlogSpacing.horizontalPaddingLarge,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (detail.featuredImage != null) ...[
+              Center(
+                child: Hero(
+                  tag: detail.slug,
+                  child: Image.network(
+                    detail.featuredImage!,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              BlogSpacing.mediumVerticalSpacing,
+            ],
+            AuthorTile(
+              author: '${detail.author.firstName} ${detail.author.lastName}',
+              authorImage: detail.author.profileImage,
+            ),
+            Text(
+              DateFormat('MMMM d, yyyy').format(detail.published),
+              style: BlogTextStyles.subtitleTextStyle.copyWith(
+                color: Theme.of(context).colorScheme.onSecondary,
+                fontStyle: FontStyle.italic,
               ),
             ),
-            BlogSpacing.mediumVerticalSpacing,
+            Html(
+              data: '''
+                ${detail.body}
+              ''',
+              style: {
+                'p': Style(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+                'h1': Style(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+                'h2': Style(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+                'h3': Style(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+                'div': Style(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+                'figcaption': Style(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+                'a': Style(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              },
+            ),
           ],
-          AuthorTile(
-            author: '${detail.author.firstName} ${detail.author.lastName}',
-            authorImage: detail.author.profileImage,
-          ),
-          Text(
-            DateFormat('MMMM d, yyyy').format(detail.published),
-            style: BlogTextStyles.subtitleTextStyle,
-          ),
-          Html(
-            data: '''
-              ${detail.body}
-            ''',
-          ),
-        ],
+        ),
       ),
     );
   }
-}
-
-class BlogDetailPageData extends Equatable {
-  const BlogDetailPageData({required this.slug});
-
-  final String slug;
-
-  @override
-  List<Object?> get props => [slug];
 }

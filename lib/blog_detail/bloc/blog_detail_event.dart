@@ -7,11 +7,4 @@ sealed class BlogDetailEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class BlogDetailRequested extends BlogDetailEvent {
-  const BlogDetailRequested({required this.slug});
-
-  final String slug;
-
-  @override
-  List<Object> get props => [slug];
-}
+class BlogDetailRequested extends BlogDetailEvent {}

@@ -20,7 +20,7 @@ class BlogPreview extends Equatable {
         description: blog.summary,
         published: blog.published,
         authorName: '${blog.author.firstName} ${blog.author.lastName}',
-        slug: 'slug',
+        slug: blog.slug,
         authorImage: blog.author.profileImage,
         image: blog.featuredImage,
       );

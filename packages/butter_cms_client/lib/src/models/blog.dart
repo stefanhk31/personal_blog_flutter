@@ -6,7 +6,6 @@ import 'package:butter_cms_client/src/models/tag.dart';
 class Blog {
   /// Default constructor for a blog data model
   Blog({
-    required this.url,
     required this.created,
     required this.updated,
     required this.published,
@@ -20,6 +19,7 @@ class Blog {
     required this.seoTitle,
     required this.metaDescription,
     required this.status,
+    this.url,
     this.body,
     this.featuredImage,
   });
@@ -27,7 +27,7 @@ class Blog {
   /// Deserialize a Blog object from a Map
   factory Blog.fromJson(Map<String, dynamic> json) {
     return Blog(
-      url: json['url'] as String,
+      url: json['url'] as String?,
       created: DateTime.parse(json['created'] as String),
       updated: DateTime.parse(json['updated'] as String),
       published: DateTime.parse(json['published'] as String),
@@ -52,8 +52,8 @@ class Blog {
     );
   }
 
-  /// URL of the blog post
-  final String url;
+  /// Optional URL of the blog post
+  final String? url;
 
   /// Date and time the blog post was created
   final DateTime created;
@@ -85,7 +85,8 @@ class Blog {
   /// Title of the blog post
   final String title;
 
-  /// Body content of the blog post
+  /// Body content of the blog post. Can be excluded
+  /// by setting excludeBody to `true` in the API request.
   final String? body;
 
   /// Summary of the blog post

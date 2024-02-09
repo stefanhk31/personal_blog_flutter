@@ -47,7 +47,7 @@ abstract class BlogTextStyles {
 
   /// Style for general subtitles.
   static const TextStyle subtitleTextStyle = TextStyle(
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: FontWeight.w500,
   );
 }
