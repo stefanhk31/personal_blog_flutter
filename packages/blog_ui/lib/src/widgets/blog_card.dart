@@ -1,6 +1,7 @@
 import 'package:blog_ui/src/theme/theme.dart';
 import 'package:blog_ui/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 /// Default tag for the hero image when [BlogCard.imageTag] is not provided.
 const defaultHeroTag = 'hero-image-tag';
@@ -11,11 +12,10 @@ class BlogCard extends StatelessWidget {
   const BlogCard({
     required this.title,
     required this.subtitle,
-    required this.author,
+    required this.published,
     required this.onTap,
     this.imageUrl,
     this.imageTag,
-    this.authorImage,
     super.key,
   });
 
@@ -25,8 +25,8 @@ class BlogCard extends StatelessWidget {
   /// Short subtitle of the card.
   final String subtitle;
 
-  /// Name of the card's author.
-  final String author;
+  /// Date of publication of the blog post.
+  final DateTime published;
 
   /// Callback to call when card is tapped.
   final VoidCallback onTap;
@@ -36,9 +36,6 @@ class BlogCard extends StatelessWidget {
 
   /// Unique tag of the card image.
   final String? imageTag;
-
-  /// Optional url of the author's image.
-  final String? authorImage;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +57,7 @@ class BlogCard extends StatelessWidget {
                 imageUrl: imageUrl!,
               ),
             Padding(
-              padding: BlogSpacing.horizontalPadding,
+              padding: BlogSpacing.allPadding,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -75,9 +72,9 @@ class BlogCard extends StatelessWidget {
                     style: BlogTextStyles.cardSubtitle,
                   ),
                   BlogSpacing.mediumVerticalSpacing,
-                  AuthorTile(
-                    author: author,
-                    authorImage: authorImage,
+                  Text(
+                    DateFormat('MMMM d, yyyy').format(published),
+                    style: BlogTextStyles.cardSubtitle,
                   ),
                 ],
               ),

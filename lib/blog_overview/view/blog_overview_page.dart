@@ -78,8 +78,7 @@ class _BlogOverviewContent extends StatelessWidget {
                     return BlogCard(
                       title: preview.title,
                       subtitle: preview.description,
-                      author: preview.authorName,
-                      authorImage: preview.authorImage,
+                      published: preview.published,
                       imageUrl: preview.image,
                       // Coverage will be filled with detail page (#8)
                       // coverage:ignore-start
