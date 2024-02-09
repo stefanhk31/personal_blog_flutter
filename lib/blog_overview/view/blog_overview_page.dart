@@ -61,42 +61,47 @@ class _BlogOverviewContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return ColoredBox(
-      color: theme.colorScheme.background,
-      child: Container(
-        margin: BlogSpacing.topMargin,
-        child: Column(
-          children: [
-            const BlogOverviewHeader(),
-            Expanded(
-              child: Padding(
-                padding: BlogSpacing.horizontalPadding,
-                child: ListView.builder(
-                  itemCount: previews.length,
-                  itemBuilder: (context, index) {
-                    final preview = previews[index];
-                    return BlogCard(
-                      title: preview.title,
-                      subtitle: preview.description,
-                      published: preview.published,
-                      imageUrl: preview.image,
-                      // Coverage will be filled with detail page (#8)
-                      // coverage:ignore-start
-                      onTap: () {
-                        final state = context.read<BlogOverviewBloc>().state
-                            as BlogOverviewLoaded;
-                        final post = state.posts
-                            .where((element) => element.preview == preview)
-                            .first;
-                        debugPrint(post.detail.toString());
+    return Center(
+      child: ColoredBox(
+        color: theme.colorScheme.background,
+        child: Container(
+          margin: BlogSpacing.topMargin,
+          child: Column(
+            children: [
+              const BlogOverviewHeader(),
+              Expanded(
+                child: Padding(
+                  padding: BlogSpacing.horizontalPadding,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1200),
+                    child: ListView.builder(
+                      itemCount: previews.length,
+                      itemBuilder: (context, index) {
+                        final preview = previews[index];
+                        return BlogCard(
+                          title: preview.title,
+                          subtitle: preview.description,
+                          published: preview.published,
+                          imageUrl: preview.image,
+                          // Coverage will be filled with detail page (#8)
+                          // coverage:ignore-start
+                          onTap: () {
+                            final state = context.read<BlogOverviewBloc>().state
+                                as BlogOverviewLoaded;
+                            final post = state.posts
+                                .where((element) => element.preview == preview)
+                                .first;
+                            debugPrint(post.detail.toString());
+                          },
+                          // coverage:ignore-end
+                        );
                       },
-                      // coverage:ignore-end
-                    );
-                  },
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
