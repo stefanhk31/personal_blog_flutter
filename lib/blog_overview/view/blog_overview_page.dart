@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
 import 'package:personal_blog_flutter/blog_overview/widgets/widgets.dart';
-import 'package:personal_blog_flutter/l10n/l10n.dart';
 
 class BlogOverviewPage extends StatelessWidget {
   const BlogOverviewPage({super.key});
@@ -68,10 +67,7 @@ class _BlogOverviewContent extends StatelessWidget {
         margin: BlogSpacing.topMargin,
         child: Column(
           children: [
-            Header(
-              title: context.l10n.blogOverviewHeader,
-              subtitle: context.l10n.blogOverviewHeaderSubtitle,
-            ),
+            const BlogOverviewHeader(),
             Expanded(
               child: Padding(
                 padding: BlogSpacing.horizontalPadding,
