@@ -7,10 +7,11 @@ class BlogPreview extends Equatable {
   const BlogPreview({
     required this.title,
     required this.description,
-    required this.published, // Added missing property
-    required this.authorName, // Added missing property
-    this.authorImage, // Added missing property
-    this.image, // Added missing property
+    required this.published,
+    required this.authorName,
+    required this.slug,
+    this.authorImage,
+    this.image,
   });
 
   /// Creates a [BlogPreview] from the Butter CMS [Blog] model.
@@ -19,6 +20,7 @@ class BlogPreview extends Equatable {
         description: blog.summary,
         published: blog.published,
         authorName: '${blog.author.firstName} ${blog.author.lastName}',
+        slug: 'slug',
         authorImage: blog.author.profileImage,
         image: blog.featuredImage,
       );
@@ -35,6 +37,9 @@ class BlogPreview extends Equatable {
   /// Name of the blog post's author.
   final String authorName;
 
+  /// Unique slug identifying the blog post.
+  final String slug;
+
   /// Optional url of the author's image.
   final String? authorImage;
 
@@ -47,6 +52,7 @@ class BlogPreview extends Equatable {
         description,
         published,
         authorName,
+        slug,
         authorImage,
         image,
       ];

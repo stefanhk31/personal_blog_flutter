@@ -1,4 +1,5 @@
 import 'package:blog_ui/blog_ui.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../helpers/pump_material.dart';
@@ -46,9 +47,9 @@ void main() {
         );
 
         expect(find.byType(BlogCard), findsOneWidget);
-        final hero = find.byType(BlogCardHero);
+        final hero = find.byType(Hero);
         expect(hero, findsOneWidget);
-        expect(tester.widget<BlogCardHero>(hero).tag, equals(defaultHeroTag));
+        expect(tester.widget<Hero>(hero).tag, equals(defaultHeroTag));
       });
 
       testWidgets('with image and image tag', (tester) async {
@@ -65,9 +66,9 @@ void main() {
         );
 
         expect(find.byType(BlogCard), findsOneWidget);
-        final hero = find.byType(BlogCardHero);
+        final hero = find.byType(Hero);
         expect(hero, findsOneWidget);
-        expect(tester.widget<BlogCardHero>(hero).tag, equals('imageTag'));
+        expect(tester.widget<Hero>(hero).tag, equals('imageTag'));
       });
     });
 

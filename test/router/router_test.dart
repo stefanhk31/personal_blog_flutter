@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:personal_blog_flutter/app/widgets/widgets.dart';
+import 'package:personal_blog_flutter/blog_detail/view/blog_detail_page.dart';
 import 'package:personal_blog_flutter/blog_overview/view/blog_overview_page.dart';
 import 'package:personal_blog_flutter/router/router.dart';
 
@@ -40,6 +41,23 @@ void main() {
         );
 
         expect(find.byType(BlogOverviewPage), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'navigating to /:slug should build BlogDetailPage',
+      (tester) async {
+        const slug = 'blog-post-slug';
+        await tester.pumpApp(
+          blogRepository: blogRepository,
+          router: router,
+        );
+
+        router.go('/$slug', extra: const BlogDetailPageData(slug: slug));
+
+        await tester.pumpAndSettle();
+
+        expect(find.byType(BlogDetailPage), findsOneWidget);
       },
     );
   });

@@ -40,6 +40,7 @@ void main() {
       expect(blogPreview.authorImage, equals(blog.author.profileImage));
       expect(blogPreview.image, equals(blog.featuredImage));
       expect(blogPreview.published, equals(blog.published));
+      expect(blogPreview.slug, equals(blog.slug));
       expect(
         blogPreview.authorName,
         equals('${blog.author.firstName} ${blog.author.lastName}'),
@@ -54,6 +55,7 @@ void main() {
         description: 'description',
         published: now,
         authorName: 'authorName',
+        slug: 'slug',
       );
 
       final instance2 = BlogPreview(
@@ -61,6 +63,7 @@ void main() {
         description: 'description',
         published: now,
         authorName: 'authorName',
+        slug: 'slug',
       );
 
       expect(instance1, equals(instance2));

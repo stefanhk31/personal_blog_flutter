@@ -1,5 +1,4 @@
 import 'package:blog_ui/src/theme/theme.dart';
-import 'package:blog_ui/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -52,9 +51,12 @@ class BlogCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (imageUrl != null)
-              BlogCardHero(
+              Hero(
                 tag: imageTag ?? defaultHeroTag,
-                imageUrl: imageUrl!,
+                child: Image.network(
+                  imageUrl!,
+                  fit: BoxFit.cover,
+                ),
               ),
             Padding(
               padding: BlogSpacing.allPadding,

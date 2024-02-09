@@ -84,6 +84,7 @@ void main() {
             description: 'desc $index',
             authorName: 'author $index',
             published: DateTime.now(),
+            slug: 'slug-$index',
           ),
         );
         when(() => bloc.state)

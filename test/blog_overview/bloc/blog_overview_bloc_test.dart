@@ -76,11 +76,13 @@ final _previews = [
     description: 'description',
     published: DateTime.now(),
     authorName: 'authorName',
+    slug: 'slug',
   ),
   BlogPreview(
     title: 'title',
     description: 'description',
     published: DateTime.now(),
     authorName: 'authorName',
+    slug: 'slug',
   ),
 ];
