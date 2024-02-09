@@ -1,15 +1,11 @@
 import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:personal_blog_flutter/l10n/l10n.dart';
 
-class Header extends StatelessWidget {
-  const Header({
-    required this.title,
-    required this.subtitle,
+class BlogOverviewHeader extends StatelessWidget {
+  const BlogOverviewHeader({
     super.key,
   });
-
-  final String title;
-  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +17,14 @@ class Header extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              title.toUpperCase(),
+              context.l10n.blogOverviewHeader.toUpperCase(),
               style: BlogTextStyles.headerTextStyle.copyWith(
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
             ),
             BlogSpacing.smallVerticalSpacing,
             Text(
-              subtitle,
+              context.l10n.blogOverviewHeaderSubtitle,
               style: BlogTextStyles.headerSubtitleTextStyle.copyWith(
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
