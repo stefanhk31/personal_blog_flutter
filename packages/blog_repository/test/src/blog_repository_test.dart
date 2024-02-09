@@ -15,20 +15,22 @@ void main() {
       );
     });
 
-    group('getBlogPosts', () {
+    group('getBlogPreviews', () {
       final butterCmsClient = _MockButterCmsClient();
       final blogRepository = BlogRepository(butterCmsClient: butterCmsClient);
-      test('gets blog posts on successful api call', () async {
-        when(butterCmsClient.fetchBlogPosts).thenAnswer((_) async => _blogs);
+      test('gets blog previews on successful api call', () async {
+        when(() => butterCmsClient.fetchBlogPosts(excludeBody: true))
+            .thenAnswer((_) async => _blogs);
 
         expect(
           await blogRepository.getBlogPreviews(),
-          equals(_blogs.data.map(BlogPost.fromButter).toList()),
+          equals(_blogs.data.map(BlogPreview.fromButter).toList()),
         );
       });
 
       test('rethrows on failed api call', () async {
-        when(butterCmsClient.fetchBlogPosts).thenThrow(Exception());
+        when(() => butterCmsClient.fetchBlogPosts(excludeBody: true))
+            .thenThrow(Exception());
 
         expect(
           () async => blogRepository.getBlogPreviews(),
@@ -64,7 +66,6 @@ final _blogs = Blogs(
       featuredImageAlt: 'featuredImageAlt',
       slug: 'slug',
       title: 'title',
-      body: 'body',
       summary: 'summary',
       seoTitle: 'seoTitle',
       metaDescription: 'metaDescription',
@@ -92,7 +93,6 @@ final _blogs = Blogs(
       featuredImageAlt: 'featuredImageAlt',
       slug: 'slug',
       title: 'title',
-      body: 'body',
       summary: 'summary',
       seoTitle: 'seoTitle',
       metaDescription: 'metaDescription',
@@ -120,7 +120,6 @@ final _blogs = Blogs(
       featuredImageAlt: 'featuredImageAlt',
       slug: 'slug',
       title: 'title',
-      body: 'body',
       summary: 'summary',
       seoTitle: 'seoTitle',
       metaDescription: 'metaDescription',

@@ -1,5 +1,4 @@
 import 'package:blog_repository/blog_repository.dart';
-import 'package:blog_repository/src/models/blog_post.dart';
 import 'package:butter_cms_client/butter_cms_client.dart';
 
 /// {@template blog_repository}
