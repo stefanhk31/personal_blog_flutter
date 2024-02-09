@@ -8,13 +8,28 @@ class BlogDetail extends Equatable {
     required this.title,
     required this.published,
     required this.body,
+    required this.slug,
+    required this.url,
+    required this.author,
+    required this.tags,
+    required this.categories,
+    this.featuredImage,
+    this.featuredImageAlt,
   });
 
   /// Creates a [BlogDetail] from the Butter CMS [Blog] model.
+
   factory BlogDetail.fromButter(Blog blog) => BlogDetail(
         title: blog.title,
         published: blog.published,
         body: blog.body ?? '',
+        slug: blog.slug,
+        url: blog.url,
+        author: blog.author,
+        tags: blog.tags,
+        categories: blog.categories,
+        featuredImage: blog.featuredImage,
+        featuredImageAlt: blog.featuredImageAlt,
       );
 
   //// Title of the blog post
@@ -26,6 +41,37 @@ class BlogDetail extends Equatable {
   /// Content of the blog post.
   final String body;
 
+  /// Unique slug of the blog post.
+  final String slug;
+
+  /// Url to access the blog post in Butter CMS.
+  final String url;
+
+  /// Author of the blog post.
+  final Author author;
+
+  /// Tags associated with the blog post.
+  final List<Tag> tags;
+
+  /// Categories associated with the blog post.
+  final List<Category> categories;
+
+  /// Optional url to the featured image of the blog post.
+  final String? featuredImage;
+
+  /// Optional alternate text for a featured image.
+  final String? featuredImageAlt;
   @override
-  List<Object> get props => [title, published, body];
+  List<Object?> get props => [
+        title,
+        published,
+        body,
+        slug,
+        url,
+        author,
+        tags,
+        categories,
+        featuredImage,
+        featuredImageAlt,
+      ];
 }
