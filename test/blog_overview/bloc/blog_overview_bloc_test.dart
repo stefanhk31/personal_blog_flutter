@@ -5,12 +5,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
 
+import '../../helpers/helpers.dart';
+
 class _MockBlogRepository extends Mock implements BlogRepository {}
 
 void main() {
   group('BlogOverviewBloc', () {
     final blogRepository = _MockBlogRepository();
-    const failureMessage = 'oops';
 
     test('can be instantiated', () {
       expect(
