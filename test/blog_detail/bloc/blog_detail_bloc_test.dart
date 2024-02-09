@@ -1,6 +1,7 @@
 import 'package:api_client/api_client.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:blog_repository/blog_repository.dart';
+import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:personal_blog_flutter/blog_detail/bloc/blog_detail_bloc.dart';
@@ -78,4 +79,22 @@ final _detail = BlogDetail(
   title: 'title',
   published: DateTime.now(),
   body: 'body',
+  author: const Author(
+    firstName: 'firstName',
+    lastName: 'lastName',
+    email: 'email',
+    slug: 'slug',
+    bio: 'bio',
+    title: 'title',
+    linkedinUrl: 'linkedinUrl',
+    facebookUrl: 'facebookUrl',
+    twitterHandle: 'twitterHandle',
+    profileImage: 'profileImage',
+  ),
+  categories: const [],
+  tags: const [],
+  slug: 'slug',
+  url: 'url',
+  featuredImage: 'featuredImage',
+  featuredImageAlt: 'featuredImageAlt',
 );

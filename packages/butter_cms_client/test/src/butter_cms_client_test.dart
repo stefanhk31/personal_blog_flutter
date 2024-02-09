@@ -88,8 +88,10 @@ void main() {
           ),
         );
 
-        expect(await butterCmsClient.fetchBlogPost(slug: slug),
-            isA<BlogResponse>());
+        expect(
+          await butterCmsClient.fetchBlogPost(slug: slug),
+          isA<BlogResponse>(),
+        );
       });
 
       test('throws exception when the call fails', () {
