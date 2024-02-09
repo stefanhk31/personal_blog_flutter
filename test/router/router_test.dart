@@ -2,6 +2,7 @@ import 'package:blog_repository/blog_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:personal_blog_flutter/app/widgets/widgets.dart';
 import 'package:personal_blog_flutter/blog_overview/view/blog_overview_page.dart';
 import 'package:personal_blog_flutter/router/router.dart';
 
@@ -16,14 +17,23 @@ void main() {
 
     setUp(() {
       blogRepository = _MockBlogRepository();
+      when(blogRepository.getBlogPreviews).thenAnswer((_) async => []);
+
       router = createRouter();
+    });
+
+    testWidgets('displays footer at bottom of route', (tester) async {
+      await tester.pumpApp(
+        blogRepository: blogRepository,
+        router: router,
+      );
+
+      expect(find.byType(Footer), findsOneWidget);
     });
 
     testWidgets(
       'default route is BlogOverviewPage',
       (tester) async {
-        when(blogRepository.getBlogPreviews).thenAnswer((_) async => []);
-
         await tester.pumpApp(
           blogRepository: blogRepository,
           router: router,
