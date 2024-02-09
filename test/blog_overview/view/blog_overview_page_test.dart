@@ -8,7 +8,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
 import 'package:personal_blog_flutter/blog_overview/view/blog_overview_page.dart';
 import 'package:personal_blog_flutter/blog_overview/widgets/blog_overview_header.dart';
-import 'package:personal_blog_flutter/l10n/l10n.dart';
 
 import '../../helpers/helpers.dart';
 
