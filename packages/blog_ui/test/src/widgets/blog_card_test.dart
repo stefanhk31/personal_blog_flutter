@@ -11,7 +11,7 @@ void main() {
           BlogCard(
             title: 'title',
             subtitle: 'subtitle',
-            author: 'author',
+            published: DateTime.now(),
             onTap: () {},
           ),
         );
@@ -19,12 +19,26 @@ void main() {
         expect(find.byType(BlogCard), findsOneWidget);
       });
 
+      testWidgets('with correct date format', (tester) async {
+        final date = DateTime(2024);
+        await tester.pumpMaterial(
+          BlogCard(
+            title: 'title',
+            subtitle: 'subtitle',
+            published: date,
+            onTap: () {},
+          ),
+        );
+
+        expect(find.text('January 1, 2024'), findsOneWidget);
+      });
+
       testWidgets('with image and default tag', (tester) async {
         await tester.pumpMaterial(
           BlogCard(
             title: 'title',
             subtitle: 'subtitle',
-            author: 'author',
+            published: DateTime.now(),
             imageUrl: 'imageUrl',
             onTap: () {},
           ),
@@ -42,7 +56,7 @@ void main() {
           BlogCard(
             title: 'title',
             subtitle: 'subtitle',
-            author: 'author',
+            published: DateTime.now(),
             imageUrl: 'imageUrl',
             imageTag: 'imageTag',
             onTap: () {},
@@ -55,22 +69,6 @@ void main() {
         expect(hero, findsOneWidget);
         expect(tester.widget<BlogCardHero>(hero).tag, equals('imageTag'));
       });
-
-      testWidgets('with author image', (tester) async {
-        await tester.pumpMaterial(
-          BlogCard(
-            title: 'title',
-            subtitle: 'subtitle',
-            author: 'author',
-            authorImage: 'authorImage',
-            onTap: () {},
-          ),
-          mockNetworkImages: true,
-        );
-
-        expect(find.byType(BlogCard), findsOneWidget);
-        expect(find.byType(AuthorAvatar), findsOneWidget);
-      });
     });
 
     testWidgets('can be tapped', (tester) async {
@@ -79,7 +77,7 @@ void main() {
         BlogCard(
           title: 'title',
           subtitle: 'subtitle',
-          author: 'author',
+          published: DateTime.now(),
           onTap: () => tapped = true,
         ),
       );
