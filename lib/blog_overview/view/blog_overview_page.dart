@@ -8,6 +8,14 @@ import 'package:personal_blog_flutter/blog_overview/widgets/widgets.dart';
 class BlogOverviewPage extends StatelessWidget {
   const BlogOverviewPage({super.key});
 
+  factory BlogOverviewPage.routeBuilder(
+    _,
+    __,
+  ) =>
+      const BlogOverviewPage(
+        key: Key('blog_overview_page'),
+      );
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

@@ -24,7 +24,7 @@ void main() {
     testWidgets('renders BlogOverview', (tester) async {
       when(blogRepository.getBlogPreviews).thenAnswer((_) async => []);
       await tester.pumpApp(
-        const BlogOverviewPage(),
+        widget: const BlogOverviewPage(),
         blogRepository: blogRepository,
       );
       expect(find.byType(BlogOverview), findsOneWidget);
@@ -36,7 +36,7 @@ void main() {
       testWidgets('renders loading view', (tester) async {
         when(() => bloc.state).thenReturn(BlogOverviewLoading());
         await tester.pumpApp(
-          BlocProvider<BlogOverviewBloc>.value(
+          widget: BlocProvider<BlogOverviewBloc>.value(
             value: bloc,
             child: const BlogOverview(),
           ),
@@ -52,7 +52,7 @@ void main() {
           ),
         );
         await tester.pumpApp(
-          BlocProvider<BlogOverviewBloc>.value(
+          widget: BlocProvider<BlogOverviewBloc>.value(
             value: bloc,
             child: const BlogOverview(),
           ),
@@ -68,7 +68,7 @@ void main() {
           ),
         );
         await tester.pumpApp(
-          BlocProvider<BlogOverviewBloc>.value(
+          widget: BlocProvider<BlogOverviewBloc>.value(
             value: bloc,
             child: const BlogOverview(),
           ),
@@ -89,7 +89,7 @@ void main() {
         when(() => bloc.state)
             .thenReturn(BlogOverviewLoaded(previews: previews));
         await tester.pumpApp(
-          BlocProvider<BlogOverviewBloc>.value(
+          widget: BlocProvider<BlogOverviewBloc>.value(
             value: bloc,
             child: const BlogOverview(),
           ),

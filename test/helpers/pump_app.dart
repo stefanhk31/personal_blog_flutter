@@ -3,6 +3,7 @@ import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:personal_blog_flutter/l10n/l10n.dart';
@@ -10,10 +11,11 @@ import 'package:personal_blog_flutter/l10n/l10n.dart';
 class _MockBlogRepository extends Mock implements BlogRepository {}
 
 extension PumpApp on WidgetTester {
-  Future<void> pumpApp(
-    Widget widget, {
+  Future<void> pumpApp({
+    Widget? widget,
     BlogRepository? blogRepository,
     ThemeData? theme,
+    GoRouter? router,
   }) {
     return mockNetworkImagesFor(
       () => pumpWidget(
@@ -23,12 +25,21 @@ extension PumpApp on WidgetTester {
               value: blogRepository ?? _MockBlogRepository(),
             ),
           ],
-          child: MaterialApp(
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            theme: theme ?? BlogTheme.lightThemeData,
-            home: widget,
-          ),
+          child: router != null
+              ? MaterialApp.router(
+                  routerConfig: router,
+                  localizationsDelegates:
+                      AppLocalizations.localizationsDelegates,
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  theme: theme ?? BlogTheme.lightThemeData,
+                )
+              : MaterialApp(
+                  localizationsDelegates:
+                      AppLocalizations.localizationsDelegates,
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  theme: theme ?? BlogTheme.lightThemeData,
+                  home: widget,
+                ),
         ),
       ),
     );

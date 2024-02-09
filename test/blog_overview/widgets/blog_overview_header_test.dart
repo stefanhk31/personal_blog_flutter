@@ -8,7 +8,7 @@ void main() {
   group('BlogOverviewHeader', () {
     testWidgets('renders', (tester) async {
       await tester.pumpApp(
-        const BlogOverviewHeader(),
+        widget: const BlogOverviewHeader(),
       );
 
       expect(find.byType(BlogOverviewHeader), findsOneWidget);
@@ -16,7 +16,7 @@ void main() {
 
     testWidgets('displays correct text', (tester) async {
       await tester.pumpApp(
-        const BlogOverviewHeader(),
+        widget: const BlogOverviewHeader(),
       );
 
       final context = tester.element(find.byType(BlogOverviewHeader));

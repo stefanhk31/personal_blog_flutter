@@ -6,8 +6,9 @@ GoRouter createRouter() {
     routes: [
       GoRoute(
         path: '/',
-        pageBuilder: (context, state) =>
-            const NoTransitionPage(child: BlogOverviewPage()),
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: BlogOverviewPage.routeBuilder(context, state),
+        ),
       ),
     ],
   );
