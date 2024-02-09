@@ -1,29 +1,29 @@
 import 'package:butter_cms_client/src/models/blog.dart';
-import 'package:butter_cms_client/src/models/meta.dart';
+import 'package:butter_cms_client/src/models/blogs_meta.dart';
 
-/// Data model for a list of blog posts.
-class Blogs {
+/// Data model for the API response containing a list of blog posts.
+class BlogsResponse {
   /// Default constructor for a list of bloc posts.
-  Blogs({
+  BlogsResponse({
     required this.meta,
     required this.data,
   });
 
   /// Deserialize a Blogs list from a Map
-  factory Blogs.fromJson(Map<String, dynamic> json) {
+  factory BlogsResponse.fromJson(Map<String, dynamic> json) {
     final list = json['data'] as List;
-    final meta = Meta.fromJson(json['meta'] as Map<String, dynamic>);
+    final meta = BlogsMeta.fromJson(json['meta'] as Map<String, dynamic>);
     final data =
         list.map((i) => Blog.fromJson(i as Map<String, dynamic>)).toList();
 
-    return Blogs(
+    return BlogsResponse(
       meta: meta,
       data: data,
     );
   }
 
   /// Metadata for the list of blog posts
-  final Meta meta;
+  final BlogsMeta meta;
 
   /// List of blog posts
   final List<Blog> data;

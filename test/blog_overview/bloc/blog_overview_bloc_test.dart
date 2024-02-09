@@ -25,7 +25,7 @@ void main() {
         'when BlogRepository returns posts',
         setUp: () {
           when(blogRepository.getBlogPreviews).thenAnswer(
-            (_) async => _posts,
+            (_) async => _previews,
           );
         },
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
@@ -33,7 +33,7 @@ void main() {
         expect: () => <BlogOverviewState>[
           BlogOverviewLoading(),
           BlogOverviewLoaded(
-            previews: _posts,
+            previews: _previews,
           ),
         ],
       );
@@ -69,31 +69,17 @@ void main() {
   });
 }
 
-final _posts = [
-  BlogPost(
-    preview: BlogPreview(
-      title: 'title',
-      description: 'description',
-      published: DateTime.now(),
-      authorName: 'authorName',
-    ),
-    detail: BlogDetail(
-      title: 'title',
-      published: DateTime.now(),
-      body: 'body',
-    ),
+final _previews = [
+  BlogPreview(
+    title: 'title',
+    description: 'description',
+    published: DateTime.now(),
+    authorName: 'authorName',
   ),
-  BlogPost(
-    preview: BlogPreview(
-      title: 'title',
-      description: 'description',
-      published: DateTime.now(),
-      authorName: 'authorName',
-    ),
-    detail: BlogDetail(
-      title: 'title',
-      published: DateTime.now(),
-      body: 'body',
-    ),
+  BlogPreview(
+    title: 'title',
+    description: 'description',
+    published: DateTime.now(),
+    authorName: 'authorName',
   ),
 ];

@@ -41,8 +41,8 @@ void main() {
   });
 }
 
-final _blogs = Blogs(
-  meta: Meta(count: 3),
+final _blogs = BlogsResponse(
+  meta: BlogsMeta(count: 3),
   data: [
     Blog(
       url: 'url',

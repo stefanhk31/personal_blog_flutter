@@ -1,15 +1,15 @@
 /// Data class representing metadata for a list of blog posts.
-class Meta {
+class BlogsMeta {
   /// Default constructor for a metadata object.
-  Meta({
+  BlogsMeta({
     required this.count,
     this.nextPage,
     this.previousPage,
   });
 
   /// Deserialize a Meta object from a Map
-  factory Meta.fromJson(Map<String, dynamic> json) {
-    return Meta(
+  factory BlogsMeta.fromJson(Map<String, dynamic> json) {
+    return BlogsMeta(
       count: json['count'] as int,
       nextPage: json['next_page'] as int?,
       previousPage: json['previous_page'] as int?,

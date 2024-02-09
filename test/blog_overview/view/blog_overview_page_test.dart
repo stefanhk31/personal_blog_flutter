@@ -77,23 +77,17 @@ void main() {
       });
 
       testWidgets('renders header and blog cards', (tester) async {
-        final posts = List.generate(
+        final previews = List.generate(
           3,
-          (index) => BlogPost(
-            preview: BlogPreview(
-              title: 'title $index',
-              description: 'desc $index',
-              authorName: 'author $index',
-              published: DateTime.now(),
-            ),
-            detail: BlogDetail(
-              title: 'title $index',
-              published: DateTime.now(),
-              body: 'body $index',
-            ),
+          (index) => BlogPreview(
+            title: 'title $index',
+            description: 'desc $index',
+            authorName: 'author $index',
+            published: DateTime.now(),
           ),
         );
-        when(() => bloc.state).thenReturn(BlogOverviewLoaded(previews: posts));
+        when(() => bloc.state)
+            .thenReturn(BlogOverviewLoaded(previews: previews));
         await tester.pumpApp(
           BlocProvider<BlogOverviewBloc>.value(
             value: bloc,
