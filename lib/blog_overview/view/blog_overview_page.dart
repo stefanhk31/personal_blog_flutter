@@ -42,8 +42,8 @@ class BlogOverview extends StatelessWidget {
                 ),
               ),
             ),
-          BlogOverviewLoaded(posts: final posts) => _BlogOverviewContent(
-              previews: posts.map((e) => e.preview).toList(),
+          BlogOverviewLoaded(previews: final previews) => _BlogOverviewContent(
+              previews: previews,
             )
         };
       },
@@ -83,17 +83,7 @@ class _BlogOverviewContent extends StatelessWidget {
                           subtitle: preview.description,
                           published: preview.published,
                           imageUrl: preview.image,
-                          // Coverage will be filled with detail page (#8)
-                          // coverage:ignore-start
-                          onTap: () {
-                            final state = context.read<BlogOverviewBloc>().state
-                                as BlogOverviewLoaded;
-                            final post = state.posts
-                                .where((element) => element.preview == preview)
-                                .first;
-                            debugPrint(post.detail.toString());
-                          },
-                          // coverage:ignore-end
+                          onTap: () {},
                         );
                       },
                     ),

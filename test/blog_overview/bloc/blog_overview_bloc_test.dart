@@ -24,7 +24,7 @@ void main() {
         'emits [BlogOverviewLoading, BlogOverviewSuccess] '
         'when BlogRepository returns posts',
         setUp: () {
-          when(blogRepository.getBlogPosts).thenAnswer(
+          when(blogRepository.getBlogPreviews).thenAnswer(
             (_) async => _posts,
           );
         },
@@ -33,7 +33,7 @@ void main() {
         expect: () => <BlogOverviewState>[
           BlogOverviewLoading(),
           BlogOverviewLoaded(
-            posts: _posts,
+            previews: _posts,
           ),
         ],
       );
@@ -41,7 +41,7 @@ void main() {
       blocTest<BlogOverviewBloc, BlogOverviewState>(
         'emits [BlogOverviewLoading, BlogOverviewFailure] '
         'when BlogRepository throws an exception',
-        setUp: () => when(blogRepository.getBlogPosts)
+        setUp: () => when(blogRepository.getBlogPreviews)
             .thenThrow(Exception(failureMessage)),
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
         act: (bloc) => bloc.add(BlogOverviewPostsRequested()),
@@ -55,7 +55,7 @@ void main() {
         'emits [BlogOverviewLoading, BlogOverviewFailure] '
         'with request failure message '
         'when BlogRepository throws an api request failure',
-        setUp: () => when(blogRepository.getBlogPosts).thenThrow(
+        setUp: () => when(blogRepository.getBlogPreviews).thenThrow(
           ApiRequestFailure(statusCode: 404, body: 'Not Found'),
         ),
         build: () => BlogOverviewBloc(blogRepository: blogRepository),

@@ -25,8 +25,8 @@ class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
   ) async {
     emit(BlogOverviewLoading());
     try {
-      final posts = await _blogRepository.getBlogPosts();
-      emit(BlogOverviewLoaded(posts: posts));
+      final previews = await _blogRepository.getBlogPreviews();
+      emit(BlogOverviewLoaded(previews: previews));
     } on Exception catch (e) {
       if (e is ApiRequestFailure) {
         emit(BlogOverviewFailure(message: e.body));

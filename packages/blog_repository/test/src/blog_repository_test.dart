@@ -22,7 +22,7 @@ void main() {
         when(butterCmsClient.fetchBlogPosts).thenAnswer((_) async => _blogs);
 
         expect(
-          await blogRepository.getBlogPosts(),
+          await blogRepository.getBlogPreviews(),
           equals(_blogs.data.map(BlogPost.fromButter).toList()),
         );
       });
@@ -31,7 +31,7 @@ void main() {
         when(butterCmsClient.fetchBlogPosts).thenThrow(Exception());
 
         expect(
-          () async => blogRepository.getBlogPosts(),
+          () async => blogRepository.getBlogPreviews(),
           throwsException,
         );
       });

@@ -13,7 +13,7 @@ void main() {
 
     setUp(() {
       blogRepository = _MockBlogRepository();
-      when(blogRepository.getBlogPosts).thenAnswer((_) async => []);
+      when(blogRepository.getBlogPreviews).thenAnswer((_) async => []);
     });
 
     testWidgets('renders BlogOverview and Footer', (tester) async {

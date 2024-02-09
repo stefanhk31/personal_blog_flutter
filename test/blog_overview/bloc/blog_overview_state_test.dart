@@ -18,8 +18,8 @@ void main() {
     group('BlogOverviewLoaded', () {
       test('supports value comparisons', () {
         expect(
-          BlogOverviewLoaded(posts: const []),
-          equals(BlogOverviewLoaded(posts: const [])),
+          BlogOverviewLoaded(previews: const []),
+          equals(BlogOverviewLoaded(previews: const [])),
         );
       });
     });

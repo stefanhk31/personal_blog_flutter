@@ -1,3 +1,4 @@
+import 'package:blog_repository/blog_repository.dart';
 import 'package:blog_repository/src/models/blog_post.dart';
 import 'package:butter_cms_client/butter_cms_client.dart';
 
@@ -11,11 +12,11 @@ class BlogRepository {
 
   final ButterCmsClient _butterCmsClient;
 
-  /// Gets a list of [BlogPost] objects.
-  Future<List<BlogPost>> getBlogPosts() async {
+  /// Gets a list of [BlogPreview] objects.
+  Future<List<BlogPreview>> getBlogPreviews() async {
     try {
-      final blogs = await _butterCmsClient.fetchBlogPosts();
-      return blogs.data.map(BlogPost.fromButter).toList();
+      final blogs = await _butterCmsClient.fetchBlogPosts(excludeBody: true);
+      return blogs.data.map(BlogPreview.fromButter).toList();
     } on Exception {
       rethrow;
     }

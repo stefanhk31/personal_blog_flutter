@@ -19,9 +19,9 @@ final class BlogOverviewFailure extends BlogOverviewState {
 }
 
 final class BlogOverviewLoaded extends BlogOverviewState {
-  BlogOverviewLoaded({required this.posts});
-  final List<BlogPost> posts;
+  BlogOverviewLoaded({required this.previews});
+  final List<BlogPreview> previews;
 
   @override
-  List<Object> get props => [posts];
+  List<Object> get props => [previews];
 }

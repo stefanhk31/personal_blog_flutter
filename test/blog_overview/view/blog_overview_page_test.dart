@@ -22,7 +22,7 @@ void main() {
     final blogRepository = _MockBlogRepository();
 
     testWidgets('renders BlogOverview', (tester) async {
-      when(blogRepository.getBlogPosts).thenAnswer((_) async => []);
+      when(blogRepository.getBlogPreviews).thenAnswer((_) async => []);
       await tester.pumpApp(
         const BlogOverviewPage(),
         blogRepository: blogRepository,
@@ -93,7 +93,7 @@ void main() {
             ),
           ),
         );
-        when(() => bloc.state).thenReturn(BlogOverviewLoaded(posts: posts));
+        when(() => bloc.state).thenReturn(BlogOverviewLoaded(previews: posts));
         await tester.pumpApp(
           BlocProvider<BlogOverviewBloc>.value(
             value: bloc,
