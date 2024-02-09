@@ -16,11 +16,11 @@ class Blog {
     required this.featuredImageAlt,
     required this.slug,
     required this.title,
-    required this.body,
     required this.summary,
     required this.seoTitle,
     required this.metaDescription,
     required this.status,
+    this.body,
     this.featuredImage,
   });
 
@@ -41,10 +41,10 @@ class Blog {
           .map((tag) => Tag.fromJson(tag as Map<String, dynamic>))
           .toList(),
       featuredImage: json['featured_image'] as String?,
-      featuredImageAlt: json['featured_image_alt'] as String? ?? '',
+      featuredImageAlt: json['featured_image_alt'] as String,
       slug: json['slug'] as String,
       title: json['title'] as String,
-      body: json['body'] as String,
+      body: json['body'] as String?,
       summary: json['summary'] as String,
       seoTitle: json['seo_title'] as String,
       metaDescription: json['meta_description'] as String,
@@ -86,7 +86,7 @@ class Blog {
   final String title;
 
   /// Body content of the blog post
-  final String body;
+  final String? body;
 
   /// Summary of the blog post
   final String summary;

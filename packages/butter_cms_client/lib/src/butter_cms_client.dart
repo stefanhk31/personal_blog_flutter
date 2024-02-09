@@ -12,13 +12,22 @@ class ButterCmsClient {
   final ApiClient _apiClient;
 
   /// Fetches a list of blog posts from the ButterCMS API.
-  Future<Blogs> fetchBlogPosts() async {
+  Future<Blogs> fetchBlogPosts({
+    bool excludeBody = false,
+  }) async {
     const butterCmsApiKey = String.fromEnvironment('BUTTER_CMS_API_KEY');
+
+    final queryParameters = <String, dynamic>{
+      'auth_token': butterCmsApiKey,
+    };
+
+    if (excludeBody) {
+      queryParameters['exclude_body'] = 'true';
+    }
+
     return _apiClient.get(
       path: '/v2/posts',
-      queryParameters: {
-        'auth_token': butterCmsApiKey,
-      },
+      queryParameters: queryParameters,
       fromJson: Blogs.fromJson,
     );
   }

@@ -14,7 +14,7 @@ class BlogDetail extends Equatable {
   factory BlogDetail.fromButter(Blog blog) => BlogDetail(
         title: blog.title,
         published: blog.published,
-        body: blog.body,
+        body: blog.body ?? '',
       );
 
   //// Title of the blog post
