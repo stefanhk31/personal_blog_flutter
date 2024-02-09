@@ -8,23 +8,23 @@ class _MockButterCmsClient extends Mock implements ButterCmsClient {}
 
 void main() {
   group('BlogRepository', () {
+    final butterCmsClient = _MockButterCmsClient();
+    final blogRepository = BlogRepository(butterCmsClient: butterCmsClient);
     test('can be instantiated', () {
       expect(
-        BlogRepository(butterCmsClient: _MockButterCmsClient()),
+        blogRepository,
         isNotNull,
       );
     });
 
     group('getBlogPreviews', () {
-      final butterCmsClient = _MockButterCmsClient();
-      final blogRepository = BlogRepository(butterCmsClient: butterCmsClient);
       test('gets blog previews on successful api call', () async {
         when(() => butterCmsClient.fetchBlogPosts(excludeBody: true))
-            .thenAnswer((_) async => _blogs);
+            .thenAnswer((_) async => _blogsResponse);
 
         expect(
           await blogRepository.getBlogPreviews(),
-          equals(_blogs.data.map(BlogPreview.fromButter).toList()),
+          equals(_blogsResponse.data.map(BlogPreview.fromButter).toList()),
         );
       });
 
@@ -38,10 +38,32 @@ void main() {
         );
       });
     });
+
+    group('getBlogDetail', () {
+      test('gets blog detail on successful api call', () async {
+        when(() => butterCmsClient.fetchBlogPost(slug: any(named: 'slug')))
+            .thenAnswer((_) async => _blogResponse);
+
+        expect(
+          await blogRepository.getBlogDetail(slug: 'slug'),
+          equals(BlogDetail.fromButter(_blogResponse.data)),
+        );
+      });
+
+      test('rethrows on failed api call', () async {
+        when(() => butterCmsClient.fetchBlogPost(slug: any(named: 'slug')))
+            .thenThrow(Exception());
+
+        expect(
+          () async => blogRepository.getBlogDetail(slug: 'slug'),
+          throwsException,
+        );
+      });
+    });
   });
 }
 
-final _blogs = BlogsResponse(
+final _blogsResponse = BlogsResponse(
   meta: BlogsMeta(count: 3),
   data: [
     Blog(
@@ -126,4 +148,35 @@ final _blogs = BlogsResponse(
       status: 'status',
     ),
   ],
+);
+
+final _blogResponse = BlogResponse(
+  meta: BlogMeta(),
+  data: Blog(
+    url: 'url',
+    created: DateTime.now(),
+    updated: DateTime.now(),
+    published: DateTime.now(),
+    author: const Author(
+      firstName: 'firstName',
+      lastName: 'lastName',
+      email: 'email',
+      slug: 'slug',
+      bio: 'bio',
+      title: 'title',
+      linkedinUrl: 'linkedinUrl',
+      facebookUrl: 'facebookUrl',
+      twitterHandle: 'twitterHandle',
+      profileImage: 'profileImage',
+    ),
+    categories: [],
+    tags: [],
+    featuredImageAlt: 'featuredImageAlt',
+    slug: 'slug',
+    title: 'title',
+    summary: 'summary',
+    seoTitle: 'seoTitle',
+    metaDescription: 'metaDescription',
+    status: 'status',
+  ),
 );
