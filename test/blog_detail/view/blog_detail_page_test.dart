@@ -1,7 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:blog_repository/blog_repository.dart';
 import 'package:blog_ui/blog_ui.dart';
-import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -24,7 +23,7 @@ void main() {
     testWidgets('renders BlogDetailView', (tester) async {
       when(
         () => blogRepository.getBlogDetail(slug: any(named: 'slug')),
-      ).thenAnswer((_) async => _detail);
+      ).thenAnswer((_) async => dummyBlogDetail);
       await tester.pumpApp(
         widget: const BlogDetailPage(slug: 'slug'),
         blogRepository: blogRepository,
@@ -63,7 +62,7 @@ void main() {
 
       testWidgets('renders author tile and html body', (tester) async {
         when(() => bloc.state).thenReturn(
-          BlogDetailLoaded(detail: _detail),
+          BlogDetailLoaded(detail: dummyBlogDetail),
         );
         await tester.pumpApp(
           widget: BlocProvider<BlogDetailBloc>.value(
@@ -78,7 +77,7 @@ void main() {
       testWidgets('renders hero when featured image is not null',
           (tester) async {
         when(() => bloc.state).thenReturn(
-          BlogDetailLoaded(detail: _detailWithImage),
+          BlogDetailLoaded(detail: _blogDetailWithImage),
         );
         await tester.pumpApp(
           widget: BlocProvider<BlogDetailBloc>.value(
@@ -92,42 +91,18 @@ void main() {
   });
 }
 
-final _detail = BlogDetail(
+final _blogDetailWithImage = BlogDetail(
   title: 'title',
   published: DateTime.now(),
   body: 'body',
   slug: 'slug',
-  author: const Author(
+  author: const BlogAuthor(
     firstName: 'firstName',
     lastName: 'lastName',
-    email: 'email',
     slug: 'slug',
     bio: 'bio',
-    title: 'title',
     linkedinUrl: 'linkedinUrl',
     facebookUrl: 'facebookUrl',
-    twitterHandle: 'twitterHandle',
-    profileImage: 'profileImage',
-  ),
-  tags: const [],
-  categories: const [],
-);
-
-final _detailWithImage = BlogDetail(
-  title: 'title',
-  published: DateTime.now(),
-  body: 'body',
-  slug: 'slug',
-  author: const Author(
-    firstName: 'firstName',
-    lastName: 'lastName',
-    email: 'email',
-    slug: 'slug',
-    bio: 'bio',
-    title: 'title',
-    linkedinUrl: 'linkedinUrl',
-    facebookUrl: 'facebookUrl',
-    twitterHandle: 'twitterHandle',
     profileImage: 'profileImage',
   ),
   tags: const [],

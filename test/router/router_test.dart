@@ -19,7 +19,8 @@ void main() {
     setUp(() {
       blogRepository = _MockBlogRepository();
       when(blogRepository.getBlogPreviews).thenAnswer((_) async => []);
-
+      when(() => blogRepository.getBlogDetail(slug: any(named: 'slug')))
+          .thenAnswer((_) async => dummyBlogDetail);
       router = createRouter();
     });
 

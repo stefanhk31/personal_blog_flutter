@@ -1,3 +1,4 @@
+import 'package:blog_repository/blog_repository.dart';
 import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:equatable/equatable.dart';
 
@@ -25,7 +26,7 @@ class BlogDetail extends Equatable {
         body: blog.body ?? '',
         slug: blog.slug,
         url: blog.url,
-        author: blog.author,
+        author: BlogAuthor.fromButter(blog.author),
         tags: blog.tags,
         categories: blog.categories,
         featuredImage: blog.featuredImage,
@@ -45,7 +46,7 @@ class BlogDetail extends Equatable {
   final String slug;
 
   /// Author of the blog post.
-  final Author author;
+  final BlogAuthor author;
 
   /// Tags associated with the blog post.
   final List<Tag> tags;
