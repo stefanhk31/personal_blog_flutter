@@ -25,7 +25,7 @@ void main() {
         () => blogRepository.getBlogDetail(slug: any(named: 'slug')),
       ).thenAnswer((_) async => dummyBlogDetail);
       await tester.pumpApp(
-        widget: const BlogDetailPage(slug: 'slug'),
+        const BlogDetailPage(slug: 'slug'),
         blogRepository: blogRepository,
       );
       expect(find.byType(BlogDetailView), findsOneWidget);
@@ -37,7 +37,7 @@ void main() {
       testWidgets('renders loading view', (tester) async {
         when(() => bloc.state).thenReturn(BlogDetailLoading());
         await tester.pumpApp(
-          widget: BlocProvider<BlogDetailBloc>.value(
+          BlocProvider<BlogDetailBloc>.value(
             value: bloc,
             child: const BlogDetailView(),
           ),
@@ -52,7 +52,7 @@ void main() {
           ),
         );
         await tester.pumpApp(
-          widget: BlocProvider<BlogDetailBloc>.value(
+          BlocProvider<BlogDetailBloc>.value(
             value: bloc,
             child: const BlogDetailView(),
           ),
@@ -65,7 +65,7 @@ void main() {
           BlogDetailLoaded(detail: dummyBlogDetail),
         );
         await tester.pumpApp(
-          widget: BlocProvider<BlogDetailBloc>.value(
+          BlocProvider<BlogDetailBloc>.value(
             value: bloc,
             child: const BlogDetailView(),
           ),
@@ -80,7 +80,7 @@ void main() {
           BlogDetailLoaded(detail: _blogDetailWithImage),
         );
         await tester.pumpApp(
-          widget: BlocProvider<BlogDetailBloc>.value(
+          BlocProvider<BlogDetailBloc>.value(
             value: bloc,
             child: const BlogDetailView(),
           ),

@@ -11,7 +11,7 @@ void main() {
     group('renders', () {
       testWidgets('with correct asset when theme is light', (tester) async {
         await tester.pumpApp(
-          widget: const Column(
+          const Column(
             children: [
               Footer(),
             ],
@@ -26,7 +26,7 @@ void main() {
 
       testWidgets('with correct asset when theme is dark', (tester) async {
         await tester.pumpApp(
-          widget: const Column(
+          const Column(
             children: [
               Footer(),
             ],
@@ -42,7 +42,7 @@ void main() {
 
       testWidgets('with correct text', (tester) async {
         await tester.pumpApp(
-          widget: const Column(
+          const Column(
             children: [
               Footer(),
             ],

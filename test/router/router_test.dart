@@ -25,9 +25,9 @@ void main() {
     });
 
     testWidgets('displays footer at bottom of route', (tester) async {
-      await tester.pumpApp(
+      await tester.pumpAppWithRouter(
+        router,
         blogRepository: blogRepository,
-        router: router,
       );
 
       expect(find.byType(Footer), findsOneWidget);
@@ -36,9 +36,9 @@ void main() {
     testWidgets(
       'default route is BlogOverviewPage',
       (tester) async {
-        await tester.pumpApp(
+        await tester.pumpAppWithRouter(
+          router,
           blogRepository: blogRepository,
-          router: router,
         );
 
         expect(find.byType(BlogOverviewPage), findsOneWidget);
@@ -49,9 +49,9 @@ void main() {
       'navigating to /:slug should build BlogDetailPage',
       (tester) async {
         const slug = 'blog-post-slug';
-        await tester.pumpApp(
+        await tester.pumpAppWithRouter(
+          router,
           blogRepository: blogRepository,
-          router: router,
         );
 
         router.go('/$slug');

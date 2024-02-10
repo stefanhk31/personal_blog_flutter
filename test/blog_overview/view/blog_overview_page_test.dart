@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:personal_blog_flutter/blog_detail/view/blog_detail_page.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
 import 'package:personal_blog_flutter/blog_overview/view/blog_overview_page.dart';
 import 'package:personal_blog_flutter/blog_overview/widgets/blog_overview_header.dart';
@@ -23,8 +24,10 @@ void main() {
 
     testWidgets('renders BlogOverview', (tester) async {
       when(blogRepository.getBlogPreviews).thenAnswer((_) async => []);
+      when(() => blogRepository.getBlogDetail(slug: any(named: 'slug')))
+          .thenAnswer((_) async => dummyBlogDetail);
       await tester.pumpApp(
-        widget: const BlogOverviewPage(),
+        const BlogOverviewPage(),
         blogRepository: blogRepository,
       );
       expect(find.byType(BlogOverview), findsOneWidget);
@@ -36,7 +39,7 @@ void main() {
       testWidgets('renders loading view', (tester) async {
         when(() => bloc.state).thenReturn(BlogOverviewLoading());
         await tester.pumpApp(
-          widget: BlocProvider<BlogOverviewBloc>.value(
+          BlocProvider<BlogOverviewBloc>.value(
             value: bloc,
             child: const BlogOverview(),
           ),
@@ -51,7 +54,7 @@ void main() {
           ),
         );
         await tester.pumpApp(
-          widget: BlocProvider<BlogOverviewBloc>.value(
+          BlocProvider<BlogOverviewBloc>.value(
             value: bloc,
             child: const BlogOverview(),
           ),
@@ -59,7 +62,7 @@ void main() {
         expect(find.text(failureMessage), findsOneWidget);
       });
 
-      testWidgets('renders header and blog cards', (tester) async {
+      group('_BlogOverviewContent', () {
         final previews = List.generate(
           3,
           (index) => BlogPreview(
@@ -72,14 +75,35 @@ void main() {
         );
         when(() => bloc.state)
             .thenReturn(BlogOverviewLoaded(previews: previews));
-        await tester.pumpApp(
-          widget: BlocProvider<BlogOverviewBloc>.value(
-            value: bloc,
-            child: const BlogOverview(),
-          ),
+        testWidgets('renders header and blog cards', (tester) async {
+          await tester.pumpApp(
+            BlocProvider<BlogOverviewBloc>.value(
+              value: bloc,
+              child: const BlogOverview(),
+            ),
+          );
+          expect(find.byType(BlogOverviewHeader), findsOneWidget);
+          expect(find.byType(BlogCard), findsNWidgets(3));
+        });
+
+        testWidgets(
+          'tapping on card navigates to blog detail page',
+          (tester) async {
+            final router = MockGoRouter();
+            when(() => router.go(any())).thenAnswer((_) async {});
+            await tester.pumpApp(
+              BlocProvider<BlogOverviewBloc>.value(
+                value: bloc,
+                child: const BlogOverview(),
+              ),
+              router: router,
+            );
+
+            await tester.tap(find.byType(BlogCard).first);
+            await tester.pumpAndSettle();
+            verify(() => router.go('/${previews.first.slug}')).called(1);
+          },
         );
-        expect(find.byType(BlogOverviewHeader), findsOneWidget);
-        expect(find.byType(BlogCard), findsNWidgets(3));
       });
     });
   });
