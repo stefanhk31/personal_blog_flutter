@@ -15,6 +15,7 @@ class BlogDetailPage extends StatelessWidget {
 
   factory BlogDetailPage.routeBuilder(_, GoRouterState state) => BlogDetailPage(
         slug: state.matchedLocation.substring(1),
+        key: const Key('blog_detail_page'),
       );
 
   final String slug;

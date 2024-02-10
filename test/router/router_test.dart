@@ -53,7 +53,7 @@ void main() {
           router: router,
         );
 
-        router.go('/$slug', extra: const BlogDetailPageData(slug: slug));
+        router.go('/$slug');
 
         await tester.pumpAndSettle();
 
