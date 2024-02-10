@@ -9,13 +9,6 @@ import '../../helpers/helpers.dart';
 void main() {
   group('Footer', () {
     group('renders', () {
-      Finder assetImageFinder(String assetName) => find.byWidgetPredicate(
-            (widget) =>
-                widget is Image &&
-                widget.image is AssetImage &&
-                (widget.image as AssetImage).assetName == assetName,
-          );
-
       testWidgets('with correct asset when theme is light', (tester) async {
         await tester.pumpApp(
           const Column(

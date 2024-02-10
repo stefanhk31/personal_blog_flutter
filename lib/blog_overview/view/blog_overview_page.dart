@@ -2,11 +2,20 @@ import 'package:blog_repository/blog_repository.dart';
 import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
 import 'package:personal_blog_flutter/blog_overview/widgets/widgets.dart';
 
 class BlogOverviewPage extends StatelessWidget {
   const BlogOverviewPage({super.key});
+
+  factory BlogOverviewPage.routeBuilder(
+    _,
+    __,
+  ) =>
+      const BlogOverviewPage(
+        key: Key('blog_overview_page'),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +51,8 @@ class BlogOverview extends StatelessWidget {
                 ),
               ),
             ),
-          BlogOverviewLoaded(posts: final posts) => _BlogOverviewContent(
-              previews: posts.map((e) => e.preview).toList(),
+          BlogOverviewLoaded(previews: final previews) => _BlogOverviewContent(
+              previews: previews,
             )
         };
       },
@@ -60,48 +69,38 @@ class _BlogOverviewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Center(
-      child: ColoredBox(
-        color: theme.colorScheme.background,
-        child: Container(
-          margin: BlogSpacing.topMargin,
-          child: Column(
-            children: [
-              const BlogOverviewHeader(),
-              Expanded(
-                child: Padding(
-                  padding: BlogSpacing.horizontalPadding,
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 1200),
-                    child: ListView.builder(
-                      itemCount: previews.length,
-                      itemBuilder: (context, index) {
-                        final preview = previews[index];
-                        return BlogCard(
-                          title: preview.title,
-                          subtitle: preview.description,
-                          published: preview.published,
-                          imageUrl: preview.image,
-                          // Coverage will be filled with detail page (#8)
-                          // coverage:ignore-start
-                          onTap: () {
-                            final state = context.read<BlogOverviewBloc>().state
-                                as BlogOverviewLoaded;
-                            final post = state.posts
-                                .where((element) => element.preview == preview)
-                                .first;
-                            debugPrint(post.detail.toString());
-                          },
-                          // coverage:ignore-end
-                        );
-                      },
-                    ),
+      child: Container(
+        margin: BlogSpacing.topMargin,
+        child: Column(
+          children: [
+            const BlogOverviewHeader(),
+            Expanded(
+              child: Padding(
+                padding: BlogSpacing.horizontalPadding,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1200),
+                  child: ListView.builder(
+                    itemCount: previews.length,
+                    itemBuilder: (context, index) {
+                      final preview = previews[index];
+                      return BlogCard(
+                        title: preview.title,
+                        subtitle: preview.description,
+                        published: preview.published,
+                        imageUrl: preview.image,
+                        onTap: () {
+                          context.go(
+                            '/${preview.slug}',
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

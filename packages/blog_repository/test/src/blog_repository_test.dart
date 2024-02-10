@@ -8,30 +8,54 @@ class _MockButterCmsClient extends Mock implements ButterCmsClient {}
 
 void main() {
   group('BlogRepository', () {
+    final butterCmsClient = _MockButterCmsClient();
+    final blogRepository = BlogRepository(butterCmsClient: butterCmsClient);
     test('can be instantiated', () {
       expect(
-        BlogRepository(butterCmsClient: _MockButterCmsClient()),
+        blogRepository,
         isNotNull,
       );
     });
 
-    group('getBlogPosts', () {
-      final butterCmsClient = _MockButterCmsClient();
-      final blogRepository = BlogRepository(butterCmsClient: butterCmsClient);
-      test('gets blog posts on successful api call', () async {
-        when(butterCmsClient.fetchBlogPosts).thenAnswer((_) async => _blogs);
+    group('getBlogPreviews', () {
+      test('gets blog previews on successful api call', () async {
+        when(() => butterCmsClient.fetchBlogPosts(excludeBody: true))
+            .thenAnswer((_) async => _blogsResponse);
 
         expect(
-          await blogRepository.getBlogPosts(),
-          equals(_blogs.data.map(BlogPost.fromButter).toList()),
+          await blogRepository.getBlogPreviews(),
+          equals(_blogsResponse.data.map(BlogPreview.fromButter).toList()),
         );
       });
 
       test('rethrows on failed api call', () async {
-        when(butterCmsClient.fetchBlogPosts).thenThrow(Exception());
+        when(() => butterCmsClient.fetchBlogPosts(excludeBody: true))
+            .thenThrow(Exception());
 
         expect(
-          () async => blogRepository.getBlogPosts(),
+          () async => blogRepository.getBlogPreviews(),
+          throwsException,
+        );
+      });
+    });
+
+    group('getBlogDetail', () {
+      test('gets blog detail on successful api call', () async {
+        when(() => butterCmsClient.fetchBlogPost(slug: any(named: 'slug')))
+            .thenAnswer((_) async => _blogResponse);
+
+        expect(
+          await blogRepository.getBlogDetail(slug: 'slug'),
+          equals(BlogDetail.fromButter(_blogResponse.data)),
+        );
+      });
+
+      test('rethrows on failed api call', () async {
+        when(() => butterCmsClient.fetchBlogPost(slug: any(named: 'slug')))
+            .thenThrow(Exception());
+
+        expect(
+          () async => blogRepository.getBlogDetail(slug: 'slug'),
           throwsException,
         );
       });
@@ -39,8 +63,8 @@ void main() {
   });
 }
 
-final _blogs = Blogs(
-  meta: Meta(count: 3),
+final _blogsResponse = BlogsResponse(
+  meta: BlogsMeta(count: 3),
   data: [
     Blog(
       url: 'url',
@@ -64,7 +88,6 @@ final _blogs = Blogs(
       featuredImageAlt: 'featuredImageAlt',
       slug: 'slug',
       title: 'title',
-      body: 'body',
       summary: 'summary',
       seoTitle: 'seoTitle',
       metaDescription: 'metaDescription',
@@ -92,7 +115,6 @@ final _blogs = Blogs(
       featuredImageAlt: 'featuredImageAlt',
       slug: 'slug',
       title: 'title',
-      body: 'body',
       summary: 'summary',
       seoTitle: 'seoTitle',
       metaDescription: 'metaDescription',
@@ -120,11 +142,41 @@ final _blogs = Blogs(
       featuredImageAlt: 'featuredImageAlt',
       slug: 'slug',
       title: 'title',
-      body: 'body',
       summary: 'summary',
       seoTitle: 'seoTitle',
       metaDescription: 'metaDescription',
       status: 'status',
     ),
   ],
+);
+
+final _blogResponse = BlogResponse(
+  meta: BlogMeta(),
+  data: Blog(
+    url: 'url',
+    created: DateTime.now(),
+    updated: DateTime.now(),
+    published: DateTime.now(),
+    author: const Author(
+      firstName: 'firstName',
+      lastName: 'lastName',
+      email: 'email',
+      slug: 'slug',
+      bio: 'bio',
+      title: 'title',
+      linkedinUrl: 'linkedinUrl',
+      facebookUrl: 'facebookUrl',
+      twitterHandle: 'twitterHandle',
+      profileImage: 'profileImage',
+    ),
+    categories: [],
+    tags: [],
+    featuredImageAlt: 'featuredImageAlt',
+    slug: 'slug',
+    title: 'title',
+    summary: 'summary',
+    seoTitle: 'seoTitle',
+    metaDescription: 'metaDescription',
+    status: 'status',
+  ),
 );

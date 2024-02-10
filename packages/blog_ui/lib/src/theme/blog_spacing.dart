@@ -15,6 +15,10 @@ abstract class BlogSpacing {
   static const EdgeInsets horizontalPadding =
       EdgeInsets.symmetric(horizontal: 15);
 
+  /// Large padding to be used horizontally in a widget.
+  static const EdgeInsets horizontalPaddingLarge =
+      EdgeInsets.symmetric(horizontal: 30);
+
   /// Padding to be used on all sides in a widget.
   static const EdgeInsets allPadding = EdgeInsets.all(15);
 

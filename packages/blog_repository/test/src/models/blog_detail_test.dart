@@ -48,12 +48,42 @@ void main() {
         title: 'title',
         published: published,
         body: 'body',
+        author: const BlogAuthor(
+          firstName: 'firstName',
+          lastName: 'lastName',
+          slug: 'slug',
+          bio: 'bio',
+          linkedinUrl: 'linkedinUrl',
+          facebookUrl: 'facebookUrl',
+          profileImage: 'profileImage',
+        ),
+        categories: const [],
+        tags: const [],
+        slug: 'slug',
+        url: 'url',
+        featuredImage: 'featuredImage',
+        featuredImageAlt: 'featuredImageAlt',
       );
 
       final instance2 = BlogDetail(
         title: 'title',
         published: published,
         body: 'body',
+        author: const BlogAuthor(
+          firstName: 'firstName',
+          lastName: 'lastName',
+          slug: 'slug',
+          bio: 'bio',
+          linkedinUrl: 'linkedinUrl',
+          facebookUrl: 'facebookUrl',
+          profileImage: 'profileImage',
+        ),
+        categories: const [],
+        tags: const [],
+        slug: 'slug',
+        url: 'url',
+        featuredImage: 'featuredImage',
+        featuredImageAlt: 'featuredImageAlt',
       );
 
       expect(instance1, equals(instance2));

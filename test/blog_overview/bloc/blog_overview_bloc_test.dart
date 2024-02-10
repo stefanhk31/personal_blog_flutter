@@ -5,12 +5,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
 
+import '../../helpers/helpers.dart';
+
 class _MockBlogRepository extends Mock implements BlogRepository {}
 
 void main() {
   group('BlogOverviewBloc', () {
     final blogRepository = _MockBlogRepository();
-    const failureMessage = 'oops';
 
     test('can be instantiated', () {
       expect(
@@ -24,8 +25,8 @@ void main() {
         'emits [BlogOverviewLoading, BlogOverviewSuccess] '
         'when BlogRepository returns posts',
         setUp: () {
-          when(blogRepository.getBlogPosts).thenAnswer(
-            (_) async => _posts,
+          when(blogRepository.getBlogPreviews).thenAnswer(
+            (_) async => _previews,
           );
         },
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
@@ -33,7 +34,7 @@ void main() {
         expect: () => <BlogOverviewState>[
           BlogOverviewLoading(),
           BlogOverviewLoaded(
-            posts: _posts,
+            previews: _previews,
           ),
         ],
       );
@@ -41,7 +42,7 @@ void main() {
       blocTest<BlogOverviewBloc, BlogOverviewState>(
         'emits [BlogOverviewLoading, BlogOverviewFailure] '
         'when BlogRepository throws an exception',
-        setUp: () => when(blogRepository.getBlogPosts)
+        setUp: () => when(blogRepository.getBlogPreviews)
             .thenThrow(Exception(failureMessage)),
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
         act: (bloc) => bloc.add(BlogOverviewPostsRequested()),
@@ -55,7 +56,7 @@ void main() {
         'emits [BlogOverviewLoading, BlogOverviewFailure] '
         'with request failure message '
         'when BlogRepository throws an api request failure',
-        setUp: () => when(blogRepository.getBlogPosts).thenThrow(
+        setUp: () => when(blogRepository.getBlogPreviews).thenThrow(
           ApiRequestFailure(statusCode: 404, body: 'Not Found'),
         ),
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
@@ -69,31 +70,19 @@ void main() {
   });
 }
 
-final _posts = [
-  BlogPost(
-    preview: BlogPreview(
-      title: 'title',
-      description: 'description',
-      published: DateTime.now(),
-      authorName: 'authorName',
-    ),
-    detail: BlogDetail(
-      title: 'title',
-      published: DateTime.now(),
-      body: 'body',
-    ),
+final _previews = [
+  BlogPreview(
+    title: 'title',
+    description: 'description',
+    published: DateTime.now(),
+    authorName: 'authorName',
+    slug: 'slug',
   ),
-  BlogPost(
-    preview: BlogPreview(
-      title: 'title',
-      description: 'description',
-      published: DateTime.now(),
-      authorName: 'authorName',
-    ),
-    detail: BlogDetail(
-      title: 'title',
-      published: DateTime.now(),
-      body: 'body',
-    ),
+  BlogPreview(
+    title: 'title',
+    description: 'description',
+    published: DateTime.now(),
+    authorName: 'authorName',
+    slug: 'slug',
   ),
 ];

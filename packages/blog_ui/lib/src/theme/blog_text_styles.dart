@@ -44,4 +44,10 @@ abstract class BlogTextStyles {
     fontWeight: FontWeight.w500,
     fontStyle: FontStyle.italic,
   );
+
+  /// Style for general subtitles.
+  static const TextStyle subtitleTextStyle = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
 }
