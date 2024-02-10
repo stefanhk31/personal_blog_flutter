@@ -1,5 +1,4 @@
 import 'package:api_client/api_client.dart';
-import 'package:butter_cms_client/src/models/blogs.dart';
 import 'package:butter_cms_client/src/models/models.dart';
 
 /// {@template butter_cms_client}
@@ -36,7 +35,7 @@ class ButterCmsClient {
   /// Fetches a single blog post from the ButterCMS API,
   /// given a unique [slug].
   Future<BlogResponse> fetchBlogPost({required String slug}) async {
-    //const butterCmsApiKey = String.fromEnvironment('BUTTER_CMS_API_KEY');
+    const butterCmsApiKey = String.fromEnvironment('BUTTER_CMS_API_KEY');
 
     return _apiClient.get(
       path: '/v2/posts/$slug',
