@@ -45,23 +45,6 @@ void main() {
       });
 
       testWidgets('renders error view', (tester) async {
-        const failureMessage = 'oops';
-        when(() => bloc.state).thenReturn(
-          BlogOverviewFailure(
-            message: failureMessage,
-          ),
-        );
-        await tester.pumpApp(
-          widget: BlocProvider<BlogOverviewBloc>.value(
-            value: bloc,
-            child: const BlogOverview(),
-          ),
-        );
-        expect(find.text(failureMessage), findsOneWidget);
-      });
-
-      testWidgets('renders error view', (tester) async {
-        const failureMessage = 'oops';
         when(() => bloc.state).thenReturn(
           BlogOverviewFailure(
             message: failureMessage,

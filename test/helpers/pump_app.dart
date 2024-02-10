@@ -38,7 +38,7 @@ extension PumpApp on WidgetTester {
                       AppLocalizations.localizationsDelegates,
                   supportedLocales: AppLocalizations.supportedLocales,
                   theme: theme ?? BlogTheme.lightThemeData,
-                  home: widget,
+                  home: Material(child: widget),
                 ),
         ),
       ),
