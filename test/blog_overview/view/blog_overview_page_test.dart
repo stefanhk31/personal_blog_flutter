@@ -72,9 +72,9 @@ void main() {
             slug: 'slug-$index',
           ),
         );
-        when(() => bloc.state)
-            .thenReturn(BlogOverviewLoaded(previews: previews));
         testWidgets('renders header and blog cards', (tester) async {
+          when(() => bloc.state)
+              .thenReturn(BlogOverviewLoaded(previews: previews));
           await tester.pumpApp(
             BlocProvider<BlogOverviewBloc>.value(
               value: bloc,
@@ -88,6 +88,8 @@ void main() {
         testWidgets(
           'tapping on card navigates to blog detail page',
           (tester) async {
+            when(() => bloc.state)
+                .thenReturn(BlogOverviewLoaded(previews: previews));
             final router = MockGoRouter();
             when(() => router.go(any())).thenAnswer((_) async {});
             await tester.pumpApp(

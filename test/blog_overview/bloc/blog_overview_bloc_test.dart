@@ -30,7 +30,7 @@ void main() {
           );
         },
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
-        act: (bloc) => bloc.add(BlogOverviewPostsRequested()),
+        act: (bloc) => bloc.add(const BlogOverviewPostsRequested()),
         expect: () => <BlogOverviewState>[
           BlogOverviewLoading(),
           BlogOverviewLoaded(
@@ -45,7 +45,7 @@ void main() {
         setUp: () => when(blogRepository.getBlogPreviews)
             .thenThrow(Exception(failureMessage)),
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
-        act: (bloc) => bloc.add(BlogOverviewPostsRequested()),
+        act: (bloc) => bloc.add(const BlogOverviewPostsRequested()),
         expect: () => <BlogOverviewState>[
           BlogOverviewLoading(),
           BlogOverviewFailure(message: 'Exception: $failureMessage'),
@@ -60,7 +60,7 @@ void main() {
           ApiRequestFailure(statusCode: 404, body: 'Not Found'),
         ),
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
-        act: (bloc) => bloc.add(BlogOverviewPostsRequested()),
+        act: (bloc) => bloc.add(const BlogOverviewPostsRequested()),
         expect: () => <BlogOverviewState>[
           BlogOverviewLoading(),
           BlogOverviewFailure(message: 'Not Found'),

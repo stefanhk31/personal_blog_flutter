@@ -26,7 +26,7 @@ class BlogDetailPage extends StatelessWidget {
       create: (context) => BlogDetailBloc(
         blogRepository: context.read<BlogRepository>(),
         slug: slug,
-      )..add(BlogDetailRequested()),
+      )..add(const BlogDetailRequested()),
       child: const BlogDetailView(),
     );
   }
@@ -126,6 +126,9 @@ class _BlogDetailContent extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
               },
+              onLinkTap: (url, attributes, element) => context
+                  .read<BlogDetailBloc>()
+                  .add(BlogLinkClicked(url: url ?? '')),
             ),
           ],
         ),

@@ -87,6 +87,22 @@ void main() {
         );
         expect(find.byType(Hero), findsOneWidget);
       });
+
+      testWidgets('clicking on HTML hyperlink adds BlogLinkClicked event',
+          (tester) async {
+        when(() => bloc.state).thenReturn(
+          BlogDetailLoaded(detail: _blogDetailWithHyperlink),
+        );
+        await tester.pumpApp(
+          BlocProvider<BlogDetailBloc>.value(
+            value: bloc,
+            child: const BlogDetailView(),
+          ),
+        );
+        await tester.tap(find.byType(Html));
+        verify(() => bloc.add(const BlogLinkClicked(url: 'https://url')))
+            .called(1);
+      });
     });
   });
 }
@@ -109,4 +125,22 @@ final _blogDetailWithImage = BlogDetail(
   categories: const [],
   featuredImage: 'featuredImage',
   featuredImageAlt: 'featuredImageAlt',
+);
+
+final _blogDetailWithHyperlink = BlogDetail(
+  title: 'title',
+  published: DateTime.now(),
+  body: '<a href="https://url">body</a>',
+  slug: 'slug',
+  author: const BlogAuthor(
+    firstName: 'firstName',
+    lastName: 'lastName',
+    slug: 'slug',
+    bio: 'bio',
+    linkedinUrl: 'linkedinUrl',
+    facebookUrl: 'facebookUrl',
+    profileImage: 'profileImage',
+  ),
+  tags: const [],
+  categories: const [],
 );
