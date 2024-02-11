@@ -23,10 +23,11 @@ class Footer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-                child: Align(
-              alignment: Alignment.centerLeft,
-              child: Image.asset(imageSource),
-            )),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Image.asset(imageSource),
+              ),
+            ),
             Expanded(
               child: Text(
                 context.l10n.copyrightText(DateTime.now().year),
