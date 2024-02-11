@@ -22,7 +22,7 @@ class BlogOverviewPage extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           BlogOverviewBloc(blogRepository: context.read<BlogRepository>())
-            ..add(BlogOverviewPostsRequested()),
+            ..add(const BlogOverviewPostsRequested()),
       child: const BlogOverview(),
     );
   }

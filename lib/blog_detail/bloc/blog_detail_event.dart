@@ -1,11 +1,21 @@
 part of 'blog_detail_bloc.dart';
 
-sealed class BlogDetailEvent {}
+sealed class BlogDetailEvent extends Equatable {
+  const BlogDetailEvent();
 
-class BlogDetailRequested extends BlogDetailEvent {}
+  @override
+  List<Object> get props => [];
+}
+
+class BlogDetailRequested extends BlogDetailEvent {
+  const BlogDetailRequested();
+}
 
 class BlogLinkClicked extends BlogDetailEvent {
-  BlogLinkClicked(this.url);
+  const BlogLinkClicked({required this.url});
 
   final String url;
+
+  @override
+  List<Object> get props => [url];
 }
