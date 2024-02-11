@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:personal_blog_flutter/blog_detail/bloc/blog_detail_bloc.dart';
 
@@ -6,9 +8,9 @@ void main() {
     group('BlogDetailRequested', () {
       test('supports value comparisons', () {
         expect(
-          const BlogDetailRequested(),
+          BlogDetailRequested(),
           equals(
-            const BlogDetailRequested(),
+            BlogDetailRequested(),
           ),
         );
       });
@@ -17,8 +19,8 @@ void main() {
     group('BlogLinkClicked', () {
       test('supports value comparisons', () {
         expect(
-          const BlogLinkClicked(url: 'url'),
-          equals(const BlogLinkClicked(url: 'url')),
+          BlogLinkClicked(url: 'url'),
+          equals(BlogLinkClicked(url: 'url')),
         );
       });
     });
