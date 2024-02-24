@@ -35,6 +35,8 @@ class BlogOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BlogOverviewBloc, BlogOverviewState>(
       builder: (context, state) {
+        // Fix coverage gap
+        // https://github.com/stefanhk31/personal_blog_flutter/issues/43
         // coverage:ignore-start
         return switch (state) {
           // coverage:ignore-end
