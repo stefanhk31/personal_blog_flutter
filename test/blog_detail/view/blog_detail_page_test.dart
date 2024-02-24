@@ -100,6 +100,7 @@ void main() {
           ),
         );
         await tester.tap(find.byType(Html));
+        await tester.pumpAndSettle();
         verify(() => bloc.add(const BlogLinkClicked(url: 'https://url')))
             .called(1);
       });
