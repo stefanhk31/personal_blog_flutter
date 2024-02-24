@@ -39,8 +39,9 @@ class BlogDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BlogDetailBloc, BlogDetailState>(
       builder: (context, state) {
+        // coverage:ignore-start
         return switch (state) {
-          //coverage:ignore-line
+          // coverage:ignore-end
           BlogDetailInitial() || BlogDetailLoading() => const Center(
               child: CircularProgressIndicator(),
             ),
