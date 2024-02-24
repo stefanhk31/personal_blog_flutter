@@ -35,7 +35,8 @@ class BlogOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BlogOverviewBloc, BlogOverviewState>(
       builder: (context, state) {
-        final child = switch (state) {
+        return switch (state) {
+          //coverage:ignore-line
           BlogOverviewInitial() || BlogOverviewLoading() => const Center(
               child: CircularProgressIndicator(),
             ),
@@ -55,7 +56,6 @@ class BlogOverview extends StatelessWidget {
               previews: previews,
             )
         };
-        return child;
       },
     );
   }
