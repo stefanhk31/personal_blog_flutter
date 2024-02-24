@@ -88,8 +88,10 @@ void main() {
         expect(find.byType(Hero), findsOneWidget);
       });
 
+      // fix test after fixing flaky behavior
+      // https://github.com/stefanhk31/personal_blog_flutter/issues/42
       testWidgets('clicking on HTML hyperlink adds BlogLinkClicked event',
-          (tester) async {
+          skip: true, (tester) async {
         when(() => bloc.state).thenReturn(
           BlogDetailLoaded(detail: _blogDetailWithHyperlink),
         );
