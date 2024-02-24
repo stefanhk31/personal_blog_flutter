@@ -4,47 +4,13 @@
 [![Powered by Mason](https://img.shields.io/endpoint?url=https%3A%2F%2Ftinyurl.com%2Fmason-badge)](https://github.com/felangel/mason)
 [![License: MIT][license_badge]][license_link]
 
-A Very Good Project created by Very Good CLI.
+## Introduction
 
-## Installation 💻
+This Dart package provides Read API access to [Butter CMS](https://buttercms.com/) to fetch blog content.
 
-**❗ In order to start using Butter Cms Client you must have the [Dart SDK][dart_install_link] installed on your machine.**
-
-Install via `dart pub add`:
-
-```sh
-dart pub add butter_cms_client
-```
-
----
-
-## Continuous Integration 🤖
-
-Butter Cms Client comes with a built-in [GitHub Actions workflow][github_actions_link] powered by [Very Good Workflows][very_good_workflows_link] but you can also add your preferred CI/CD solution.
-
-Out of the box, on each pull request and push, the CI `formats`, `lints`, and `tests` the code. This ensures the code remains consistent and behaves correctly as you add functionality or make changes. The project uses [Very Good Analysis][very_good_analysis_link] for a strict set of analysis options used by our team. Code coverage is enforced using the [Very Good Workflows][very_good_coverage_link].
-
----
-
-## Running Tests 🧪
-
-To run all unit tests:
-
-```sh
-dart pub global activate coverage 1.2.0
-dart test --coverage=coverage
-dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info
-```
-
-To view the generated coverage report you can use [lcov](https://github.com/linux-test-project/lcov).
-
-```sh
-# Generate Coverage Report
-genhtml coverage/lcov.info -o coverage/
-
-# Open Coverage Report
-open coverage/index.html
-```
+## Features
+- Fetch all blog posts
+- Fetch an individual blog post
 
 [dart_install_link]: https://dart.dev/get-dart
 [github_actions_link]: https://docs.github.com/en/actions/learn-github-actions
@@ -60,3 +26,4 @@ open coverage/index.html
 [very_good_ventures_link_light]: https://verygood.ventures#gh-light-mode-only
 [very_good_ventures_link_dark]: https://verygood.ventures#gh-dark-mode-only
 [very_good_workflows_link]: https://github.com/VeryGoodOpenSource/very_good_workflows
+[butter_cms_link]: https://buttercms.com/
