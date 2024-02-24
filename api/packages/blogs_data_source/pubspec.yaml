@@ -9,6 +9,8 @@ environment:
 dependencies:
   blog_models:
     path: ../blog_models
+  butter_cms_client:
+    path: ../butter_cms_client
 
 dev_dependencies:
   mocktail: ^1.0.0

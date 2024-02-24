@@ -2,4 +2,3 @@
 library butter_cms_client;
 
 export 'src/butter_cms_client.dart';
-export 'src/models/models.dart';

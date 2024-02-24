@@ -7,8 +7,8 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "packages/butter_cms_client/**"
-      - ".github/workflows/butter_cms_client.yaml"
+      - "packages/api/packages/butter_cms_client/**"
+      - ".github/workflows/api/packages/butter_cms_client.yaml"
     branches:
       - main
 
@@ -23,5 +23,5 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with: 
       coverage_excludes: "**/models/*.dart"
-      working_directory: packages/butter_cms_client
+      working_directory: packages/api/packages/butter_cms_client
 

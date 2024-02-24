@@ -9,6 +9,8 @@ environment:
 dependencies:
   api_client: 
     path: ../api_client
+  blog_models:
+    path: ../blog_models
 
 dev_dependencies:
   mocktail: ^1.0.0

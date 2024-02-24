@@ -7,12 +7,16 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  dart_frog: ^1.0.0
+  api_client:
+    path: packages/api_client
   blog_models:
     path: packages/blog_models
-  
   blogs_data_source:
     path: packages/blogs_data_source
+  butter_cms_client:
+    path: packages/butter_cms_client
+  dart_frog: ^1.0.0
+  http: ^1.2.0
 
 dev_dependencies:
   mocktail: ^1.0.0

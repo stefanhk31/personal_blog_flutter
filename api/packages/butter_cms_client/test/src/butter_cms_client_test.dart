@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:api_client/api_client.dart';
+import 'package:blog_models/blog_models.dart';
 import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
