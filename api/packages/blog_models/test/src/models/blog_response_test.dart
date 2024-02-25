@@ -1,7 +1,7 @@
 import 'package:blog_models/src/models/models.dart';
 import 'package:test/test.dart';
 
-import 'helpers/fixtures.dart';
+import '../../helpers/fixtures.dart';
 
 void main() {
   group('BlogResponse', () {

@@ -1,4 +1,4 @@
-/// A Very Good Project created by Very Good CLI.
+/// Data source for fetching blogs and sending them to the frontend.
 library blogs_data_source;
 
 export 'src/blogs_data_source.dart';
