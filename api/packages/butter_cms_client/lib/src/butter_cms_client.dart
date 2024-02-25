@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:api_client/api_client.dart';
 import 'package:blog_models/blog_models.dart';
 
@@ -15,8 +17,7 @@ class ButterCmsClient {
   Future<BlogsResponse> fetchBlogPosts({
     bool excludeBody = false,
   }) async {
-    const butterCmsApiKey =
-        '47c6eb682958695ac6eb64e7f80a1eb0d5a79d4e'; //String.fromEnvironment('BUTTER_CMS_API_KEY');
+    final butterCmsApiKey = Platform.environment['butter_cms_api_key'];
 
     final queryParameters = <String, dynamic>{
       'auth_token': butterCmsApiKey,
@@ -36,8 +37,7 @@ class ButterCmsClient {
   /// Fetches a single blog post from the ButterCMS API,
   /// given a unique [slug].
   Future<BlogResponse> fetchBlogPost({required String slug}) async {
-    const butterCmsApiKey =
-        '47c6eb682958695ac6eb64e7f80a1eb0d5a79d4e'; //String.fromEnvironment('BUTTER_CMS_API_KEY');
+    final butterCmsApiKey = Platform.environment['butter_cms_api_key'];
 
     return _apiClient.get(
       path: '/v2/posts/$slug',
