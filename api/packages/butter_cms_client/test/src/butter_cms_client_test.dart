@@ -1,20 +1,29 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_string_escapes
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:api_client/api_client.dart';
 import 'package:blog_models/blog_models.dart';
 import 'package:butter_cms_client/butter_cms_client.dart';
+import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../helpers/constants.dart';
 
-class _MockApiClient extends Mock implements ApiClient {}
+class _MockHttpClient extends Mock implements Client {}
 
 void main() {
   group('ButterCmsClient', () {
-    final apiClient = _MockApiClient();
-    final butterCmsClient = ButterCmsClient(apiClient: apiClient);
+    final httpClient = _MockHttpClient();
+    const baseUrl = 'http://127.0.0.1';
+    const apiKey = '12345';
+    final butterCmsClient = ButterCmsClient(
+      httpClient: httpClient,
+      apiKey: apiKey,
+      baseUrl: baseUrl,
+    );
+
     test('can be instantiated', () {
       expect(butterCmsClient, isNotNull);
     });

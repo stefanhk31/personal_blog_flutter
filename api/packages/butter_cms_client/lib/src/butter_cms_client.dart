@@ -1,50 +1,46 @@
-import 'dart:io';
-
-import 'package:api_client/api_client.dart';
-import 'package:blog_models/blog_models.dart';
+import 'package:http/http.dart';
 
 /// {@template butter_cms_client}
 /// Client to interact with the ButterCMS API.
 /// {@endtemplate}
 class ButterCmsClient {
   /// {@macro butter_cms_client}
-  const ButterCmsClient({required ApiClient apiClient})
-      : _apiClient = apiClient;
+  const ButterCmsClient(
+      {required Client httpClient, required String apiKey, String? baseUrl})
+      : _httpClient = httpClient,
+        _apiKey = apiKey,
+        _baseUrl = baseUrl ?? 'api.buttercms.com';
 
-  final ApiClient _apiClient;
+  final Client _httpClient;
+  final String _apiKey;
+  final String _baseUrl;
 
   /// Fetches a list of blog posts from the ButterCMS API.
-  Future<BlogsResponse> fetchBlogPosts({
+  Future<Response> fetchBlogPosts({
     bool excludeBody = false,
   }) async {
-    final butterCmsApiKey = Platform.environment['butter_cms_api_key'];
-
     final queryParameters = <String, dynamic>{
-      'auth_token': butterCmsApiKey,
+      'auth_token': _apiKey,
     };
 
     if (excludeBody) {
       queryParameters['exclude_body'] = 'true';
     }
 
-    return _apiClient.get(
-      path: '/v2/posts',
-      queryParameters: queryParameters,
-      fromJson: BlogsResponse.fromJson,
-    );
+    final uri = Uri.https(_baseUrl, '/v2/posts', queryParameters);
+
+    return _httpClient.get(uri);
   }
 
   /// Fetches a single blog post from the ButterCMS API,
   /// given a unique [slug].
-  Future<BlogResponse> fetchBlogPost({required String slug}) async {
-    final butterCmsApiKey = Platform.environment['butter_cms_api_key'];
+  Future<Response> fetchBlogPost({required String slug}) async {
+    final queryParameters = <String, dynamic>{
+      'auth_token': _apiKey,
+    };
 
-    return _apiClient.get(
-      path: '/v2/posts/$slug',
-      queryParameters: <String, dynamic>{
-        'auth_token': butterCmsApiKey,
-      },
-      fromJson: BlogResponse.fromJson,
-    );
+    final uri = Uri.https(_baseUrl, '/v2/posts/$slug', queryParameters);
+
+    return _httpClient.get(uri);
   }
 }
