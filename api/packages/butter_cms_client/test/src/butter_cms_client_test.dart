@@ -30,44 +30,43 @@ void main() {
 
     group('fetchBlogPosts', () {
       test(
-          'returns BlogsRespones '
+          'returns 200 with json blog data '
           'when the call completes successfully', () async {
         when(
-          () => apiClient.get(
-            path: any(named: 'path'),
-            fromJson: BlogsResponse.fromJson,
-            queryParameters: any(named: 'queryParameters'),
+          () => httpClient.get(
+            any(named: 'url', that: startsWith(baseUrl)),
           ),
         ).thenAnswer(
-          (_) async => BlogsResponse.fromJson(
-            jsonDecode(rawJsonBlogsResponse) as Map<String, dynamic>,
+          (_) async => Response(
+            rawJsonBlogsResponse,
+            200,
+            headers: {'content-type': 'application/json'},
           ),
         );
 
-        expect(await butterCmsClient.fetchBlogPosts(), isA<BlogsResponse>());
+        final result = await butterCmsClient.fetchBlogPosts();
+        expect(result.statusCode, equals(HttpStatus.ok));
+        expect(result.body, equals(rawJsonBlogsResponse));
       });
 
       test(
-          'returns BlogsResponse without body '
+          'returns BlogsResponse with json blog data minus body '
           'when the call completes successfully '
           'and excludeBody is true', () async {
         when(
-          () => apiClient.get(
-            path: any(named: 'path'),
-            fromJson: BlogsResponse.fromJson,
-            queryParameters: any(
-              named: 'queryParameters',
-              that: contains('exclude_body'),
-            ),
+          () => httpClient.get(
+            any(named: 'url', that: startsWith(baseUrl)),
           ),
         ).thenAnswer(
-          (_) async => BlogsResponse.fromJson(
-            jsonDecode(rawJsonBlogsResponseExcludeBody) as Map<String, dynamic>,
+          (_) async => Response(
+            rawJsonBlogsResponseExcludeBody,
+            HttpStatus.ok,
           ),
         );
 
         final result = await butterCmsClient.fetchBlogPosts(excludeBody: true);
-        expect(result.data.any((element) => element.body != null), isFalse);
+        expect(result.statusCode, equals(HttpStatus.ok));
+        expect(result.body, equals(rawJsonBlogsResponseExcludeBody));
       });
 
       test('throws exception when the call fails', () {
