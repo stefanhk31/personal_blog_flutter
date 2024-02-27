@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:blogs_data_source/blogs_data_source.dart';
+import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:dart_frog/dart_frog.dart';
 
 Future<Response> onRequest(RequestContext context) async {
@@ -11,7 +9,10 @@ Future<Response> onRequest(RequestContext context) async {
 }
 
 Future<Response> _get(RequestContext context) async {
-  final blogs = await context.read<BlogsDataSource>().getBlogs();
+  final blogsResponse = await context.read<ButterCmsClient>().fetchBlogPosts();
 
-  return Response(body: jsonEncode(blogs.toJson()));
+  return Response(
+    statusCode: blogsResponse.statusCode,
+    body: blogsResponse.body,
+  );
 }
