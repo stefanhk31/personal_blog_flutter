@@ -8,9 +8,9 @@ Handler middleware(Handler handler) {
   return handler.use(requestLogger()).use(
     provider<ButterCmsClient>(
       (_) {
-        final apiKey = Platform.environment['butter_cms_api_key']!;
+        final apiKey = Platform.environment['butter_cms_api_key'];
 
-        if (apiKey.isEmpty) {
+        if (apiKey == null || apiKey.isEmpty) {
           throw Exception('ButterCMS API key is required');
         }
 

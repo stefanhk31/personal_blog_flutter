@@ -8,16 +8,17 @@ import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-import '../../routes/index.dart' as route;
-import '../helpers/fixtures.dart';
-import '../helpers/method_not_allowed.dart';
+import '../../../routes/blogs/[slug].dart' as route;
+import '../../helpers/fixtures.dart';
+import '../../helpers/method_not_allowed.dart';
 
 class _MockRequestContext extends Mock implements RequestContext {}
 
 class _MockButterCmsClient extends Mock implements ButterCmsClient {}
 
 void main() {
-  group('index', () {
+  group('[slug]', () {
+    const slug = 'test-slug';
     group('GET /', () {
       late ButterCmsClient butterCmsClient;
 
@@ -27,22 +28,22 @@ void main() {
       test('responds with a 200', () async {
         final context = _MockRequestContext();
         final request = Request('GET', Uri.parse('http://127.0.0.1/'));
-        final blogsResponse =
-            BlogsResponse(meta: BlogsMeta(count: 1), data: [blog]);
+        final blogResponse = BlogResponse(meta: const BlogMeta(), data: blog);
         when(() => context.request).thenReturn(request);
         when(() => context.read<ButterCmsClient>()).thenReturn(butterCmsClient);
-        when(() => butterCmsClient.fetchBlogPosts()).thenAnswer(
+        when(() => butterCmsClient.fetchBlogPost(slug: any(named: 'slug')))
+            .thenAnswer(
           (_) async => http.Response(
-            jsonEncode(blogsResponse.toJson()),
+            jsonEncode(blogResponse.toJson()),
             HttpStatus.ok,
           ),
         );
-        final response = await route.onRequest(context);
+        final response = await route.onRequest(context, slug);
         expect(response.statusCode, equals(HttpStatus.ok));
         expect(
           response.body(),
           completion(
-            equals(jsonEncode(blogsResponse.toJson())),
+            equals(jsonEncode(blogResponse.toJson())),
           ),
         );
       });
@@ -50,21 +51,21 @@ void main() {
 
     test('returns 405 for unsupported methods', () async {
       final context = _MockRequestContext();
-      Future<Response> action() async => route.onRequest(context);
+      Future<Response> action() async => route.onRequest(context, slug);
 
       await testMethodNotAllowed(
         context,
-        () => route.onRequest(context),
+        () => route.onRequest(context, slug),
         'POST',
       );
       await testMethodNotAllowed(
         context,
-        () => route.onRequest(context),
+        () => route.onRequest(context, slug),
         'PUT',
       );
       await testMethodNotAllowed(
         context,
-        () => route.onRequest(context),
+        () => route.onRequest(context, slug),
         'DELETE',
       );
       await testMethodNotAllowed(
