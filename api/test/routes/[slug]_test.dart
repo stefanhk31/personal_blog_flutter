@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:blog_models/blog_models.dart';
-import 'package:blogs_data_source/blogs_data_source.dart';
+import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:dart_frog/dart_frog.dart';
+import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -13,25 +14,29 @@ import '../helpers/method_not_allowed.dart';
 
 class _MockRequestContext extends Mock implements RequestContext {}
 
-class _MockBlogsDataSource extends Mock implements BlogsDataSource {}
+class _MockButterCmsClient extends Mock implements ButterCmsClient {}
 
 void main() {
   group('[slug]', () {
     const slug = 'test-slug';
     group('GET /', () {
-      late BlogsDataSource dataSource;
+      late ButterCmsClient butterCmsClient;
 
       setUp(() {
-        dataSource = _MockBlogsDataSource();
+        butterCmsClient = _MockButterCmsClient();
       });
       test('responds with a 200', () async {
         final context = _MockRequestContext();
         final request = Request('GET', Uri.parse('http://127.0.0.1/'));
         final blogResponse = BlogResponse(meta: const BlogMeta(), data: blog);
         when(() => context.request).thenReturn(request);
-        when(() => context.read<BlogsDataSource>()).thenReturn(dataSource);
-        when(() => dataSource.getBlog(slug)).thenAnswer(
-          (_) async => blogResponse,
+        when(() => context.read<ButterCmsClient>()).thenReturn(butterCmsClient);
+        when(() => butterCmsClient.fetchBlogPost(slug: any(named: 'slug')))
+            .thenAnswer(
+          (_) async => http.Response(
+            jsonEncode(blogResponse.toJson()),
+            HttpStatus.ok,
+          ),
         );
         final response = await route.onRequest(context, slug);
         expect(response.statusCode, equals(HttpStatus.ok));
