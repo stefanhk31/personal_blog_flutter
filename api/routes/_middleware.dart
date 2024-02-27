@@ -4,19 +4,18 @@ import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:http/http.dart';
 
+import '../secrets.dart';
+
 Handler middleware(Handler handler) {
   return handler.use(requestLogger()).use(
     provider<ButterCmsClient>(
       (_) {
-        final apiKey = Platform.environment['butter_cms_api_key'];
-
-        if (apiKey == null || apiKey.isEmpty) {
-          throw Exception('ButterCMS API key is required');
-        }
+        final apiKey =
+            Platform.environment['butter_cms_api_key'] ?? butterCmsApiKey;
 
         return ButterCmsClient(
           httpClient: Client(),
-          apiKey: Platform.environment['butter_cms_api_key'] ?? '',
+          apiKey: apiKey ?? '',
         );
       },
     ),
