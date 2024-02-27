@@ -16,8 +16,7 @@ Handler middleware(Handler handler) {
 
         return ButterCmsClient(
           httpClient: Client(),
-          apiKey: Platform.environment['butter_cms_api_key']!,
-          baseUrl: 'api.buttercms.com',
+          apiKey: Platform.environment['butter_cms_api_key'] ?? '',
         );
       },
     ),
