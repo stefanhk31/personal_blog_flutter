@@ -1,5 +1,7 @@
+import 'package:equatable/equatable.dart';
+
 /// Represents a summary of a blog.
-class BlogSummary {
+class BlogSummary extends Equatable {
   /// Default constructor for a blog summary.
   BlogSummary({
     required this.slug,
@@ -24,6 +26,9 @@ class BlogSummary {
 
   /// Featured image of the blog post.
   final String featuredImage;
+
+  @override
+  List<Object?> get props => [slug, title, featuredImage];
 
   /// Converts the BlogSummary instance to a JSON map.
   Map<String, dynamic> toJson() {

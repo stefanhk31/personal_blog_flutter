@@ -1,12 +1,14 @@
 import 'package:blog_models/blog_models.dart';
 import 'package:test/test.dart';
 
-import '../../helpers/fixtures.dart';
-
 void main() {
   group('Category', () {
     test('can be instantiated', () {
       expect(category, isNotNull);
+    });
+
+    test('supports value equality', () {
+      expect(category, equals(category));
     });
 
     group('JSON Serialization', () {

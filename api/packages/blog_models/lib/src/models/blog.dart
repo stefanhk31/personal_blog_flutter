@@ -1,7 +1,8 @@
 import 'package:blog_models/src/models/models.dart';
+import 'package:equatable/equatable.dart';
 
 /// Data model for a blog post.
-class Blog {
+class Blog extends Equatable {
   /// Default constructor for a blog data model
   Blog({
     required this.created,
@@ -98,6 +99,28 @@ class Blog {
 
   /// Status of the blog post
   final String status;
+
+  @override
+  List<Object?> get props {
+    return [
+      url,
+      created,
+      updated,
+      published,
+      author,
+      categories,
+      tags,
+      featuredImage,
+      featuredImageAlt,
+      slug,
+      title,
+      body,
+      summary,
+      seoTitle,
+      metaDescription,
+      status,
+    ];
+  }
 
   /// Serialize a Blog object to a Map
   Map<String, dynamic> toJson() {

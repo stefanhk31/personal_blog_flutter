@@ -1,8 +1,6 @@
 import 'package:blog_models/blog_models.dart';
 import 'package:test/test.dart';
 
-import '../../helpers/fixtures.dart';
-
 void main() {
   group('Author', () {
     test('can be instantiated', () {
@@ -10,6 +8,10 @@ void main() {
         author,
         isNotNull,
       );
+    });
+
+    test('supports value equality', () {
+      expect(author, equals(author));
     });
 
     group('JSON Serialization', () {

@@ -1,5 +1,7 @@
+import 'package:equatable/equatable.dart';
+
 /// Data class representing metadata for a list of blog posts.
-class BlogsMeta {
+class BlogsMeta extends Equatable {
   /// Default constructor for a metadata object.
   BlogsMeta({
     required this.count,
@@ -24,6 +26,9 @@ class BlogsMeta {
 
   /// Optional page number for the previous page of blog posts
   final int? previousPage;
+
+  @override
+  List<Object?> get props => [count, nextPage, previousPage];
 
   /// Serialize a Meta object to a Map
   Map<String, dynamic> toJson() {

@@ -1,5 +1,7 @@
+import 'package:equatable/equatable.dart';
+
 /// Data model representing a tag for a blog post.
-class Tag {
+class Tag extends Equatable {
   /// Default constructor for a tag.
   const Tag({
     required this.name,
@@ -19,6 +21,9 @@ class Tag {
 
   /// The slug of the tag.
   final String slug;
+
+  @override
+  List<Object?> get props => [name, slug];
 
   /// Converts the tag object to a JSON map.
   Map<String, dynamic> toJson() {

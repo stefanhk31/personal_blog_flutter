@@ -1,5 +1,7 @@
+import 'package:equatable/equatable.dart';
+
 /// Data model representing the author of a blog post.
-class Author {
+class Author extends Equatable {
   /// Constructs a new [Author] instance.
   const Author({
     required this.firstName,
@@ -59,6 +61,22 @@ class Author {
 
   /// The profile image URL of the author.
   final String profileImage;
+
+  @override
+  List<Object?> get props {
+    return [
+      firstName,
+      lastName,
+      email,
+      slug,
+      bio,
+      title,
+      linkedinUrl,
+      facebookUrl,
+      twitterHandle,
+      profileImage,
+    ];
+  }
 
   /// Converts the [Author] instance to a JSON object.
   Map<String, dynamic> toJson() {

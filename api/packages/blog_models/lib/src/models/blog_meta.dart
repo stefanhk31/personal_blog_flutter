@@ -1,7 +1,8 @@
 import 'package:blog_models/src/models/models.dart';
+import 'package:equatable/equatable.dart';
 
 /// Data class representing metadata for a single blog post.
-class BlogMeta {
+class BlogMeta extends Equatable {
   /// Default constructor for a single blog post metadata.
   const BlogMeta({
     this.nextPost,
@@ -25,6 +26,9 @@ class BlogMeta {
 
   /// Optional previous post in the blog series.
   final BlogSummary? previousPost;
+
+  @override
+  List<Object?> get props => [nextPost, previousPost];
 
   /// Converts the BlogMeta instance to a JSON map.
   Map<String, dynamic> toJson() {

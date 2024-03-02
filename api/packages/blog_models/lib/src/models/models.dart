@@ -7,3 +7,4 @@ export 'blogs_meta.dart';
 export 'blogs_response.dart';
 export 'category.dart';
 export 'tag.dart';
+export 'test_fixtures.dart';

@@ -11,6 +11,10 @@ void main() {
       );
     });
 
+    test('supports value equality', () {
+      expect(blogMeta, equals(blogMeta));
+    });
+
     group('JSON Serialization', () {
       final blogMetaJson = {
         'next_post': null,

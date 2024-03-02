@@ -1,7 +1,8 @@
 import 'package:blog_models/src/models/models.dart';
+import 'package:equatable/equatable.dart';
 
 /// Data model for the API response containing a single blog post.
-class BlogResponse {
+class BlogResponse extends Equatable {
   /// Default constructor for a single blog post.
   BlogResponse({
     required this.meta,
@@ -21,6 +22,9 @@ class BlogResponse {
 
   /// Blog post contained in the Blog Response.
   final Blog data;
+
+  @override
+  List<Object?> get props => [meta, data];
 
   /// Convert the BlogResponse object to a JSON map.
   Map<String, dynamic> toJson() {

@@ -13,6 +13,10 @@ void main() {
       expect(blogSummary, isNotNull);
     });
 
+    test('supports value equality', () {
+      expect(blogSummary, equals(blogSummary));
+    });
+
     group('JSON serialization', () {
       final blogSummaryJson = {
         'slug': 'example-slug',

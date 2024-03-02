@@ -9,6 +9,10 @@ void main() {
       expect(blogsMeta, isNotNull);
     });
 
+    test('supports value equality', () {
+      expect(blogsMeta, equals(blogsMeta));
+    });
+
     group('JSON Serialization', () {
       final blogsMetaJson = {
         'count': 1,
