@@ -40,7 +40,7 @@ void main() {
 
     group('getBlogDetail', () {
       test('gets blog detail on successful api call', () async {
-        when(() => blogApi.getBlog(any(named: 'slug')))
+        when(() => blogApi.getBlog(any(that: isA<String>())))
             .thenAnswer((_) async => _blogResponse);
 
         expect(
@@ -50,7 +50,8 @@ void main() {
       });
 
       test('rethrows on failed api call', () async {
-        when(() => blogApi.getBlog(any(named: 'slug'))).thenThrow(Exception());
+        when(() => blogApi.getBlog(any(that: isA<String>())))
+            .thenThrow(Exception());
 
         expect(
           () async => blogRepository.getBlogDetail(slug: 'slug'),

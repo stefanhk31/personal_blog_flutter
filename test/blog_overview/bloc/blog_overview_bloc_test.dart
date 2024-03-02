@@ -59,14 +59,14 @@ void main() {
         setUp: () => when(blogRepository.getBlogPreviews).thenThrow(
           const BlogApiClientFailure(
             statusCode: 404,
-            error: {'error': 'Not Found'},
+            error: 'Not Found',
           ),
         ),
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
         act: (bloc) => bloc.add(const BlogOverviewPostsRequested()),
         expect: () => <BlogOverviewState>[
           BlogOverviewLoading(),
-          BlogOverviewFailure(error: 'Not Found'),
+          BlogOverviewFailure(error: const {'error': 'Not Found'}),
         ],
       );
     });

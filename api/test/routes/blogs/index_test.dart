@@ -30,7 +30,8 @@ void main() {
             BlogsResponse(meta: const BlogsMeta(count: 1), data: [blog]);
         when(() => context.request).thenReturn(request);
         when(() => context.read<ButterCmsClient>()).thenReturn(butterCmsClient);
-        when(() => butterCmsClient.fetchBlogPosts()).thenAnswer(
+        when(() => butterCmsClient.fetchBlogPosts(excludeBody: true))
+            .thenAnswer(
           (_) async => http.Response(
             jsonEncode(blogsResponse.toJson()),
             HttpStatus.ok,

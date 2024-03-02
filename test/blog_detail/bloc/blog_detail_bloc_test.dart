@@ -70,7 +70,7 @@ void main() {
         ).thenThrow(
           const BlogApiClientFailure(
             statusCode: 404,
-            error: {'error': 'Not Found'},
+            error: 'Not Found',
           ),
         ),
         build: () => BlogDetailBloc(
@@ -80,7 +80,7 @@ void main() {
         act: (bloc) => bloc.add(const BlogDetailRequested()),
         expect: () => <BlogDetailState>[
           BlogDetailLoading(),
-          const BlogDetailFailure(error: 'Not Found'),
+          const BlogDetailFailure(error: {'error': 'Not Found'}),
         ],
       );
     });
