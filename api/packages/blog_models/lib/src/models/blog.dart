@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 /// Data model for a blog post.
 class Blog extends Equatable {
   /// Default constructor for a blog data model
-  Blog({
+  const Blog({
     required this.created,
     required this.updated,
     required this.published,

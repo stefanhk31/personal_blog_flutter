@@ -7,9 +7,9 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+  bloc: ^8.1.2
   blog_api_client:
     path: packages/blog_api_client
-  bloc: ^8.1.2
   blog_repository:
     path: packages/blog_repository
   blog_ui:

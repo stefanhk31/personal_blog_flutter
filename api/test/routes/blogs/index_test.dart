@@ -27,7 +27,7 @@ void main() {
         final context = _MockRequestContext();
         final request = Request('GET', Uri.parse('http://127.0.0.1/'));
         final blogsResponse =
-            BlogsResponse(meta: BlogsMeta(count: 1), data: [blog]);
+            BlogsResponse(meta: const BlogsMeta(count: 1), data: [blog]);
         when(() => context.request).thenReturn(request);
         when(() => context.read<ButterCmsClient>()).thenReturn(butterCmsClient);
         when(() => butterCmsClient.fetchBlogPosts()).thenAnswer(

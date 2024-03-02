@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('BlogsMeta', () {
-    final blogsMeta = BlogsMeta(count: 1);
+    const blogsMeta = BlogsMeta(count: 1);
 
     test('can be instantiated', () {
       expect(blogsMeta, isNotNull);

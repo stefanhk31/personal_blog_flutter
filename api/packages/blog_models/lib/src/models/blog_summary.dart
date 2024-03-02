@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 /// Represents a summary of a blog.
 class BlogSummary extends Equatable {
   /// Default constructor for a blog summary.
-  BlogSummary({
+  const BlogSummary({
     required this.slug,
     required this.title,
     required this.featuredImage,

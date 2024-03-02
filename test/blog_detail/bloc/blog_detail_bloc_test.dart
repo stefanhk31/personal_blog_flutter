@@ -1,5 +1,5 @@
-import 'package:api_client/api_client.dart';
 import 'package:bloc_test/bloc_test.dart';
+import 'package:blog_api_client/blog_api_client.dart';
 import 'package:blog_repository/blog_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -68,7 +68,10 @@ void main() {
             slug: any(named: 'slug'),
           ),
         ).thenThrow(
-          ApiRequestFailure(statusCode: 404, body: 'Not Found'),
+          const BlogApiClientFailure(
+            statusCode: 404,
+            error: {'error': 'Not Found'},
+          ),
         ),
         build: () => BlogDetailBloc(
           blogRepository: blogRepository,

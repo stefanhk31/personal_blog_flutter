@@ -34,7 +34,7 @@ void main() {
     group('getBlogs', () {
       final url = Uri.parse('$baseUrl/blogs');
       final response = BlogsResponse(
-        meta: BlogsMeta(count: 1),
+        meta: const BlogsMeta(count: 1),
         data: [blog],
       );
 

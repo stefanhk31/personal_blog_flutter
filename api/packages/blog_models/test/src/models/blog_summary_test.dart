@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('BlogSummary', () {
-    final blogSummary = BlogSummary(
+    const blogSummary = BlogSummary(
       slug: 'example-slug',
       title: 'Example Title',
       featuredImage: 'example-image.jpg',

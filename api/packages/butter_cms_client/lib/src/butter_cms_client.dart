@@ -5,9 +5,11 @@ import 'package:http/http.dart';
 /// {@endtemplate}
 class ButterCmsClient {
   /// {@macro butter_cms_client}
-  const ButterCmsClient(
-      {required Client httpClient, required String apiKey, String? baseUrl})
-      : _httpClient = httpClient,
+  const ButterCmsClient({
+    required Client httpClient,
+    required String apiKey,
+    String? baseUrl,
+  })  : _httpClient = httpClient,
         _apiKey = apiKey,
         _baseUrl = baseUrl ?? 'api.buttercms.com';
 

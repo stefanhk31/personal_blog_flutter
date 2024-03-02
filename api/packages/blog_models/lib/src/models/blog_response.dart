@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 /// Data model for the API response containing a single blog post.
 class BlogResponse extends Equatable {
   /// Default constructor for a single blog post.
-  BlogResponse({
+  const BlogResponse({
     required this.meta,
     required this.data,
   });
