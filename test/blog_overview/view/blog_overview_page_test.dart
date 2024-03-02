@@ -49,7 +49,7 @@ void main() {
       testWidgets('renders error view', (tester) async {
         when(() => bloc.state).thenReturn(
           BlogOverviewFailure(
-            message: failureMessage,
+            error: failureMessage,
           ),
         );
         await tester.pumpApp(

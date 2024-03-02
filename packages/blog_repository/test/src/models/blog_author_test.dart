@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:blog_models/blog_models.dart';
 import 'package:blog_repository/src/models/models.dart';
-import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -20,7 +20,7 @@ void main() {
         profileImage: 'profileImage',
       );
 
-      final blogAuthor = BlogAuthor.fromButter(author);
+      final blogAuthor = BlogAuthor.fromApi(author);
 
       expect(blogAuthor.firstName, equals(author.firstName));
       expect(blogAuthor.lastName, equals(author.lastName));

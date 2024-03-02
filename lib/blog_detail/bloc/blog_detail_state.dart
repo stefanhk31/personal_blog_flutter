@@ -12,12 +12,12 @@ final class BlogDetailInitial extends BlogDetailState {}
 final class BlogDetailLoading extends BlogDetailState {}
 
 final class BlogDetailFailure extends BlogDetailState {
-  const BlogDetailFailure({required this.message});
+  const BlogDetailFailure({required this.error});
 
-  final String message;
+  final Object error;
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [error];
 }
 
 final class BlogDetailLoaded extends BlogDetailState {

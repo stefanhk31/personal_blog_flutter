@@ -7,8 +7,10 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  butter_cms_client:
-    path: ../butter_cms_client
+  blog_api_client:
+    path: ../blog_api_client
+  blog_models:
+    path: ../../api/packages/blog_models
   equatable: ^2.0.5
 
 dev_dependencies:

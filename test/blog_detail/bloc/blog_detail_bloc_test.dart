@@ -1,5 +1,5 @@
-import 'package:api_client/api_client.dart';
 import 'package:bloc_test/bloc_test.dart';
+import 'package:blog_api_client/blog_api_client.dart';
 import 'package:blog_repository/blog_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -55,7 +55,7 @@ void main() {
         act: (bloc) => bloc.add(const BlogDetailRequested()),
         expect: () => <BlogDetailState>[
           BlogDetailLoading(),
-          const BlogDetailFailure(message: 'Exception: $failureMessage'),
+          const BlogDetailFailure(error: 'Exception: $failureMessage'),
         ],
       );
 
@@ -68,7 +68,10 @@ void main() {
             slug: any(named: 'slug'),
           ),
         ).thenThrow(
-          ApiRequestFailure(statusCode: 404, body: 'Not Found'),
+          const BlogApiClientFailure(
+            statusCode: 404,
+            error: 'Not Found',
+          ),
         ),
         build: () => BlogDetailBloc(
           blogRepository: blogRepository,
@@ -77,7 +80,7 @@ void main() {
         act: (bloc) => bloc.add(const BlogDetailRequested()),
         expect: () => <BlogDetailState>[
           BlogDetailLoading(),
-          const BlogDetailFailure(message: 'Not Found'),
+          const BlogDetailFailure(error: {'error': 'Not Found'}),
         ],
       );
     });
@@ -136,7 +139,7 @@ void main() {
         ),
         act: (bloc) => bloc.add(const BlogLinkClicked(url: 'invalid-url')),
         expect: () => const <BlogDetailState>[
-          BlogDetailFailure(message: 'Exception: $failureMessage'),
+          BlogDetailFailure(error: 'Exception: $failureMessage'),
         ],
       );
     });

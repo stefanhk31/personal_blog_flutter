@@ -27,8 +27,8 @@ void main() {
     group('BlogOverviewFailure', () {
       test('supports value comparisons', () {
         expect(
-          BlogOverviewFailure(message: 'oops'),
-          equals(BlogOverviewFailure(message: 'oops')),
+          BlogOverviewFailure(error: 'oops'),
+          equals(BlogOverviewFailure(error: 'oops')),
         );
       });
     });

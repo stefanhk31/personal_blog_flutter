@@ -1,5 +1,5 @@
+import 'package:blog_models/blog_models.dart';
 import 'package:blog_repository/src/models/models.dart';
-import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -22,8 +22,8 @@ void main() {
           twitterHandle: 'twitterHandle',
           profileImage: 'profileImage',
         ),
-        categories: [],
-        tags: [],
+        categories: const [],
+        tags: const [],
         featuredImageAlt: 'featuredImageAlt',
         slug: 'slug',
         title: 'title',
@@ -34,7 +34,7 @@ void main() {
         status: 'status',
       );
 
-      final blogDetail = BlogDetail.fromButter(blog);
+      final blogDetail = BlogDetail.fromApi(blog);
 
       expect(blogDetail.title, equals(blog.title));
       expect(blogDetail.published, equals(blog.published));

@@ -1,5 +1,5 @@
+import 'package:blog_models/blog_models.dart';
 import 'package:blog_repository/blog_repository.dart';
-import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:equatable/equatable.dart';
 
 /// Represents detailed content of a blog post.
@@ -18,15 +18,15 @@ class BlogDetail extends Equatable {
     this.url,
   });
 
-  /// Creates a [BlogDetail] from the Butter CMS [Blog] model.
+  /// Creates a [BlogDetail] from the API[Blog] model.
 
-  factory BlogDetail.fromButter(Blog blog) => BlogDetail(
+  factory BlogDetail.fromApi(Blog blog) => BlogDetail(
         title: blog.title,
         published: blog.published,
         body: blog.body ?? '',
         slug: blog.slug,
         url: blog.url,
-        author: BlogAuthor.fromButter(blog.author),
+        author: BlogAuthor.fromApi(blog.author),
         tags: blog.tags,
         categories: blog.categories,
         featuredImage: blog.featuredImage,

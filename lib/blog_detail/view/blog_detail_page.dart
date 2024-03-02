@@ -47,12 +47,12 @@ class BlogDetailView extends StatelessWidget {
           BlogDetailInitial() || BlogDetailLoading() => const Center(
               child: CircularProgressIndicator(),
             ),
-          BlogDetailFailure(message: final message) => Center(
+          BlogDetailFailure(error: final error) => Center(
               child: Container(
                 color: Theme.of(context).colorScheme.error,
                 padding: BlogSpacing.allPadding,
                 child: Text(
-                  message,
+                  error.toString(),
                   style: BlogTextStyles.errorTextStyle.copyWith(
                     color: Theme.of(context).colorScheme.onError,
                   ),

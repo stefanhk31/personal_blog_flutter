@@ -1,4 +1,4 @@
-import 'package:butter_cms_client/butter_cms_client.dart';
+import 'package:blog_models/blog_models.dart';
 import 'package:equatable/equatable.dart';
 
 /// Represents the author of a blog post.
@@ -15,8 +15,8 @@ class BlogAuthor extends Equatable {
     this.profileImage,
   });
 
-  /// Create a [BlogAuthor] from the Butter CMS [Author] model.
-  factory BlogAuthor.fromButter(Author author) => BlogAuthor(
+  /// Create a [BlogAuthor] from the API[Author] model.
+  factory BlogAuthor.fromApi(Author author) => BlogAuthor(
         firstName: author.firstName,
         lastName: author.lastName,
         slug: author.slug,

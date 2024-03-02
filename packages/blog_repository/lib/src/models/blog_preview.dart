@@ -1,4 +1,4 @@
-import 'package:butter_cms_client/butter_cms_client.dart';
+import 'package:blog_models/blog_models.dart';
 import 'package:equatable/equatable.dart';
 
 /// Represents a preview of a blog post.
@@ -14,8 +14,8 @@ class BlogPreview extends Equatable {
     this.image,
   });
 
-  /// Creates a [BlogPreview] from the Butter CMS [Blog] model.
-  factory BlogPreview.fromButter(Blog blog) => BlogPreview(
+  /// Creates a [BlogPreview] from the API[Blog] model.
+  factory BlogPreview.fromApi(Blog blog) => BlogPreview(
         title: blog.title,
         description: blog.summary,
         published: blog.published,
