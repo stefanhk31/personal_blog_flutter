@@ -2,7 +2,11 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:blog_api_client/blog_api_client.dart';
+import 'package:blog_repository/blog_repository.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart';
+import 'package:personal_blog_flutter/app/app.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -30,4 +34,11 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   // Add cross-flavor configuration here
 
   runApp(await builder());
+}
+
+FutureOr<Widget> buildApp() async {
+  final blogApi = BlogApi(baseUrl: 'localhost:8080', client: Client());
+  final blogRepository = BlogRepository(blogApi: blogApi);
+
+  return App(blogRepository: blogRepository);
 }

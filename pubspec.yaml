@@ -7,15 +7,13 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  api_client:
-    path: packages/api_client
+  blog_api_client:
+    path: packages/blog_api_client
   bloc: ^8.1.2
   blog_repository:
     path: packages/blog_repository
   blog_ui:
     path: packages/blog_ui
-  butter_cms_client:
-    path: packages/butter_cms_client
   equatable: ^2.0.5
   flutter:
     sdk: flutter
