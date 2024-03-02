@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:blog_models/blog_models.dart';
 import 'package:test/test.dart';
 
@@ -9,9 +11,9 @@ void main() {
 
     test('supports value equality', () {
       expect(
-        const Category(name: 'name', slug: 'slug'),
+        Category(name: 'name', slug: 'slug'),
         equals(
-          const Category(name: 'name', slug: 'slug'),
+          Category(name: 'name', slug: 'slug'),
         ),
       );
     });

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:blog_models/src/models/models.dart';
 import 'package:test/test.dart';
 
@@ -10,7 +12,7 @@ void main() {
     });
 
     test('supports value equality', () {
-      expect(const BlogsMeta(count: 1), equals(const BlogsMeta(count: 1)));
+      expect(BlogsMeta(count: 1), equals(BlogsMeta(count: 1)));
     });
 
     group('JSON Serialization', () {

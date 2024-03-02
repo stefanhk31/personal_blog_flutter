@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:blog_models/blog_models.dart';
 import 'package:test/test.dart';
 
@@ -12,7 +14,7 @@ void main() {
 
     test('supports value equality', () {
       expect(
-        const Author(
+        Author(
           firstName: 'John',
           lastName: 'Doe',
           email: 'johndoe@example.com',
@@ -25,7 +27,7 @@ void main() {
           profileImage: 'https://example.com/profile.jpg',
         ),
         equals(
-          const Author(
+          Author(
             firstName: 'John',
             lastName: 'Doe',
             email: 'johndoe@example.com',

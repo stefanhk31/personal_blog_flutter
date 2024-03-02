@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:blog_models/src/models/models.dart';
 import 'package:test/test.dart';
 
@@ -15,13 +17,13 @@ void main() {
 
     test('supports value equality', () {
       expect(
-        const BlogSummary(
+        BlogSummary(
           slug: 'example-slug',
           title: 'Example Title',
           featuredImage: 'example-image.jpg',
         ),
         equals(
-          const BlogSummary(
+          BlogSummary(
             slug: 'example-slug',
             title: 'Example Title',
             featuredImage: 'example-image.jpg',
