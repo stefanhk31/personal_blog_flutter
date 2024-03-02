@@ -1,9 +1,7 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:blog_models/blog_models.dart';
 
 /// Mock [Author] data. For testing purposes only.
-final author = Author(
+const author = Author(
   firstName: 'John',
   lastName: 'Doe',
   email: 'johndoe@example.com',
@@ -36,8 +34,8 @@ final blog = Blog(
   updated: DateTime.now(),
   published: DateTime.now(),
   author: author,
-  categories: [category],
-  tags: [tag],
+  categories: const [category],
+  tags: const [tag],
   featuredImageAlt: 'Featured Image',
   slug: 'my-blog-post',
   title: 'My Blog Post',
@@ -68,7 +66,7 @@ final blogJson = {
 };
 
 /// Mock [Category] data. For testing purposes only.
-final category = Category(name: 'name', slug: 'slug');
+const category = Category(name: 'name', slug: 'slug');
 
 /// Mock [Category] data in JSON format. For testing purposes only.
 final categoryJson = {
@@ -77,7 +75,7 @@ final categoryJson = {
 };
 
 /// Mock [Tag] data. For testing purposes only.
-final tag = Tag(name: 'name', slug: 'slug');
+const tag = Tag(name: 'name', slug: 'slug');
 
 /// Mock [Tag] data in JSON format. For testing purposes only.
 final tagJson = {
