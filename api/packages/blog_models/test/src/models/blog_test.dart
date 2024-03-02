@@ -8,11 +8,12 @@ void main() {
     });
 
     test('supports value equality', () {
+      final now = DateTime.now();
       expect(
         Blog(
-          created: DateTime.now(),
-          updated: DateTime.now(),
-          published: DateTime.now(),
+          created: now,
+          updated: now,
+          published: now,
           author: author,
           categories: const [category],
           tags: const [tag],
@@ -24,7 +25,23 @@ void main() {
           metaDescription: 'Meta Description',
           status: 'published',
         ),
-        equals(blog),
+        equals(
+          Blog(
+            created: now,
+            updated: now,
+            published: now,
+            author: author,
+            categories: const [category],
+            tags: const [tag],
+            featuredImageAlt: 'Featured Image',
+            slug: 'my-blog-post',
+            title: 'My Blog Post',
+            summary: 'This is a summary of my blog post.',
+            seoTitle: 'SEO Title',
+            metaDescription: 'Meta Description',
+            status: 'published',
+          ),
+        ),
       );
     });
 
