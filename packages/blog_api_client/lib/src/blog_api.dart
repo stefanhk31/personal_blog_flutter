@@ -41,14 +41,10 @@ class BlogApi {
     required Uri uri,
     required FromJson<T> fromJson,
     String method = 'GET',
-    Object? requestBody,
   }) async {
     try {
       final request = Request(method.toUpperCase(), uri);
 
-      if (requestBody != null) {
-        request.bodyBytes = utf8.encode(jsonEncode(requestBody));
-      }
       final responseStream = await _client.send(request);
       final response = await Response.fromStream(responseStream);
       final responseBody = response.json;
