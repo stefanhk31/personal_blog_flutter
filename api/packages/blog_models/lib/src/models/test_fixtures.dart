@@ -65,6 +65,20 @@ final blogJson = {
   'status': blog.status,
 };
 
+/// Mock [BlogSummary] data. For testing purposes only.
+const blogSummary = BlogSummary(
+  slug: 'my-blog-post',
+  title: 'My Blog Post',
+  featuredImage: 'https://example.com/featured-image.jpg',
+);
+
+/// Mock [BlogSummary] data in JSON format. For testing purposes only.
+const blogSummaryJson = {
+  'slug': 'my-blog-post',
+  'title': 'My Blog Post',
+  'featured_image': 'https://example.com/featured-image.jpg',
+};
+
 /// Mock [Category] data. For testing purposes only.
 const category = Category(name: 'name', slug: 'slug');
 
