@@ -7,8 +7,6 @@ import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-import '../helpers/fixtures.dart';
-
 class _MockBlogApiClient extends Mock implements BlogApiClient {}
 
 void main() {
@@ -61,8 +59,212 @@ void main() {
           equals(response),
         );
       });
+
+      test('throws BlogApiMalformedResponse when body is malformed', () async {
+        when(
+          () => client.send(
+            any(
+              that: isA<Request>()
+                  .having((req) => req.method, 'method', 'GET')
+                  .having((req) => req.url, 'url', url),
+            ),
+          ),
+        ).thenAnswer(
+          (_) async => StreamedResponse(
+            Stream.value(utf8.encode('')),
+            HttpStatus.ok,
+          ),
+        );
+
+        expect(
+          () async => blogApi.getBlogs(),
+          throwsA(isA<BlogApiClientMalformedResponse>()),
+        );
+      });
+
+      test(
+        'throws BlogApiClientFailure when response is not successful',
+        () {
+          when(
+            () => client.send(
+              any(
+                that: isA<Request>()
+                    .having((req) => req.method, 'method', 'GET')
+                    .having((req) => req.url, 'url', url),
+              ),
+            ),
+          ).thenAnswer(
+            (_) async => StreamedResponse(
+              Stream.value(utf8.encode(jsonEncode({}))),
+              HttpStatus.internalServerError,
+            ),
+          );
+
+          expect(
+            () async => blogApi.getBlogs(),
+            throwsA(
+              isA<BlogApiClientFailure>()
+                  .having(
+                (f) => f.statusCode,
+                'statusCode',
+                HttpStatus.internalServerError,
+              )
+                  .having(
+                (f) => f.body,
+                'body',
+                {'error': <String, dynamic>{}},
+              ),
+            ),
+          );
+        },
+      );
+
+      test(
+          'throws BlogApiClientFailure with a 500 '
+          'when an unexpected exception occurs', () async {
+        final exception = Exception('unexpected exception');
+        when(
+          () => client.send(
+            any(
+              that: isA<Request>()
+                  .having((req) => req.method, 'method', 'GET')
+                  .having((req) => req.url, 'url', url),
+            ),
+          ),
+        ).thenThrow(exception);
+
+        expect(
+          () async => blogApi.getBlogs(),
+          throwsA(
+            isA<BlogApiClientFailure>()
+                .having(
+              (f) => f.statusCode,
+              'statusCode',
+              HttpStatus.internalServerError,
+            )
+                .having((f) => f.body, 'body', {
+              'error': exception,
+            }),
+          ),
+        );
+      });
     });
 
-    group('getBlog', () {});
+    group('getBlog', () {
+      const slug = 'example-slug';
+      final url = Uri.parse('$baseUrl/blogs/$slug');
+      final response = BlogResponse(meta: const BlogMeta(), data: blog);
+
+      test('returns a blog response on a 200 response', () async {
+        when(
+          () => client.send(
+            any(
+              that: isA<Request>()
+                  .having((req) => req.method, 'method', 'GET')
+                  .having((req) => req.url, 'url', url),
+            ),
+          ),
+        ).thenAnswer(
+          (_) async => StreamedResponse(
+            Stream.value(utf8.encode(jsonEncode(response))),
+            HttpStatus.ok,
+          ),
+        );
+
+        expect(
+          await blogApi.getBlog(slug),
+          equals(response),
+        );
+      });
+
+      test('throws BlogApiMalformedResponse when body is malformed', () async {
+        when(
+          () => client.send(
+            any(
+              that: isA<Request>()
+                  .having((req) => req.method, 'method', 'GET')
+                  .having((req) => req.url, 'url', url),
+            ),
+          ),
+        ).thenAnswer(
+          (_) async => StreamedResponse(
+            Stream.value(utf8.encode('')),
+            HttpStatus.ok,
+          ),
+        );
+
+        expect(
+          () async => blogApi.getBlog(slug),
+          throwsA(isA<BlogApiClientMalformedResponse>()),
+        );
+      });
+
+      test(
+        'throws BlogApiClientFailure when response is not successful',
+        () {
+          when(
+            () => client.send(
+              any(
+                that: isA<Request>()
+                    .having((req) => req.method, 'method', 'GET')
+                    .having((req) => req.url, 'url', url),
+              ),
+            ),
+          ).thenAnswer(
+            (_) async => StreamedResponse(
+              Stream.value(utf8.encode(jsonEncode({}))),
+              HttpStatus.internalServerError,
+            ),
+          );
+
+          expect(
+            () async => blogApi.getBlog(slug),
+            throwsA(
+              isA<BlogApiClientFailure>()
+                  .having(
+                (f) => f.statusCode,
+                'statusCode',
+                HttpStatus.internalServerError,
+              )
+                  .having(
+                (f) => f.body,
+                'body',
+                {'error': <String, dynamic>{}},
+              ),
+            ),
+          );
+        },
+      );
+
+      test(
+          'throws BlogApiClientFailure with a 500 '
+          'when an unexpected exception occurs', () async {
+        final exception = Exception('unexpected exception');
+        when(
+          () => client.send(
+            any(
+              that: isA<Request>()
+                  .having((req) => req.method, 'method', 'GET')
+                  .having((req) => req.url, 'url', url),
+            ),
+          ),
+        ).thenThrow(exception);
+
+        expect(
+          () async => blogApi.getBlog(slug),
+          throwsA(
+            isA<BlogApiClientFailure>()
+                .having(
+              (f) => f.statusCode,
+              'statusCode',
+              HttpStatus.internalServerError,
+            )
+                .having((f) => f.body, 'body', {
+              'error': exception,
+            }),
+          ),
+        );
+      });
+    });
   });
 }
