@@ -1,4 +1,4 @@
-import 'package:butter_cms_client/butter_cms_client.dart';
+import 'package:blog_models/blog_models.dart';
 import 'package:equatable/equatable.dart';
 
 /// Tag attributed to the blog post for search and filter purposes.
@@ -9,8 +9,8 @@ class BlogTag extends Equatable {
     required this.slug,
   });
 
-  /// Creates a [BlogTag] from the Butter CMS [Tag] model.
-  factory BlogTag.fromButter(Tag tag) => BlogTag(
+  /// Creates a [BlogTag] from the API[Tag] model.
+  factory BlogTag.fromApi(Tag tag) => BlogTag(
         name: tag.name,
         slug: tag.slug,
       );

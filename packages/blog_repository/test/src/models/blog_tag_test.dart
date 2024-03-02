@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:blog_models/blog_models.dart';
 import 'package:blog_repository/src/models/models.dart';
-import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -12,7 +12,7 @@ void main() {
         slug: 'slug',
       );
 
-      final blogTag = BlogTag.fromButter(tag);
+      final blogTag = BlogTag.fromApi(tag);
 
       expect(blogTag.name, equals(tag.name));
       expect(blogTag.slug, equals(tag.slug));

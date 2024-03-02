@@ -10,7 +10,7 @@ void main() {
     final apiClient = ApiClient(baseUrl: 'api.buttercms.com', client: Client());
     final butterCmsClient = ButterCmsClient(apiClient: apiClient);
     // ignore: unused_local_variable
-    final blogRepository = BlogRepository(butterCmsClient: butterCmsClient);
+    final blogRepository = BlogRepository(blogApiClient: butterCmsClient);
 
     return App(blogRepository: blogRepository);
   });

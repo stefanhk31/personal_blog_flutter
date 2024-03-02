@@ -1,5 +1,5 @@
+import 'package:blog_models/blog_models.dart';
 import 'package:blog_repository/src/models/models.dart';
-import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -34,7 +34,7 @@ void main() {
         status: 'status',
       );
 
-      final blogPreview = BlogPreview.fromButter(blog);
+      final blogPreview = BlogPreview.fromApi(blog);
 
       expect(blogPreview.title, equals(blog.title));
       expect(blogPreview.authorImage, equals(blog.author.profileImage));

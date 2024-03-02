@@ -1,4 +1,4 @@
-import 'package:butter_cms_client/butter_cms_client.dart';
+import 'package:blog_models/blog_models.dart';
 import 'package:equatable/equatable.dart';
 
 /// Category attributed to the blog post for classification purposes.
@@ -9,8 +9,8 @@ class BlogCategory extends Equatable {
     required this.slug,
   });
 
-  /// Creates a [BlogCategory] from the Butter CMS [Category] model.
-  factory BlogCategory.fromButter(Category category) => BlogCategory(
+  /// Creates a [BlogCategory] from the API[Category] model.
+  factory BlogCategory.fromApi(Category category) => BlogCategory(
         name: category.name,
         slug: category.slug,
       );
