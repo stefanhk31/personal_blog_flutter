@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:api_client/api_client.dart';
 import 'package:bloc/bloc.dart';
+import 'package:blog_api_client/blog_api_client.dart';
 import 'package:blog_repository/blog_repository.dart';
 import 'package:equatable/equatable.dart';
 // ignore: depend_on_referenced_packages
@@ -28,11 +28,11 @@ class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
       final previews = await _blogRepository.getBlogPreviews();
       emit(BlogOverviewLoaded(previews: previews));
     } on Exception catch (e) {
-      if (e is ApiRequestFailure) {
-        emit(BlogOverviewFailure(message: e.body));
+      if (e is BlogApiClientFailure) {
+        emit(BlogOverviewFailure(error: e.body));
         return;
       }
-      emit(BlogOverviewFailure(message: e.toString()));
+      emit(BlogOverviewFailure(error: e.toString()));
     }
   }
 }

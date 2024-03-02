@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:api_client/api_client.dart';
 import 'package:bloc/bloc.dart';
+import 'package:blog_api_client/blog_api_client.dart';
 import 'package:blog_repository/blog_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:personal_blog_flutter/utils/url_launcher.dart';
@@ -35,11 +35,11 @@ class BlogDetailBloc extends Bloc<BlogDetailEvent, BlogDetailState> {
       final detail = await _blogRepository.getBlogDetail(slug: _slug);
       emit(BlogDetailLoaded(detail: detail));
     } on Exception catch (e) {
-      if (e is ApiRequestFailure) {
-        emit(BlogDetailFailure(message: e.body));
+      if (e is BlogApiClientFailure) {
+        emit(BlogDetailFailure(error: e.body));
         return;
       }
-      emit(BlogDetailFailure(message: e.toString()));
+      emit(BlogDetailFailure(error: e.toString()));
     }
   }
 
@@ -52,7 +52,7 @@ class BlogDetailBloc extends Bloc<BlogDetailEvent, BlogDetailState> {
         await _urlLauncher.launchUrl(url: event.url);
       }
     } on Exception catch (e) {
-      emit(BlogDetailFailure(message: e.toString()));
+      emit(BlogDetailFailure(error: e.toString()));
     }
   }
 }

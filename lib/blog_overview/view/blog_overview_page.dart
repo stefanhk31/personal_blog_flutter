@@ -43,12 +43,12 @@ class BlogOverview extends StatelessWidget {
           BlogOverviewInitial() || BlogOverviewLoading() => const Center(
               child: CircularProgressIndicator(),
             ),
-          BlogOverviewFailure(message: final message) => Center(
+          BlogOverviewFailure(error: final error) => Center(
               child: Container(
                 color: Theme.of(context).colorScheme.error,
                 padding: BlogSpacing.allPadding,
                 child: Text(
-                  message,
+                  error.toString(),
                   style: BlogTextStyles.errorTextStyle.copyWith(
                     color: Theme.of(context).colorScheme.onError,
                   ),

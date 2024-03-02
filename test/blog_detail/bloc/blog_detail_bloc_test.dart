@@ -55,7 +55,7 @@ void main() {
         act: (bloc) => bloc.add(const BlogDetailRequested()),
         expect: () => <BlogDetailState>[
           BlogDetailLoading(),
-          const BlogDetailFailure(message: 'Exception: $failureMessage'),
+          const BlogDetailFailure(error: 'Exception: $failureMessage'),
         ],
       );
 
@@ -77,7 +77,7 @@ void main() {
         act: (bloc) => bloc.add(const BlogDetailRequested()),
         expect: () => <BlogDetailState>[
           BlogDetailLoading(),
-          const BlogDetailFailure(message: 'Not Found'),
+          const BlogDetailFailure(error: 'Not Found'),
         ],
       );
     });
@@ -136,7 +136,7 @@ void main() {
         ),
         act: (bloc) => bloc.add(const BlogLinkClicked(url: 'invalid-url')),
         expect: () => const <BlogDetailState>[
-          BlogDetailFailure(message: 'Exception: $failureMessage'),
+          BlogDetailFailure(error: 'Exception: $failureMessage'),
         ],
       );
     });

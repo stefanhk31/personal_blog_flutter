@@ -11,11 +11,11 @@ final class BlogOverviewInitial extends BlogOverviewState {}
 final class BlogOverviewLoading extends BlogOverviewState {}
 
 final class BlogOverviewFailure extends BlogOverviewState {
-  BlogOverviewFailure({required this.message});
-  final String message;
+  BlogOverviewFailure({required this.error});
+  final Object error;
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [error];
 }
 
 final class BlogOverviewLoaded extends BlogOverviewState {

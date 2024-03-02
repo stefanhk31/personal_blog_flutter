@@ -48,7 +48,7 @@ void main() {
         act: (bloc) => bloc.add(const BlogOverviewPostsRequested()),
         expect: () => <BlogOverviewState>[
           BlogOverviewLoading(),
-          BlogOverviewFailure(message: 'Exception: $failureMessage'),
+          BlogOverviewFailure(error: 'Exception: $failureMessage'),
         ],
       );
 
@@ -63,7 +63,7 @@ void main() {
         act: (bloc) => bloc.add(const BlogOverviewPostsRequested()),
         expect: () => <BlogOverviewState>[
           BlogOverviewLoading(),
-          BlogOverviewFailure(message: 'Not Found'),
+          BlogOverviewFailure(error: 'Not Found'),
         ],
       );
     });
