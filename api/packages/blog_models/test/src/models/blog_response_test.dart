@@ -5,21 +5,7 @@ void main() {
   group('BlogResponse', () {
     final blogResponse = BlogResponse(
       meta: const BlogMeta(),
-      data: Blog(
-        created: DateTime.now(),
-        updated: DateTime.now(),
-        published: DateTime.now(),
-        author: author,
-        categories: const [category],
-        tags: const [tag],
-        featuredImageAlt: 'Blog Image',
-        slug: 'my-blog-post',
-        title: 'My Blog Post',
-        summary: 'This is a summary of my blog post.',
-        seoTitle: 'SEO Title',
-        metaDescription: 'Meta Description',
-        status: 'published',
-      ),
+      data: blog,
     );
 
     test('can be instantiated', () {
@@ -27,7 +13,13 @@ void main() {
     });
 
     test('supports value equality', () {
-      expect(blogResponse, equals(blogResponse));
+      expect(
+        BlogResponse(
+          meta: const BlogMeta(),
+          data: blog,
+        ),
+        equals(blogResponse),
+      );
     });
 
     group('JSON serialization', () {

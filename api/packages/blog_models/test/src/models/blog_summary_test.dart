@@ -14,7 +14,14 @@ void main() {
     });
 
     test('supports value equality', () {
-      expect(blogSummary, equals(blogSummary));
+      expect(
+        const BlogSummary(
+          slug: 'example-slug',
+          title: 'Example Title',
+          featuredImage: 'example-image.jpg',
+        ),
+        equals(blogSummary),
+      );
     });
 
     group('JSON serialization', () {

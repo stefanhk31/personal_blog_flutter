@@ -11,7 +11,21 @@ void main() {
     });
 
     test('supports value equality', () {
-      expect(author, equals(author));
+      expect(
+        const Author(
+          firstName: 'John',
+          lastName: 'Doe',
+          email: 'johndoe@example.com',
+          slug: 'john-doe',
+          bio: 'Lorem ipsum dolor sit amet',
+          title: 'Software Engineer',
+          linkedinUrl: 'https://www.linkedin.com/in/johndoe',
+          facebookUrl: 'https://www.facebook.com/johndoe',
+          twitterHandle: '@johndoe',
+          profileImage: 'https://example.com/profile.jpg',
+        ),
+        equals(author),
+      );
     });
 
     group('JSON Serialization', () {
