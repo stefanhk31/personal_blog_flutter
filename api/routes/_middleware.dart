@@ -12,7 +12,8 @@ Handler middleware(Handler handler) {
 
         return ButterCmsClient(
           httpClient: Client(),
-          apiKey: apiKey ?? '',
+          //DO NOT COMMIT YOUR API KEY
+          apiKey: apiKey ?? '217069e9eb9b1fa88d049940c8120bbade3df202',
         );
       },
     ),

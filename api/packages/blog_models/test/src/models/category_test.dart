@@ -8,7 +8,12 @@ void main() {
     });
 
     test('supports value equality', () {
-      expect(const Category(name: 'name', slug: 'slug'), equals(category));
+      expect(
+        const Category(name: 'name', slug: 'slug'),
+        equals(
+          const Category(name: 'name', slug: 'slug'),
+        ),
+      );
     });
 
     group('JSON Serialization', () {

@@ -10,7 +10,7 @@ void main() {
     });
 
     test('supports value equality', () {
-      expect(const BlogsMeta(count: 1), equals(blogsMeta));
+      expect(const BlogsMeta(count: 1), equals(const BlogsMeta(count: 1)));
     });
 
     group('JSON Serialization', () {

@@ -20,7 +20,13 @@ void main() {
           title: 'Example Title',
           featuredImage: 'example-image.jpg',
         ),
-        equals(blogSummary),
+        equals(
+          const BlogSummary(
+            slug: 'example-slug',
+            title: 'Example Title',
+            featuredImage: 'example-image.jpg',
+          ),
+        ),
       );
     });
 

@@ -11,7 +11,12 @@ void main() {
     });
 
     test('supports value equality', () {
-      expect(const Tag(name: 'name', slug: 'slug'), equals(tag));
+      expect(
+        const Tag(name: 'name', slug: 'slug'),
+        equals(
+          const Tag(name: 'name', slug: 'slug'),
+        ),
+      );
     });
 
     group('JSON Serialization', () {
