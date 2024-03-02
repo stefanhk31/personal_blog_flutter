@@ -8,7 +8,7 @@ Handler middleware(Handler handler) {
   return handler.use(requestLogger()).use(
     provider<ButterCmsClient>(
       (_) {
-        final apiKey = Platform.environment['butter_cms_api_key'];
+        final apiKey = Platform.environment['BUTTER_CMS_API_KEY'];
 
         return ButterCmsClient(
           httpClient: Client(),
