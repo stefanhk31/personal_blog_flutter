@@ -22,7 +22,7 @@ Handler middleware(Handler handler) {
       corsHeaders(
         headers: {
           ACCESS_CONTROL_ALLOW_ORIGIN:
-              Platform.environment['CORS_ALLOW_ORIGIN'] ?? '',
+              Platform.environment['CORS_ALLOW_ORIGIN'] ?? '*',
         },
       ),
     ),

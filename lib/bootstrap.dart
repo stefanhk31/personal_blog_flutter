@@ -37,7 +37,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 }
 
 FutureOr<Widget> buildApp() async {
-  final blogApi = BlogApi(baseUrl: 'localhost:8080', client: Client());
+  final blogApi = BlogApi(baseUrl: 'http://localhost:8080', client: Client());
   final blogRepository = BlogRepository(blogApi: blogApi);
 
   return App(blogRepository: blogRepository);
