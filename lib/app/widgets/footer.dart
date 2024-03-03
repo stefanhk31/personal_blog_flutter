@@ -33,7 +33,7 @@ class Footer extends StatelessWidget {
                 },
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Image.asset(imageSource),
+                  child: Image.asset(imageSource, fit: BoxFit.cover),
                 ),
               ),
             ),

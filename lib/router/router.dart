@@ -10,7 +10,7 @@ GoRouter createRouter() {
       StatefulShellRoute.indexedStack(
         builder: (context, state, navgiationShell) => Scaffold(
           body: navgiationShell,
-          bottomNavigationBar: Footer(),
+          bottomNavigationBar: const Footer(),
         ),
         branches: [
           StatefulShellBranch(
