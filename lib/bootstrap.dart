@@ -36,8 +36,12 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   runApp(await builder());
 }
 
-FutureOr<Widget> buildApp() async {
-  final blogApi = BlogApi(baseUrl: 'http://localhost:8080', client: Client());
+FutureOr<Widget> buildApp(String baseUrl) async {
+  if (baseUrl.isEmpty) {
+    throw ArgumentError('baseUrl must not be empty.');
+  }
+
+  final blogApi = BlogApi(baseUrl: baseUrl, client: Client());
   final blogRepository = BlogRepository(blogApi: blogApi);
 
   return App(blogRepository: blogRepository);
