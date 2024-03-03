@@ -1,5 +1,6 @@
 import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -72,6 +73,9 @@ void main() {
       });
 
       testWidgets('emits FooterLinkClicked', (tester) async {
+        TestWidgetsFlutterBinding.ensureInitialized();
+        await rootBundle.load('assets/images/butter_cms_white.png');
+        await tester.pumpAndSettle();
         await tester.pumpApp(
           BlocProvider(
             create: (context) => appBloc,
@@ -87,7 +91,7 @@ void main() {
 
         await tester.tap(find.byType(GestureDetector));
 
-        await tester.pumpAndSettle(const Duration(seconds: 1));
+        await tester.pumpAndSettle();
 
         verify(() => appBloc.add(const FooterLinkClicked(url: butterCmsLink)))
             .called(1);
