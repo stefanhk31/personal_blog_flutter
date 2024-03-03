@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-import '../../../lib/routes/blogs/[slug].dart' as route;
+import '../../../routes/blogs/[slug].dart' as route;
 import '../../helpers/method_not_allowed.dart';
 
 class _MockRequestContext extends Mock implements RequestContext {}
