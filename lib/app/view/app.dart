@@ -3,6 +3,7 @@ import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:personal_blog_flutter/app/bloc/app_bloc.dart';
 import 'package:personal_blog_flutter/l10n/l10n.dart';
 import 'package:personal_blog_flutter/router/router.dart';
 
@@ -29,12 +30,15 @@ class _AppState extends State<App> {
       providers: [
         RepositoryProvider.value(value: widget.blogRepository),
       ],
-      child: MaterialApp.router(
-        routerConfig: router,
-        theme: BlogTheme.lightThemeData,
-        darkTheme: BlogTheme.darkThemeData,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
+      child: BlocProvider<AppBloc>(
+        create: (context) => AppBloc(),
+        child: MaterialApp.router(
+          routerConfig: router,
+          theme: BlogTheme.lightThemeData,
+          darkTheme: BlogTheme.darkThemeData,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+        ),
       ),
     );
   }

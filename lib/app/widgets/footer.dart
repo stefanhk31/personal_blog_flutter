@@ -1,5 +1,7 @@
 import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:personal_blog_flutter/app/bloc/app_bloc.dart';
 import 'package:personal_blog_flutter/l10n/l10n.dart';
 
 /// Site-wide footer for the blog.
@@ -7,7 +9,10 @@ class Footer extends StatelessWidget {
   /// Default constructor for the footer.
   const Footer({
     super.key,
+    this.onTap,
   });
+
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +28,12 @@ class Footer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Image.asset(imageSource),
+              child: GestureDetector(
+                onTap: onTap,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Image.asset(imageSource),
+                ),
               ),
             ),
             Expanded(
@@ -43,3 +51,5 @@ class Footer extends StatelessWidget {
     );
   }
 }
+
+const butterCmsLink = 'https://buttercms.com/';
