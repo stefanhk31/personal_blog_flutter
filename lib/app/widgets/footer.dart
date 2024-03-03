@@ -9,10 +9,7 @@ class Footer extends StatelessWidget {
   /// Default constructor for the footer.
   const Footer({
     super.key,
-    this.onTap,
   });
-
-  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +26,11 @@ class Footer extends StatelessWidget {
           children: [
             Expanded(
               child: GestureDetector(
-                onTap: onTap,
+                onTap: () {
+                  context.read<AppBloc>().add(
+                        const FooterLinkClicked(url: butterCmsLink),
+                      );
+                },
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Image.asset(imageSource),
@@ -52,4 +53,4 @@ class Footer extends StatelessWidget {
   }
 }
 
-const butterCmsLink = 'https://buttercms.com/';
+const butterCmsLink = 'https://buttercms.com';

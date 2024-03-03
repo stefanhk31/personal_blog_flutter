@@ -61,25 +61,6 @@ void main() {
           findsOneWidget,
         );
       });
-
-      testWidgets('with tappable link', (tester) async {
-        var tapped = false;
-        void onTap() => tapped = true;
-
-        await tester.pumpApp(
-          Column(
-            children: [
-              Footer(
-                onTap: onTap,
-              ),
-            ],
-          ),
-        );
-
-        await tester.press(find.byType(GestureDetector));
-        await tester.pumpAndSettle();
-        expect(tapped, isTrue);
-      });
     });
 
     group('clicking on link', () {
