@@ -25,14 +25,14 @@ class Footer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  context.read<AppBloc>().add(
-                        const FooterLinkClicked(url: butterCmsLink),
-                      );
-                },
-                child: Align(
-                  alignment: Alignment.centerLeft,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: GestureDetector(
+                  onTap: () {
+                    context.read<AppBloc>().add(
+                          const FooterLinkClicked(url: butterCmsLink),
+                        );
+                  },
                   child: Image.asset(imageSource, fit: BoxFit.cover),
                 ),
               ),
