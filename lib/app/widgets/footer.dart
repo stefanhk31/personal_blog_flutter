@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_blog_flutter/app/bloc/app_bloc.dart';
 import 'package:personal_blog_flutter/l10n/l10n.dart';
 
+const butterCmsLink = 'https://buttercms.com';
+
 /// Site-wide footer for the blog.
 class Footer extends StatelessWidget {
   /// Default constructor for the footer.
@@ -13,10 +15,6 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageSource =
-        Theme.of(context).colorScheme == BlogTheme.lightColorScheme
-            ? 'assets/images/butter_cms_black.png'
-            : 'assets/images/butter_cms_white.png';
     return SizedBox(
       height: 75,
       child: Padding(
@@ -25,16 +23,18 @@ class Footer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: GestureDetector(
-                  onTap: () {
-                    context.read<AppBloc>().add(
-                          const FooterLinkClicked(url: butterCmsLink),
-                        );
-                  },
-                  child: Image.asset(imageSource, fit: BoxFit.cover),
-                ),
+              child: _FooterLogo(
+                imageSource:
+                    Theme.of(context).colorScheme == BlogTheme.lightColorScheme
+                        ? 'assets/images/butter_cms_black.png'
+                        : 'assets/images/butter_cms_white.png',
+                onTap: () {
+                  context.read<AppBloc>().add(
+                        const FooterLinkClicked(
+                          url: butterCmsLink,
+                        ),
+                      );
+                },
               ),
             ),
             Expanded(
@@ -53,4 +53,31 @@ class Footer extends StatelessWidget {
   }
 }
 
-const butterCmsLink = 'https://buttercms.com';
+class _FooterLogo extends StatelessWidget {
+  const _FooterLogo({
+    required this.imageSource,
+    this.onTap,
+  });
+
+  final String imageSource;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: SizedBox(
+        width: 300,
+        child: GestureDetector(
+          onTap: onTap,
+          child: SizedBox.expand(
+            child: Image.asset(
+              imageSource,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
