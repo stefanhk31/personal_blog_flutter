@@ -1,2 +1,2 @@
-export 'bloc/bloc/footer_bloc.dart';
+export 'cubit/footer_cubit.dart';
 export 'view/footer.dart';

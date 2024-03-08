@@ -1,4 +1,4 @@
-part of 'footer_bloc.dart';
+part of 'footer_cubit.dart';
 
 sealed class FooterState extends Equatable {
   const FooterState();
