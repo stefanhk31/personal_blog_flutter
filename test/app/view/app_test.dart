@@ -16,6 +16,13 @@ void main() {
       when(blogRepository.getBlogPreviews).thenAnswer((_) async => []);
     });
 
+    test('can be instantiated', () {
+      expect(
+        App(blogRepository: blogRepository),
+        isNotNull,
+      );
+    });
+
     testWidgets('renders BlogOverview and Footer', (tester) async {
       await tester.pumpWidget(App(blogRepository: blogRepository));
       expect(find.byType(BlogOverviewPage), findsOneWidget);

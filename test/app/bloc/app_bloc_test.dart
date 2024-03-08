@@ -22,7 +22,15 @@ void main() {
       );
     });
 
+    test('can be instantiated without urlLauncher', () {
+      expect(
+        AppBloc(),
+        isNotNull,
+      );
+    });
+
     group('when FooterLinkClicked is added', () {
+      const errorMessage = 'error';
       blocTest<AppBloc, AppState>(
         'does not emit state when link successfully launches',
         build: () => bloc,
@@ -34,6 +42,19 @@ void main() {
         },
         act: (bloc) => bloc.add(const FooterLinkClicked(url: 'url')),
         expect: () => <AppState>[],
+      );
+
+      blocTest<AppBloc, AppState>(
+        'emits Appfailure when link fails to launch',
+        build: () => bloc,
+        setUp: () {
+          when(() => urlLauncher.validateUrl(url: any(named: 'url')))
+              .thenThrow(Exception(errorMessage));
+        },
+        act: (bloc) => bloc.add(const FooterLinkClicked(url: 'url')),
+        expect: () => <AppState>[
+          const AppFailure(error: 'Exception: $errorMessage'),
+        ],
       );
     });
   });
