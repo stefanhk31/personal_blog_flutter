@@ -88,10 +88,8 @@ void main() {
         expect(find.byType(Hero), findsOneWidget);
       });
 
-      // TODO(stefanhk31): fix test after fixing flaky behavior
-      // https://github.com/stefanhk31/personal_blog_flutter/issues/42
       testWidgets('clicking on HTML hyperlink adds BlogLinkClicked event',
-          skip: true, (tester) async {
+          (tester) async {
         when(() => bloc.state).thenReturn(
           BlogDetailLoaded(detail: _blogDetailWithHyperlink),
         );
@@ -101,7 +99,10 @@ void main() {
             child: const BlogDetailView(),
           ),
         );
-        await tester.tap(find.byType(Html));
+
+        final html = tester.widget<Html>(find.byType(Html));
+        html.onLinkTap?.call('https://url', {}, null);
+
         await tester.pumpAndSettle();
         verify(() => bloc.add(const BlogLinkClicked(url: 'https://url')))
             .called(1);
@@ -133,7 +134,7 @@ final _blogDetailWithImage = BlogDetail(
 final _blogDetailWithHyperlink = BlogDetail(
   title: 'title',
   published: DateTime.now(),
-  body: '<a href="https://url">body</a>',
+  body: '<a href="https://url">This is a hyperlink</a>',
   slug: 'slug',
   author: const BlogAuthor(
     firstName: 'firstName',
