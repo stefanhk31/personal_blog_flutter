@@ -3,8 +3,10 @@ part of 'app_bloc.dart';
 sealed class AppEvent extends Equatable {
   const AppEvent();
 
+  // coverage:ignore-start
   @override
   List<Object> get props => [];
+  // coverage:ignore-end
 }
 
 class FooterLinkClicked extends AppEvent {
