@@ -1,7 +1,7 @@
 import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:personal_blog_flutter/app/bloc/app_bloc.dart';
+import 'package:personal_blog_flutter/app/widgets/widgets.dart';
 import 'package:personal_blog_flutter/l10n/l10n.dart';
 
 const butterCmsLink = 'https://buttercms.com';
@@ -12,6 +12,20 @@ class Footer extends StatelessWidget {
   const Footer({
     super.key,
   });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) {
+        return FooterBloc();
+      },
+      child: const FooterView(),
+    );
+  }
+}
+
+class FooterView extends StatelessWidget {
+  const FooterView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +43,7 @@ class Footer extends StatelessWidget {
                         ? 'assets/images/butter_cms_black.png'
                         : 'assets/images/butter_cms_white.png',
                 onTap: () {
-                  context.read<AppBloc>().add(
+                  context.read<FooterBloc>().add(
                         const FooterLinkClicked(
                           url: butterCmsLink,
                         ),

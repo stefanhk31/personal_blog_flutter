@@ -1,1 +1,1 @@
-export 'footer.dart';
+export 'footer/footer.dart';

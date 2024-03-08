@@ -1,7 +1,7 @@
-part of 'app_bloc.dart';
+part of 'footer_bloc.dart';
 
-sealed class AppEvent extends Equatable {
-  const AppEvent();
+sealed class FooterEvent extends Equatable {
+  const FooterEvent();
 
   // coverage:ignore-start
   @override
@@ -9,7 +9,7 @@ sealed class AppEvent extends Equatable {
   // coverage:ignore-end
 }
 
-class FooterLinkClicked extends AppEvent {
+class FooterLinkClicked extends FooterEvent {
   const FooterLinkClicked({
     required this.url,
   });
