@@ -8,6 +8,8 @@ import 'package:personal_blog_flutter/app/bloc/app_bloc.dart';
 import 'package:personal_blog_flutter/app/widgets/footer.dart';
 import 'package:personal_blog_flutter/blog_overview/view/blog_overview_page.dart';
 
+import '../../helpers/helpers.dart';
+
 class _MockBlogRepository extends Mock implements BlogRepository {}
 
 class _MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
@@ -32,15 +34,27 @@ void main() {
 
     testWidgets('renders', (tester) async {
       await tester.pumpWidget(
-        BlocProvider.value(
-          value: appBloc,
-          child: App(blogRepository: blogRepository),
-        ),
+        App(blogRepository: blogRepository),
       );
-      final context = tester.element(find.byType(App));
-      expect(context.read<AppBloc>(), isA<AppBloc>());
       expect(find.byType(BlogOverviewPage), findsOneWidget);
       expect(find.byType(Footer), findsOneWidget);
+    });
+
+    group('AppView', () {
+      testWidgets('provides app bloc', (tester) async {
+        await tester.pumpWidget(
+          RepositoryProvider.value(
+            value: blogRepository,
+            child: BlocProvider.value(
+              value: appBloc,
+              child: AppView(),
+            ),
+          ),
+        );
+
+        final context = tester.element(find.byType(AppView));
+        expect(context.read<AppBloc>(), isA<AppBloc>());
+      });
     });
   });
 }

@@ -22,8 +22,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  late final router = widget.router ?? createRouter();
-
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
@@ -32,14 +30,25 @@ class _AppState extends State<App> {
       ],
       child: BlocProvider<AppBloc>(
         create: (context) => AppBloc(),
-        child: MaterialApp.router(
-          routerConfig: router,
-          theme: BlogTheme.lightThemeData,
-          darkTheme: BlogTheme.darkThemeData,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-        ),
+        child: AppView(router: widget.router ?? createRouter()),
       ),
+    );
+  }
+}
+
+class AppView extends StatelessWidget {
+  AppView({GoRouter? router, super.key}) : _router = router ?? createRouter();
+
+  final GoRouter _router;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      routerConfig: _router,
+      theme: BlogTheme.lightThemeData,
+      darkTheme: BlogTheme.darkThemeData,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }
