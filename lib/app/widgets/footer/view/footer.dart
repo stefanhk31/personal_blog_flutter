@@ -16,9 +16,8 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) {
-        return FooterBloc();
-      },
+      // TODO(stefanhk31): Fix coverage gap: https://github.com/stefanhk31/personal_blog_flutter/issues/55
+      create: (context) => FooterBloc(), // coverage:ignore-line
       child: const FooterView(),
     );
   }

@@ -130,7 +130,8 @@ class _BlogDetailContent extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
               },
-              // re-enable coverage after fixing flaky behavior
+              // ignore: lines_longer_than_80_chars
+              // TODO(stefanhk31): re-enable coverage after fixing flaky behavior
               // https://github.com/stefanhk31/personal_blog_flutter/issues/42
               // coverage:ignore-start
               onLinkTap: (url, attributes, element) => context
