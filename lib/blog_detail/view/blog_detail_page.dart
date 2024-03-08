@@ -39,7 +39,7 @@ class BlogDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BlogDetailBloc, BlogDetailState>(
       builder: (context, state) {
-        // Fix coverage gap
+        // Coverage on switch is known issue: https://github.com/dart-lang/sdk/issues/54941
         // https://github.com/stefanhk31/personal_blog_flutter/issues/43
         // coverage:ignore-start
         return switch (state) {
