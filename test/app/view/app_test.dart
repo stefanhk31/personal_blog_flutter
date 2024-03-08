@@ -8,8 +8,6 @@ import 'package:personal_blog_flutter/app/bloc/app_bloc.dart';
 import 'package:personal_blog_flutter/app/widgets/footer.dart';
 import 'package:personal_blog_flutter/blog_overview/view/blog_overview_page.dart';
 
-import '../../helpers/helpers.dart';
-
 class _MockBlogRepository extends Mock implements BlogRepository {}
 
 class _MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
