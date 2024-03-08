@@ -29,7 +29,8 @@ class _AppState extends State<App> {
         RepositoryProvider.value(value: widget.blogRepository),
       ],
       child: BlocProvider<AppBloc>(
-        create: (context) => AppBloc(),
+        // fix coverage gap: https://github.com/stefanhk31/personal_blog_flutter/issues/55
+        create: (context) => AppBloc(), // coverage:ignore-line
         child: AppView(router: widget.router ?? createRouter()),
       ),
     );
