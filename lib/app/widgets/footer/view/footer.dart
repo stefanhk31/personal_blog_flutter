@@ -41,14 +41,8 @@ class FooterView extends StatelessWidget {
                     Theme.of(context).colorScheme == BlogTheme.lightColorScheme
                         ? 'assets/images/butter_cms_black.png'
                         : 'assets/images/butter_cms_white.png',
-                onTap: () {
-                  context.read<FooterCubit>().launchFooterLink(butterCmsLink);
-                  // context.read<FooterBloc>().add(
-                  //       const FooterLinkClicked(
-                  //         url: butterCmsLink,
-                  //       ),
-                  //     );
-                },
+                onTap: () =>
+                    context.read<FooterCubit>().launchFooterLink(butterCmsLink),
               ),
             ),
             Expanded(
