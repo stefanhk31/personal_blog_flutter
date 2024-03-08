@@ -16,8 +16,8 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      // TODO(stefanhk31): Fix coverage gap: https://github.com/stefanhk31/personal_blog_flutter/issues/55
-      create: (context) => FooterBloc(), // coverage:ignore-line
+      lazy: false,
+      create: (context) => FooterCubit(),
       child: const FooterView(),
     );
   }
@@ -42,11 +42,12 @@ class FooterView extends StatelessWidget {
                         ? 'assets/images/butter_cms_black.png'
                         : 'assets/images/butter_cms_white.png',
                 onTap: () {
-                  context.read<FooterBloc>().add(
-                        const FooterLinkClicked(
-                          url: butterCmsLink,
-                        ),
-                      );
+                  context.read<FooterCubit>().launchFooterLink(butterCmsLink);
+                  // context.read<FooterBloc>().add(
+                  //       const FooterLinkClicked(
+                  //         url: butterCmsLink,
+                  //       ),
+                  //     );
                 },
               ),
             ),

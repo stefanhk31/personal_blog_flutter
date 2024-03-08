@@ -10,8 +10,7 @@ import 'package:personal_blog_flutter/l10n/l10n.dart';
 
 import '../../../../helpers/helpers.dart';
 
-class _MockFooterBloc extends MockBloc<FooterEvent, FooterState>
-    implements FooterBloc {}
+class _MockFooterCubit extends MockCubit<FooterState> implements FooterCubit {}
 
 void main() {
   group('Footer', () {
@@ -29,16 +28,16 @@ void main() {
     });
 
     group('FooterView', () {
-      late FooterBloc footerBloc;
+      late FooterCubit footerCubit;
 
       setUp(() {
-        footerBloc = _MockFooterBloc();
+        footerCubit = _MockFooterCubit();
       });
       testWidgets('has correct asset when theme is light', (tester) async {
         await tester.pumpApp(
           Column(
             children: [
-              BlocProvider.value(value: footerBloc, child: const FooterView()),
+              BlocProvider.value(value: footerCubit, child: const FooterView()),
             ],
           ),
         );
@@ -53,7 +52,7 @@ void main() {
         await tester.pumpApp(
           Column(
             children: [
-              BlocProvider.value(value: footerBloc, child: const FooterView()),
+              BlocProvider.value(value: footerCubit, child: const FooterView()),
             ],
           ),
           theme: BlogTheme.darkThemeData,
@@ -69,7 +68,7 @@ void main() {
         await tester.pumpApp(
           Column(
             children: [
-              BlocProvider.value(value: footerBloc, child: const FooterView()),
+              BlocProvider.value(value: footerCubit, child: const FooterView()),
             ],
           ),
         );
@@ -82,29 +81,29 @@ void main() {
         );
       });
 
-      group('clicking on link', () {
-        testWidgets('emits FooterLinkClicked', (tester) async {
-          await tester.pumpApp(
-            Column(
-              children: [
-                BlocProvider.value(
-                  value: footerBloc,
-                  child: const FooterView(),
-                ),
-              ],
-            ),
-          );
+      testWidgets('clicking on link calls launchFooterLink', (tester) async {
+        when(
+          () => footerCubit.launchFooterLink(butterCmsLink),
+        ).thenAnswer((_) async => {});
 
-          await tester.pumpAndSettle();
+        await tester.pumpApp(
+          Column(
+            children: [
+              BlocProvider.value(
+                value: footerCubit,
+                child: const FooterView(),
+              ),
+            ],
+          ),
+        );
 
-          await tester.tap(find.byType(GestureDetector));
+        await tester.pumpAndSettle();
 
-          verify(
-            () => footerBloc.add(
-              const FooterLinkClicked(url: butterCmsLink),
-            ),
-          ).called(1);
-        });
+        await tester.tap(find.byType(GestureDetector));
+
+        verify(
+          () => footerCubit.launchFooterLink(butterCmsLink),
+        ).called(1);
       });
     });
   });
