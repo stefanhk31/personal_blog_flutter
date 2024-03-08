@@ -21,8 +21,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  late final router = widget.router ?? createRouter();
-
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
@@ -30,7 +28,7 @@ class _AppState extends State<App> {
         RepositoryProvider.value(value: widget.blogRepository),
       ],
       child: MaterialApp.router(
-        routerConfig: router,
+        routerConfig: widget.router ?? createRouter(),
         theme: BlogTheme.lightThemeData,
         darkTheme: BlogTheme.darkThemeData,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
