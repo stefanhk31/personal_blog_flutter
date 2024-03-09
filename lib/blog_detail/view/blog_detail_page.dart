@@ -72,8 +72,23 @@ class _BlogDetailContent extends StatelessWidget {
 
   final BlogDetail detail;
 
+  Style _style({
+    Color? color,
+    TextStyle? textStyle,
+  }) {
+    return Style(
+      color: color,
+      fontSize:
+          textStyle?.fontSize != null ? FontSize(textStyle!.fontSize!) : null,
+      fontStyle: textStyle?.fontStyle,
+      fontWeight: textStyle?.fontWeight,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return SingleChildScrollView(
       child: Padding(
         padding: BlogSpacing.horizontalPaddingLarge,
@@ -112,26 +127,30 @@ class _BlogDetailContent extends StatelessWidget {
                 ${detail.body}
               ''',
               style: {
-                'p': Style(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                'p': _style(
+                  color: theme.colorScheme.onPrimary,
+                  textStyle: BlogTextStyles.detailBodyTextStyle,
                 ),
-                'h1': Style(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                'h1': _style(
+                  color: theme.colorScheme.onPrimary,
+                  textStyle: BlogTextStyles.headerTextStyle,
                 ),
-                'h2': Style(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                'h2': _style(
+                  color: theme.colorScheme.onPrimary,
+                  textStyle: BlogTextStyles.headerSubtitleTextStyle,
                 ),
-                'h3': Style(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                'h3': _style(
+                  color: theme.colorScheme.onPrimary,
+                  textStyle: BlogTextStyles.cardTitle,
                 ),
-                'div': Style(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                'div': _style(color: theme.colorScheme.onPrimary),
+                'figcaption': _style(
+                  color: theme.colorScheme.onPrimary,
+                  textStyle: BlogTextStyles.footerTextStyle,
                 ),
-                'figcaption': Style(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
-                'a': Style(
-                  color: Theme.of(context).colorScheme.primary,
+                'a': _style(
+                  color: theme.colorScheme.secondary,
+                  textStyle: BlogTextStyles.detailBodyTextStyle,
                 ),
               },
               onLinkTap: (url, attributes, element) => context

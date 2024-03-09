@@ -50,4 +50,10 @@ abstract class BlogTextStyles {
     fontSize: 14,
     fontWeight: FontWeight.w500,
   );
+
+  /// Style for the body text of a detail page.
+  static const TextStyle detailBodyTextStyle = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+  );
 }
