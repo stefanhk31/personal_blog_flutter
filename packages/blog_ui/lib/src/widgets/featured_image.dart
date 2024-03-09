@@ -19,6 +19,7 @@ class FeaturedImage extends StatelessWidget {
   /// Optional tag of the image.
   final String? imageTag;
 
+  /// Optional constraints to apply to the image.
   final BoxConstraints? constraints;
 
   @override
