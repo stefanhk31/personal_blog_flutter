@@ -47,9 +47,8 @@ void main() {
         );
 
         expect(find.byType(BlogCard), findsOneWidget);
-        final hero = find.byType(Hero);
-        expect(hero, findsOneWidget);
-        expect(tester.widget<Hero>(hero).tag, equals(defaultHeroTag));
+        final image = find.byType(Image);
+        expect(image, findsOneWidget);
       });
 
       testWidgets('with image and image tag', (tester) async {
@@ -66,9 +65,9 @@ void main() {
         );
 
         expect(find.byType(BlogCard), findsOneWidget);
-        final hero = find.byType(Hero);
-        expect(hero, findsOneWidget);
-        expect(tester.widget<Hero>(hero).tag, equals('imageTag'));
+        final image = find.byType(Image);
+        expect(image, findsOneWidget);
+        expect(tester.widget<Image>(image).semanticLabel, equals('imageTag'));
       });
     });
 

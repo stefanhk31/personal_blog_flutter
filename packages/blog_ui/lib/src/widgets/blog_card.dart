@@ -2,9 +2,6 @@ import 'package:blog_ui/src/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-/// Default tag for the hero image when [BlogCard.imageTag] is not provided.
-const defaultHeroTag = 'hero-image-tag';
-
 /// Widget to display a card with a preview of a blog post.
 class BlogCard extends StatelessWidget {
   /// Default constructor for a blog card.
@@ -51,12 +48,15 @@ class BlogCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (imageUrl != null)
-              Hero(
-                tag: imageTag ?? defaultHeroTag,
-                child: Image.network(
-                  imageUrl!,
-                  fit: BoxFit.cover,
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: _BlogCardImage(
+                      imageUrl: imageUrl!,
+                      imageTag: imageTag,
+                    ),
+                  ),
+                ],
               ),
             Padding(
               padding: BlogSpacing.allPadding,
@@ -83,6 +83,30 @@ class BlogCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _BlogCardImage extends StatelessWidget {
+  const _BlogCardImage({
+    required this.imageUrl,
+    this.imageTag,
+  });
+
+  final String imageUrl;
+  final String? imageTag;
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxHeight: 200,
+      ),
+      child: Image.network(
+        imageUrl,
+        fit: BoxFit.fitWidth,
+        semanticLabel: imageTag,
       ),
     );
   }
