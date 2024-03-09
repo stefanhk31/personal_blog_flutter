@@ -1,5 +1,4 @@
 import 'package:blog_ui/blog_ui.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../helpers/pump_material.dart';
@@ -34,7 +33,7 @@ void main() {
         expect(find.text('January 1, 2024'), findsOneWidget);
       });
 
-      testWidgets('with image and default tag', (tester) async {
+      testWidgets('with image', (tester) async {
         await tester.pumpMaterial(
           BlogCard(
             title: 'title',
@@ -47,8 +46,7 @@ void main() {
         );
 
         expect(find.byType(BlogCard), findsOneWidget);
-        final image = find.byType(Image);
-        expect(image, findsOneWidget);
+        expect(find.byType(FeaturedImage), findsOneWidget);
       });
 
       testWidgets('with image and image tag', (tester) async {
@@ -65,9 +63,12 @@ void main() {
         );
 
         expect(find.byType(BlogCard), findsOneWidget);
-        final image = find.byType(Image);
+        final image = find.byType(FeaturedImage);
         expect(image, findsOneWidget);
-        expect(tester.widget<Image>(image).semanticLabel, equals('imageTag'));
+        expect(
+          tester.widget<FeaturedImage>(image).imageTag,
+          equals('imageTag'),
+        );
       });
     });
 

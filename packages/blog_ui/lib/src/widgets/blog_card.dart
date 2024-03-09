@@ -1,4 +1,4 @@
-import 'package:blog_ui/src/theme/theme.dart';
+import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -51,9 +51,12 @@ class BlogCard extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: _BlogCardImage(
+                    child: FeaturedImage(
                       imageUrl: imageUrl!,
                       imageTag: imageTag,
+                      constraints: const BoxConstraints(
+                        maxHeight: 200,
+                      ),
                     ),
                   ),
                 ],
@@ -83,30 +86,6 @@ class BlogCard extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _BlogCardImage extends StatelessWidget {
-  const _BlogCardImage({
-    required this.imageUrl,
-    this.imageTag,
-  });
-
-  final String imageUrl;
-  final String? imageTag;
-
-  @override
-  Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        maxHeight: 200,
-      ),
-      child: Image.network(
-        imageUrl,
-        fit: BoxFit.fitWidth,
-        semanticLabel: imageTag,
       ),
     );
   }

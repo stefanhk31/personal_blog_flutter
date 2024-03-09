@@ -81,14 +81,18 @@ class _BlogDetailContent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (detail.featuredImage != null) ...[
-              Center(
-                child: Hero(
-                  tag: detail.slug,
-                  child: Image.network(
-                    detail.featuredImage!,
-                    fit: BoxFit.cover,
+              Row(
+                children: [
+                  Expanded(
+                    child: FeaturedImage(
+                      imageTag: detail.slug,
+                      imageUrl: detail.featuredImage!,
+                      constraints: const BoxConstraints(
+                        maxHeight: 500,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
               BlogSpacing.mediumVerticalSpacing,
             ],
