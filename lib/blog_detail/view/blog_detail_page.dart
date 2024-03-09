@@ -85,8 +85,8 @@ class _BlogDetailContent extends StatelessWidget {
                 children: [
                   Expanded(
                     child: FeaturedImage(
-                      imageTag: detail.slug,
                       imageUrl: detail.featuredImage!,
+                      imageTag: detail.slug,
                       constraints: const BoxConstraints(
                         maxHeight: 500,
                       ),

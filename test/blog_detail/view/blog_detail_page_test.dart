@@ -74,7 +74,7 @@ void main() {
         expect(find.byType(Html), findsOneWidget);
       });
 
-      testWidgets('renders hero when featured image is not null',
+      testWidgets('renders image when featured image is not null',
           (tester) async {
         when(() => bloc.state).thenReturn(
           BlogDetailLoaded(detail: _blogDetailWithImage),
@@ -85,7 +85,7 @@ void main() {
             child: const BlogDetailView(),
           ),
         );
-        expect(find.byType(Hero), findsOneWidget);
+        expect(find.byType(FeaturedImage), findsOneWidget);
       });
 
       testWidgets('clicking on HTML hyperlink adds BlogLinkClicked event',
