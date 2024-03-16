@@ -13,8 +13,7 @@ on:
 jobs:  
   deploy:
     runs-on: ubuntu-latest
-    with:
-      working_directory: api
+
     steps:      
       - name: Checkout
         uses: actions/checkout@v2
@@ -30,12 +29,12 @@ jobs:
       - name: Get package dependencies from blog models
         run: dart pub get
         with:
-          working_directory: blog_models
+          working_directory: api/packages/blog_models
       
       - name: Get package dependencies from butter CMS client
         run: dart pub get
         with:
-          working_directory: butter_cms_client
+          working_directory: api/packages/butter_cms_client
 
       - name: Get package dependencies
         run: dart pub get
@@ -44,6 +43,8 @@ jobs:
       
       - name: Build API
         run: dart_frog build
+        with: 
+          working_directory: api
           
       - name: Configure AWS credentials
         id: aws-credentials
@@ -64,7 +65,7 @@ jobs:
           ECR_REPOSITORY: personal-blog-flutter
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . 
+          docker build api/build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . 
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"  
           
