@@ -1,4 +1,9 @@
 name: deploy api
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches:
@@ -25,17 +30,17 @@ jobs:
       - name: Get package dependencies from blog models
         run: dart pub get
         with:
-          working-directory: blog_models
+          working_directory: blog_models
       
       - name: Get package dependencies from butter CMS client
         run: dart pub get
         with:
-          working-directory: butter_cms_client
+          working_directory: butter_cms_client
 
       - name: Get package dependencies
         run: dart pub get
         with: 
-          working-directory: api
+          working_directory: api
       
       - name: Build API
         run: dart_frog build
