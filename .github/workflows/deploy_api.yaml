@@ -22,13 +22,11 @@ jobs:
 
       - name: Build Dart Frog api
         uses: dart-lang/setup-dart@v1.6.2
-        with:
-          working_directory: api
       - run: dart pub global activate dart_frog_cli
       - run: cd api/packages/blog_models && dart pub get
       - run: cd api/packages/butter_cms_client && dart pub get
-      - run: cd ../../ && dart pub get
-      - run: dart_frog build
+      - run: cd api && dart pub get
+      - run: cd api && dart_frog build
           
       - name: Configure AWS credentials
         id: aws-credentials
