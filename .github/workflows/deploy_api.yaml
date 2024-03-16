@@ -1,4 +1,9 @@
 name: deploy api
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches:
@@ -8,37 +13,25 @@ on:
 jobs:  
   deploy:
     runs-on: ubuntu-latest
-    with:
-      working-directory: api
+
     steps:      
       - name: Checkout
         uses: actions/checkout@v2
         with:
           persist-credentials: false
 
-      - name: Setup Dart SDK
+      - name: Install Dart SDK
         uses: dart-lang/setup-dart@v1.6.2
         
-      - name: Setup Dart Frog
-        run: dart pub global activate dart_frog_cli
+      - run: dart pub global activate dart_frog_cli
 
-      - name: Get package dependencies from blog models
-        run: dart pub get
-        with:
-          working-directory: blog_models
-      
-      - name: Get package dependencies from butter CMS client
-        run: dart pub get
-        with:
-          working-directory: butter_cms_client
+      - run: cd api/packages/blog_models && dart pub get
 
-      - name: Get package dependencies
-        run: dart pub get
-        with: 
-          working-directory: api
-      
-      - name: Build API
-        run: dart_frog build
+      - run: cd api/packages/butter_cms_client && dart pub get
+
+      - run: cd api && dart pub get
+
+      - run: cd api && dart_frog build
           
       - name: Configure AWS credentials
         id: aws-credentials
@@ -50,7 +43,9 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1        
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: true        
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
@@ -59,7 +54,8 @@ jobs:
           ECR_REPOSITORY: personal-blog-flutter
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . 
+          cd api
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . 
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"  
           
@@ -67,7 +63,7 @@ jobs:
         id: deploy-apprunner
         uses: awslabs/amazon-app-runner-deploy@main        
         with:
-          service: app-runner-image-deploy-service
+          service: personal-blog-flutter-api
           image: ${{ steps.build-image.outputs.image }}          
           access-role-arn: ${{ secrets.ROLE_ARN }}
           runtime: NODEJS_12          
