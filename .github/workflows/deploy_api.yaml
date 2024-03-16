@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     with:
-      working-directory: api
+      working_directory: api
     steps:      
       - name: Checkout
         uses: actions/checkout@v2
