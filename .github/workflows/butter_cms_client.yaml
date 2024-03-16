@@ -1,4 +1,4 @@
-name: ci
+name: verify and test butter cms client
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
