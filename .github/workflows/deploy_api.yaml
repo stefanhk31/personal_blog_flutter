@@ -20,12 +20,17 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Build Dart Frog api
+      - name: Install Dart SDK
         uses: dart-lang/setup-dart@v1.6.2
+        
       - run: dart pub global activate dart_frog_cli
+
       - run: cd api/packages/blog_models && dart pub get
+
       - run: cd api/packages/butter_cms_client && dart pub get
+
       - run: cd api && dart pub get
+
       - run: cd api && dart_frog build
           
       - name: Configure AWS credentials
@@ -58,7 +63,7 @@ jobs:
         id: deploy-apprunner
         uses: awslabs/amazon-app-runner-deploy@main        
         with:
-          service: app-runner-image-deploy-service
+          service: personal-blog-flutter
           image: ${{ steps.build-image.outputs.image }}          
           access-role-arn: ${{ secrets.ROLE_ARN }}
           runtime: NODEJS_12          
