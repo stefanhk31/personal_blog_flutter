@@ -1,4 +1,4 @@
-name: blog_models
+name: verify and test blog models
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

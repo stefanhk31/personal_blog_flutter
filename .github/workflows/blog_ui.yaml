@@ -1,4 +1,4 @@
-name: ci
+name: verify and test blog ui
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
