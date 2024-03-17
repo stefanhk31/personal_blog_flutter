@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart';
@@ -22,10 +23,10 @@ class ButterCmsClient {
   /// Fetches a list of blog posts from the ButterCMS API.
   Future<Response> fetchBlogPosts({
     bool excludeBody = false,
-    String? apiKey,
   }) async {
+    final apiKey = Platform.environment['BUTTER_CMS_API_KEY'];
     final queryParameters = <String, dynamic>{
-      'auth_token': apiKey,
+      'auth_token': jsonDecode(apiKey!),
     };
 
     if (excludeBody) {
