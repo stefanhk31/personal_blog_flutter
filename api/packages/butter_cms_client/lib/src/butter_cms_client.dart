@@ -34,6 +34,15 @@ class ButterCmsClient {
 
     final uri = Uri.https(_baseUrl, '/v2/posts', queryParameters);
 
+    final response = await _httpClient.get(uri);
+
+    if (response.statusCode != HttpStatus.ok) {
+      return Response(
+        'uri" $uri body: ${response.body}',
+        response.statusCode,
+      );
+    }
+
     return _httpClient.get(uri);
   }
 
