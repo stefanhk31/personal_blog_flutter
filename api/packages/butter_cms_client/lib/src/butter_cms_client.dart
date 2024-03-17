@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:http/http.dart';
 
 /// {@template butter_cms_client}
@@ -22,7 +24,7 @@ class ButterCmsClient {
     bool excludeBody = false,
   }) async {
     final queryParameters = <String, dynamic>{
-      'auth_token': _apiKey,
+      'auth_token': Platform.environment['BUTTER_CMS_API_KEY'],
     };
 
     if (excludeBody) {
@@ -38,7 +40,7 @@ class ButterCmsClient {
   /// given a unique [slug].
   Future<Response> fetchBlogPost({required String slug}) async {
     final queryParameters = <String, dynamic>{
-      'auth_token': _apiKey,
+      'auth_token': Platform.environment['BUTTER_CMS_API_KEY'],
     };
 
     final uri = Uri.https(_baseUrl, '/v2/posts/$slug', queryParameters);
