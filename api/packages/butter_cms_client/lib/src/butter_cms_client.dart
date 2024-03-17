@@ -23,8 +23,9 @@ class ButterCmsClient {
   Future<Response> fetchBlogPosts({
     bool excludeBody = false,
   }) async {
+    final apiKey = Platform.environment['BUTTER_CMS_API_KEY'];
     final queryParameters = <String, dynamic>{
-      'auth_token': Platform.environment['BUTTER_CMS_API_KEY'],
+      'auth_token': apiKey,
     };
 
     if (excludeBody) {
@@ -39,8 +40,9 @@ class ButterCmsClient {
   /// Fetches a single blog post from the ButterCMS API,
   /// given a unique [slug].
   Future<Response> fetchBlogPost({required String slug}) async {
+    final apiKey = Platform.environment['BUTTER_CMS_API_KEY'];
     final queryParameters = <String, dynamic>{
-      'auth_token': Platform.environment['BUTTER_CMS_API_KEY'],
+      'auth_token': apiKey,
     };
 
     final uri = Uri.https(_baseUrl, '/v2/posts/$slug', queryParameters);
