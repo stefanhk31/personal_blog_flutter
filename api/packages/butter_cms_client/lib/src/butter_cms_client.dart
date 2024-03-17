@@ -25,8 +25,10 @@ class ButterCmsClient {
     bool excludeBody = false,
   }) async {
     var apiKey = Platform.environment['BUTTER_CMS_API_KEY'];
+
     if (apiKey != null) {
-      apiKey = jsonDecode(apiKey) as String;
+      final apiKeyMap = jsonDecode(apiKey) as Map<String, dynamic>;
+      apiKey = apiKeyMap['BUTTER_CMS_API_KEY'] as String;
     }
     final queryParameters = <String, dynamic>{
       'auth_token': apiKey,
