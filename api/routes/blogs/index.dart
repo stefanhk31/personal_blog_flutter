@@ -14,6 +14,12 @@ Future<Response> onRequest(RequestContext context) async {
 
 Future<Response> _get(RequestContext context) async {
   final apiKey = Platform.environment['BUTTER_CMS_API_KEY'];
+  if (apiKey == null) {
+    return Response(
+      statusCode: 401,
+      body: 'Unauthorized: Missing ButterCMS API key',
+    );
+  }
   final blogsResponse = await context.read<ButterCmsClient>().fetchBlogPosts(
         excludeBody: true,
         apiKey: apiKey,
