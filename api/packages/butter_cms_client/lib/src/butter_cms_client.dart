@@ -24,9 +24,12 @@ class ButterCmsClient {
   Future<Response> fetchBlogPosts({
     bool excludeBody = false,
   }) async {
-    final apiKey = Platform.environment['BUTTER_CMS_API_KEY'];
+    var apiKey = Platform.environment['BUTTER_CMS_API_KEY'];
+    if (apiKey != null) {
+      apiKey = jsonDecode(apiKey) as String;
+    }
     final queryParameters = <String, dynamic>{
-      'auth_token': jsonDecode(apiKey!),
+      'auth_token': apiKey,
     };
 
     if (excludeBody) {
