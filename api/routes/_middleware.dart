@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:butter_cms_client/butter_cms_client.dart';
@@ -9,8 +10,12 @@ Handler middleware(Handler handler) {
   return handler.use(requestLogger()).use(
     provider<ButterCmsClient>(
       (_) {
-        final apiKey = Platform.environment['BUTTER_CMS_API_KEY'];
+        var apiKey = Platform.environment['BUTTER_CMS_API_KEY'];
 
+        if (apiKey != null) {
+          final apiKeyMap = jsonDecode(apiKey) as Map<String, dynamic>;
+          apiKey = apiKeyMap['BUTTER_CMS_API_KEY'] as String;
+        }
         return ButterCmsClient(
           httpClient: Client(),
           apiKey: apiKey ?? '',
