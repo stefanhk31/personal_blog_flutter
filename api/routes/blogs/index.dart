@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:dart_frog/dart_frog.dart';
 
@@ -11,8 +13,11 @@ Future<Response> onRequest(RequestContext context) async {
 }
 
 Future<Response> _get(RequestContext context) async {
-  final blogsResponse =
-      await context.read<ButterCmsClient>().fetchBlogPosts(excludeBody: true);
+  final apiKey = Platform.environment['BUTTER_CMS_API_KEY'];
+  final blogsResponse = await context.read<ButterCmsClient>().fetchBlogPosts(
+        excludeBody: true,
+        apiKey: apiKey,
+      );
 
   return Response(
     statusCode: blogsResponse.statusCode,
