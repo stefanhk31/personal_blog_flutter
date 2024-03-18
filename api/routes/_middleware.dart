@@ -10,15 +10,22 @@ Handler middleware(Handler handler) {
   return handler.use(requestLogger()).use(
     provider<ButterCmsClient>(
       (_) {
-        var apiKey = Platform.environment['BUTTER_CMS_API_KEY'];
+        final secretJson = Platform.environment['BUTTER_CMS_API_KEY'];
 
-        if (apiKey != null) {
-          final apiKeyMap = jsonDecode(apiKey) as Map<String, dynamic>;
-          apiKey = apiKeyMap['BUTTER_CMS_API_KEY'] as String;
+        if (secretJson == null) {
+          throw StateError('Could not fetch secret BUTTER_CMS_API_KEY');
         }
+
+        final secret = jsonDecode(secretJson) as Map<String, String?>;
+        final apiKey = secret['BUTTER_CMS_API_KEY'];
+
+        if (apiKey == null) {
+          throw StateError('Could not resolve apiKey value from secret');
+        }
+
         return ButterCmsClient(
           httpClient: Client(),
-          apiKey: apiKey ?? '',
+          apiKey: apiKey,
         );
       },
     ),
