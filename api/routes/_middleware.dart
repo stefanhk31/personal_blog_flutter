@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:butter_cms_client/butter_cms_client.dart';
@@ -9,11 +10,22 @@ Handler middleware(Handler handler) {
   return handler.use(requestLogger()).use(
     provider<ButterCmsClient>(
       (_) {
-        final apiKey = Platform.environment['BUTTER_CMS_API_KEY'];
+        final secretJson = Platform.environment['BUTTER_CMS_API_KEY'];
+
+        if (secretJson == null) {
+          throw StateError('Could not fetch secret BUTTER_CMS_API_KEY');
+        }
+
+        final secret = jsonDecode(secretJson) as Map<String, String?>;
+        final apiKey = secret['BUTTER_CMS_API_KEY'];
+
+        if (apiKey == null) {
+          throw StateError('Could not resolve apiKey value from secret');
+        }
 
         return ButterCmsClient(
           httpClient: Client(),
-          apiKey: apiKey ?? '',
+          apiKey: apiKey,
         );
       },
     ),

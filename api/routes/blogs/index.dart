@@ -11,8 +11,9 @@ Future<Response> onRequest(RequestContext context) async {
 }
 
 Future<Response> _get(RequestContext context) async {
-  final blogsResponse =
-      await context.read<ButterCmsClient>().fetchBlogPosts(excludeBody: true);
+  final blogsResponse = await context.read<ButterCmsClient>().fetchBlogPosts(
+        excludeBody: true,
+      );
 
   return Response(
     statusCode: blogsResponse.statusCode,
