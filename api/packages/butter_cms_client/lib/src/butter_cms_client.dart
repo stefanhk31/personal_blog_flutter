@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:http/http.dart';
 
 /// {@template butter_cms_client}
@@ -33,24 +31,14 @@ class ButterCmsClient {
 
     final uri = Uri.https(_baseUrl, '/v2/posts', queryParameters);
 
-    final response = await _httpClient.get(uri);
-
-    if (response.statusCode != HttpStatus.ok) {
-      return Response(
-        'uri" $uri body: ${response.body}',
-        response.statusCode,
-      );
-    }
-
     return _httpClient.get(uri);
   }
 
   /// Fetches a single blog post from the ButterCMS API,
   /// given a unique [slug].
   Future<Response> fetchBlogPost({required String slug}) async {
-    final apiKey = Platform.environment['BUTTER_CMS_API_KEY'];
     final queryParameters = <String, dynamic>{
-      'auth_token': apiKey,
+      'auth_token': _apiKey,
     };
 
     final uri = Uri.https(_baseUrl, '/v2/posts/$slug', queryParameters);
