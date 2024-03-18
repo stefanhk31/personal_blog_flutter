@@ -16,8 +16,8 @@ Handler middleware(Handler handler) {
           throw StateError('Could not fetch secret BUTTER_CMS_API_KEY');
         }
 
-        final secret = jsonDecode(secretJson) as Map<String, String?>;
-        final apiKey = secret['BUTTER_CMS_API_KEY'];
+        final secret = jsonDecode(secretJson) as Map<String, dynamic>;
+        final apiKey = secret['BUTTER_CMS_API_KEY'] as String?;
 
         if (apiKey == null) {
           throw StateError('Could not resolve apiKey value from secret');
