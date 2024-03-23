@@ -43,7 +43,7 @@
       "preLaunchTask": "Start API",
       "program": "lib/main_production.dart",
       "toolArgs": [
-        "--dart-define", "BASE_URL=http://localhost:8080"
+        "--dart-define", "BASE_URL=https://tjvdjh92ap.us-east-1.awsapprunner.com"
       ],
       "args": [
         "--flavor",
