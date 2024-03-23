@@ -6,6 +6,12 @@ concurrency:
 
 on:
   push:
+    paths:
+      - "api/**"
+      - ".github/workflows/api.yaml"
+      - ".github/workflows/deploy_api.yaml"
+      - ".github/workflows/blog_models.yaml"
+      - ".github/workflows/butter_cms_client.yaml"
     branches:
       - main
   workflow_dispatch:
