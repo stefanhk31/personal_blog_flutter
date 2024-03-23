@@ -35,8 +35,8 @@ jobs:
       - name: Get Dependencies
         run: |
           cd api/packages/blog_models && dart pub get
-          cd api/packages/butter_cms_client && dart pub get
-          cd api && dart pub get
+          cd ../butter_cms_client && dart pub get
+          cd ../../ && dart pub get
 
       - name: Build API
         run: cd api && dart_frog build
