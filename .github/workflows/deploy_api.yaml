@@ -23,15 +23,17 @@ jobs:
       - name: Install Dart SDK
         uses: dart-lang/setup-dart@v1.6.2
         
-      - run: dart pub global activate dart_frog_cli
+      - name: Install Dart Frog
+        run: dart pub global activate dart_frog_cli
 
-      - run: cd api/packages/blog_models && dart pub get
+      - name: Get Dependencies
+        run: |
+          cd api/packages/blog_models && dart pub get
+          cd api/packages/butter_cms_client && dart pub get
+          cd api && dart pub get
 
-      - run: cd api/packages/butter_cms_client && dart pub get
-
-      - run: cd api && dart pub get
-
-      - run: cd api && dart_frog build
+      - name: Build API
+        run: cd api && dart_frog build
           
       - name: Configure AWS credentials
         id: aws-credentials
