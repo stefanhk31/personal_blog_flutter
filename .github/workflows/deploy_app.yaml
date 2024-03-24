@@ -50,3 +50,4 @@ jobs:
           with:
             branch: ci
             commit_message: 'ci: automated artifact update at ${{ github.sha }}'
+            push_options: '--force'
