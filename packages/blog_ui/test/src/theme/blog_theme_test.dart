@@ -16,6 +16,20 @@ void main() {
         );
       });
 
+      test('primary color is seedTextPrimaryDark', () {
+        expect(
+          BlogTheme.lightThemeData.colorScheme.primary,
+          equals(BlogColors.seedTextPrimaryDark),
+        );
+      });
+
+      test('secondary color is seedTextSecondaryDark', () {
+        expect(
+          BlogTheme.lightThemeData.colorScheme.secondary,
+          equals(BlogColors.seedTextSecondaryDark),
+        );
+      });
+
       test('visual density is adaptive platform density', () {
         expect(
           BlogTheme.lightThemeData.visualDensity,
@@ -33,6 +47,20 @@ void main() {
         expect(
           BlogTheme.darkThemeData.colorScheme.background,
           equals(BlogColors.seedDarkBackground),
+        );
+      });
+
+      test('primary color is seedTextPrimaryLight', () {
+        expect(
+          BlogTheme.darkThemeData.colorScheme.primary,
+          equals(BlogColors.seedTextPrimaryLight),
+        );
+      });
+
+      test('secondary color is seedTextSecondaryLight', () {
+        expect(
+          BlogTheme.darkThemeData.colorScheme.secondary,
+          equals(BlogColors.seedTextSecondaryLight),
         );
       });
 

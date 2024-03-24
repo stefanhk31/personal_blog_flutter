@@ -118,7 +118,7 @@ class _BlogDetailContent extends StatelessWidget {
             Text(
               DateFormat('MMMM d, yyyy').format(detail.published),
               style: BlogTextStyles.subtitleTextStyle.copyWith(
-                color: Theme.of(context).colorScheme.onSecondary,
+                color: Theme.of(context).colorScheme.secondary,
                 fontStyle: FontStyle.italic,
               ),
             ),
@@ -128,24 +128,24 @@ class _BlogDetailContent extends StatelessWidget {
               ''',
               style: {
                 'p': _style(
-                  color: theme.colorScheme.onPrimary,
+                  color: theme.colorScheme.primary,
                   textStyle: BlogTextStyles.detailBodyTextStyle,
                 ),
                 'h1': _style(
-                  color: theme.colorScheme.onPrimary,
+                  color: theme.colorScheme.primary,
                   textStyle: BlogTextStyles.headerTextStyle,
                 ),
                 'h2': _style(
-                  color: theme.colorScheme.onPrimary,
+                  color: theme.colorScheme.primary,
                   textStyle: BlogTextStyles.headerSubtitleTextStyle,
                 ),
                 'h3': _style(
-                  color: theme.colorScheme.onPrimary,
+                  color: theme.colorScheme.primary,
                   textStyle: BlogTextStyles.cardTitle,
                 ),
-                'div': _style(color: theme.colorScheme.onPrimary),
+                'div': _style(color: theme.colorScheme.primary),
                 'figcaption': _style(
-                  color: theme.colorScheme.onPrimary,
+                  color: theme.colorScheme.primary,
                   textStyle: BlogTextStyles.footerTextStyle,
                 ),
                 'a': _style(

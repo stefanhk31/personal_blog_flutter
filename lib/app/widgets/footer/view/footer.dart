@@ -49,7 +49,7 @@ class FooterView extends StatelessWidget {
               child: Text(
                 context.l10n.copyrightText(DateTime.now().year),
                 style: BlogTextStyles.footerTextStyle.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
                 textAlign: TextAlign.end,
               ),
