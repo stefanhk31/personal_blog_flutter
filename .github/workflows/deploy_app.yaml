@@ -31,6 +31,11 @@ jobs:
           with:
             ref: ci
 
+        - name: Get latest from main
+          run: |
+            git fetch origin main
+            git merge origin/main --no-edit
+
         - name: Build Web Application
           run: flutter build web -t lib/main_production.dart --dart-define BASE_URL=https://tjvdjh92ap.us-east-1.awsapprunner.com
 
