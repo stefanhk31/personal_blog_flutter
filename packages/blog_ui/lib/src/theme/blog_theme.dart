@@ -21,11 +21,15 @@ class BlogTheme {
   static ColorScheme get lightColorScheme => ColorScheme.fromSeed(
         seedColor: BlogColors.seedPurple,
         background: BlogColors.seedLightBackground,
+        primary: BlogColors.seedTextPrimaryDark,
+        secondary: BlogColors.seedTextSecondaryDark,
       );
 
   /// Color scheme that is used to generate dark theme colors.
   static ColorScheme get darkColorScheme => ColorScheme.fromSeed(
         seedColor: BlogColors.seedLightPurple,
         background: BlogColors.seedDarkBackground,
+        primary: BlogColors.seedTextPrimaryLight,
+        secondary: BlogColors.seedTextSecondaryLight,
       );
 }

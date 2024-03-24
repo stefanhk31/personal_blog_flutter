@@ -19,14 +19,14 @@ class BlogOverviewHeader extends StatelessWidget {
             Text(
               context.l10n.blogOverviewHeader.toUpperCase(),
               style: BlogTextStyles.headerTextStyle.copyWith(
-                color: Theme.of(context).colorScheme.onPrimary,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
             BlogSpacing.smallVerticalSpacing,
             Text(
               context.l10n.blogOverviewHeaderSubtitle,
               style: BlogTextStyles.headerSubtitleTextStyle.copyWith(
-                color: Theme.of(context).colorScheme.onPrimary,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ],

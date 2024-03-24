@@ -13,4 +13,16 @@ abstract class BlogColors {
 
   /// Seed light purple color for the UI.
   static const Color seedLightPurple = Color(0xFFD8B3E6);
+
+  /// Seed dark primary text color for the UI.
+  static const Color seedTextPrimaryDark = Color(0xFF333233);
+
+  /// Seed light primary text color for the UI.
+  static const Color seedTextPrimaryLight = Color(0xFFCFCFCF);
+
+  /// Seed dark secondary text color for the UI.
+  static const Color seedTextSecondaryDark = Color(0xFF6F4180);
+
+  /// Seed light secondary text color for the UI.
+  static const Color seedTextSecondaryLight = Color(0xFF8A2BE2);
 }
