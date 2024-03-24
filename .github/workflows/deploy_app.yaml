@@ -25,7 +25,12 @@ jobs:
           uses: subosito/flutter-action@v2
           with:
             channel: "stable"
-    
+
+        - name: Checkout ci branch
+          uses: actions/checkout@v2
+          with:
+            ref: ci
+
         - name: Build Web Application
           run: flutter build web -t lib/main_production.dart --dart-define BASE_URL=https://tjvdjh92ap.us-east-1.awsapprunner.com
 
@@ -38,4 +43,5 @@ jobs:
         - name: Commit the Artifact
           uses: stefanzweifel/git-auto-commit-action@v5
           with:
+            branch: ci
             commit_message: 'ci: automated artifact update at ${{ github.sha }}'
