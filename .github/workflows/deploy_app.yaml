@@ -31,10 +31,10 @@ jobs:
           with:
             ref: ci
 
-        - name: Get latest from main
+        - name: Set branch to latest from main
           run: |
             git fetch origin main
-            git merge origin/main --no-edit
+            git reset --hard origin/main
 
         - name: Build Web Application
           run: flutter build web -t lib/main_production.dart --dart-define BASE_URL=https://tjvdjh92ap.us-east-1.awsapprunner.com
@@ -50,3 +50,4 @@ jobs:
           with:
             branch: ci
             commit_message: 'ci: automated artifact update at ${{ github.sha }}'
+            push_options: '--force'
