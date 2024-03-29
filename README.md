@@ -26,7 +26,7 @@ Running the project locally requires supplying a `tasks.json` file in the `.vsco
         "options": {
           "cwd": "api",
           "env": {
-            "BUTTER_CMS_API_KEY": "butter-api-key",
+            "BUTTER_CMS_API_KEY": "{\"BUTTER_CMS_API_KEY\":\"butter-cms-key\"}",
             "CORS_ALLOW_ORIGIN": "cors-allow-origin"
           }
         },
