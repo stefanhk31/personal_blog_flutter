@@ -122,6 +122,12 @@ class _BlogDetailContent extends StatelessWidget {
                 fontStyle: FontStyle.italic,
               ),
             ),
+            Text(
+              detail.title,
+              style: BlogTextStyles.headerTextStyle.copyWith(
+                color: theme.colorScheme.primary,
+              ),
+            ),
             Html(
               data: '''
                 ${detail.body}
