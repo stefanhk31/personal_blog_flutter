@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
 
+/// {@template author}
 /// Data model representing the author of a blog post.
+/// {@endtemplate}
 class Author extends Equatable {
-  /// Constructs a new [Author] instance.
+  /// {@macro author}
   const Author({
     required this.firstName,
     required this.lastName,

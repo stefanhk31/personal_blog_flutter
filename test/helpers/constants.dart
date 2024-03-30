@@ -1,4 +1,4 @@
-import 'package:blog_repository/blog_repository.dart';
+import 'package:blog_models/blog_models.dart';
 
 const failureMessage = 'oops';
 
@@ -7,14 +7,7 @@ final dummyBlogDetail = BlogDetail(
   published: DateTime.now(),
   body: 'body',
   slug: 'slug',
-  author: const BlogAuthor(
-    firstName: 'firstName',
-    lastName: 'lastName',
-    slug: 'slug',
-    bio: 'bio',
-    linkedinUrl: 'linkedinUrl',
-    facebookUrl: 'facebookUrl',
-  ),
+  author: author,
   tags: const [],
   categories: const [],
 );

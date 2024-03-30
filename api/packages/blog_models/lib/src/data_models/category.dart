@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
 
+/// {@template category}
 /// Data model representing a blog category.
+/// {@endtemplate}
 class Category extends Equatable {
-  /// Creates a new instance of the [Category] class.
+  /// {@macro category}
   const Category({
     required this.name,
     required this.slug,

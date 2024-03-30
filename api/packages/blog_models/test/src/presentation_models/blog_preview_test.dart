@@ -1,5 +1,4 @@
 import 'package:blog_models/blog_models.dart';
-import 'package:blog_repository/src/models/models.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -34,7 +33,7 @@ void main() {
         status: 'status',
       );
 
-      final blogPreview = BlogPreview.fromApi(blog);
+      final blogPreview = BlogPreview.fromBlog(blog);
 
       expect(blogPreview.title, equals(blog.title));
       expect(blogPreview.authorImage, equals(blog.author.profileImage));

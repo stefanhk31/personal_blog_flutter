@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
 
+/// {@template blogs_meta}
 /// Data class representing metadata for a list of blog posts.
+/// {@endtemplate}
 class BlogsMeta extends Equatable {
-  /// Default constructor for a metadata object.
+  /// {@macro blogs_meta}
   const BlogsMeta({
     required this.count,
     this.nextPage,

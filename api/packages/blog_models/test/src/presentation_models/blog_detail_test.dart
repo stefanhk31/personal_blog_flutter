@@ -1,5 +1,4 @@
 import 'package:blog_models/blog_models.dart';
-import 'package:blog_repository/src/models/models.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -34,7 +33,7 @@ void main() {
         status: 'status',
       );
 
-      final blogDetail = BlogDetail.fromApi(blog);
+      final blogDetail = BlogDetail.fromBlog(blog);
 
       expect(blogDetail.title, equals(blog.title));
       expect(blogDetail.published, equals(blog.published));
@@ -48,15 +47,7 @@ void main() {
         title: 'title',
         published: published,
         body: 'body',
-        author: const BlogAuthor(
-          firstName: 'firstName',
-          lastName: 'lastName',
-          slug: 'slug',
-          bio: 'bio',
-          linkedinUrl: 'linkedinUrl',
-          facebookUrl: 'facebookUrl',
-          profileImage: 'profileImage',
-        ),
+        author: author,
         categories: const [],
         tags: const [],
         slug: 'slug',
@@ -69,15 +60,7 @@ void main() {
         title: 'title',
         published: published,
         body: 'body',
-        author: const BlogAuthor(
-          firstName: 'firstName',
-          lastName: 'lastName',
-          slug: 'slug',
-          bio: 'bio',
-          linkedinUrl: 'linkedinUrl',
-          facebookUrl: 'facebookUrl',
-          profileImage: 'profileImage',
-        ),
+        author: author,
         categories: const [],
         tags: const [],
         slug: 'slug',

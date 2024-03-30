@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:blog_models/src/models/models.dart';
+import 'package:blog_models/src/data_models/data_models.dart';
 import 'package:test/test.dart';
 
 void main() {

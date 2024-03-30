@@ -1,10 +1,11 @@
 import 'package:blog_models/blog_models.dart';
-import 'package:blog_repository/blog_repository.dart';
 import 'package:equatable/equatable.dart';
 
+/// {@template blog_detail}
 /// Represents detailed content of a blog post.
+/// {@endtemplate}
 class BlogDetail extends Equatable {
-  /// Default constructor for a blog detail.
+  /// {@macro blog_detail}
   const BlogDetail({
     required this.title,
     required this.published,
@@ -18,15 +19,15 @@ class BlogDetail extends Equatable {
     this.url,
   });
 
-  /// Creates a [BlogDetail] from the API[Blog] model.
+  /// Creates a [BlogDetail] from the [Blog] data model.
 
-  factory BlogDetail.fromApi(Blog blog) => BlogDetail(
+  factory BlogDetail.fromBlog(Blog blog) => BlogDetail(
         title: blog.title,
         published: blog.published,
         body: blog.body ?? '',
         slug: blog.slug,
         url: blog.url,
-        author: BlogAuthor.fromApi(blog.author),
+        author: blog.author,
         tags: blog.tags,
         categories: blog.categories,
         featuredImage: blog.featuredImage,
@@ -46,7 +47,7 @@ class BlogDetail extends Equatable {
   final String slug;
 
   /// Author of the blog post.
-  final BlogAuthor author;
+  final Author author;
 
   /// Tags associated with the blog post.
   final List<Tag> tags;

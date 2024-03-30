@@ -1,4 +1,4 @@
-import 'package:blog_models/src/models/models.dart';
+import 'package:blog_models/blog_models.dart';
 import 'package:test/test.dart';
 
 void main() {

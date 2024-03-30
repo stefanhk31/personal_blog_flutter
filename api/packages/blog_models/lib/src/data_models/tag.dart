@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
 
+/// {@template tag}
 /// Data model representing a tag for a blog post.
+/// {@endtemplate}
 class Tag extends Equatable {
-  /// Default constructor for a tag.
+  /// {@macro tag}
   const Tag({
     required this.name,
     required this.slug,

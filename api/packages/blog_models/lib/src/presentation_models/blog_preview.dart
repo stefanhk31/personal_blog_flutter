@@ -1,9 +1,11 @@
 import 'package:blog_models/blog_models.dart';
 import 'package:equatable/equatable.dart';
 
+/// {@template blog_preview}
 /// Represents a preview of a blog post.
+/// {@endtemplate}
 class BlogPreview extends Equatable {
-  /// Default constructor for a blog preview.
+  /// {@macro blog_preview}
   const BlogPreview({
     required this.title,
     required this.description,
@@ -14,8 +16,8 @@ class BlogPreview extends Equatable {
     this.image,
   });
 
-  /// Creates a [BlogPreview] from the API[Blog] model.
-  factory BlogPreview.fromApi(Blog blog) => BlogPreview(
+  /// Creates a [BlogPreview] from the [Blog] data model.
+  factory BlogPreview.fromBlog(Blog blog) => BlogPreview(
         title: blog.title,
         description: blog.summary,
         published: blog.published,

@@ -1,9 +1,11 @@
-import 'package:blog_models/src/models/models.dart';
+import 'package:blog_models/src/data_models/data_models.dart';
 import 'package:equatable/equatable.dart';
 
+/// {@template blog_meta}
 /// Data class representing metadata for a single blog post.
+/// {@endtemplate}
 class BlogMeta extends Equatable {
-  /// Default constructor for a single blog post metadata.
+  /// {@macro blog_meta}
   const BlogMeta({
     this.nextPost,
     this.previousPost,

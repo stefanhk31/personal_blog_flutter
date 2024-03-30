@@ -1,9 +1,11 @@
-import 'package:blog_models/src/models/models.dart';
+import 'package:blog_models/src/data_models/data_models.dart';
 import 'package:equatable/equatable.dart';
 
+/// {@template blogs_response}
 /// Data model for the API response containing a list of blog posts.
+/// {@endtemplate}
 class BlogsResponse extends Equatable {
-  /// Default constructor for a list of bloc posts.
+  /// {@macro blogs_response}
   const BlogsResponse({
     required this.meta,
     required this.data,
