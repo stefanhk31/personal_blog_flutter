@@ -15,7 +15,7 @@ class Author extends Equatable {
     required this.linkedinUrl,
     required this.facebookUrl,
     required this.twitterHandle,
-    required this.profileImage,
+    this.profileImage,
   });
 
   /// Creates an [Author] instance from a JSON object.
@@ -30,7 +30,7 @@ class Author extends Equatable {
       linkedinUrl: json['linkedin_url'] as String,
       facebookUrl: json['facebook_url'] as String,
       twitterHandle: json['twitter_handle'] as String,
-      profileImage: json['profile_image'] as String,
+      profileImage: json['profile_image'] as String?,
     );
   }
 
@@ -62,7 +62,7 @@ class Author extends Equatable {
   final String twitterHandle;
 
   /// The profile image URL of the author.
-  final String profileImage;
+  final String? profileImage;
 
   @override
   List<Object?> get props {

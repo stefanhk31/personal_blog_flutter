@@ -11,7 +11,6 @@ const author = Author(
   linkedinUrl: 'https://www.linkedin.com/in/johndoe',
   facebookUrl: 'https://www.facebook.com/johndoe',
   twitterHandle: '@johndoe',
-  profileImage: 'https://example.com/profile.jpg',
 );
 
 /// Mock [Author] data in JSON format. For testing purposes only.
