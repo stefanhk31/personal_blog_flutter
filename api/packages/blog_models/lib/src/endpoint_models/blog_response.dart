@@ -1,6 +1,8 @@
 import 'package:blog_models/src/data_models/data_models.dart';
 import 'package:equatable/equatable.dart';
 
+part 'blog_response.g.dart';
+
 /// {@template blog_response}
 /// Data model for the API response containing a single blog post.
 /// {@endtemplate}

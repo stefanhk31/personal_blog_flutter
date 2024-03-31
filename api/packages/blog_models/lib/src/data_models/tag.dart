@@ -1,8 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'tag.g.dart';
 
 /// {@template tag}
 /// Data model representing a tag for a blog post.
 /// {@endtemplate}
+@JsonSerializable()
 class Tag extends Equatable {
   /// {@macro tag}
   const Tag({
@@ -11,12 +15,10 @@ class Tag extends Equatable {
   });
 
   /// Creates a tag object from a JSON map.
-  factory Tag.fromJson(Map<String, dynamic> json) {
-    return Tag(
-      name: json['name'] as String,
-      slug: json['slug'] as String,
-    );
-  }
+  factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
+
+  /// Converts the tag object to a JSON map.
+  Map<String, dynamic> toJson() => _$TagToJson(this);
 
   /// The name of the tag.
   final String name;
@@ -26,12 +28,4 @@ class Tag extends Equatable {
 
   @override
   List<Object?> get props => [name, slug];
-
-  /// Converts the tag object to a JSON map.
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'slug': slug,
-    };
-  }
 }

@@ -1,8 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'author.g.dart';
 
 /// {@template author}
 /// Data model representing the author of a blog post.
 /// {@endtemplate}
+@JsonSerializable()
 class Author extends Equatable {
   /// {@macro author}
   const Author({
@@ -19,20 +23,10 @@ class Author extends Equatable {
   });
 
   /// Creates an [Author] instance from a JSON object.
-  factory Author.fromJson(Map<String, dynamic> json) {
-    return Author(
-      firstName: json['first_name'] as String,
-      lastName: json['last_name'] as String,
-      email: json['email'] as String,
-      slug: json['slug'] as String,
-      bio: json['bio'] as String,
-      title: json['title'] as String,
-      linkedinUrl: json['linkedin_url'] as String,
-      facebookUrl: json['facebook_url'] as String,
-      twitterHandle: json['twitter_handle'] as String,
-      profileImage: json['profile_image'] as String?,
-    );
-  }
+  factory Author.fromJson(Map<String, dynamic> json) => _$AuthorFromJson(json);
+
+  /// Converts the [Author] instance to a JSON object.
+  Map<String, dynamic> toJson() => _$AuthorToJson(this);
 
   /// The first name of the author.
   final String firstName;
@@ -78,21 +72,5 @@ class Author extends Equatable {
       twitterHandle,
       profileImage,
     ];
-  }
-
-  /// Converts the [Author] instance to a JSON object.
-  Map<String, dynamic> toJson() {
-    return {
-      'first_name': firstName,
-      'last_name': lastName,
-      'email': email,
-      'slug': slug,
-      'bio': bio,
-      'title': title,
-      'linkedin_url': linkedinUrl,
-      'facebook_url': facebookUrl,
-      'twitter_handle': twitterHandle,
-      'profile_image': profileImage,
-    };
   }
 }
