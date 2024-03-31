@@ -31,55 +31,17 @@ class Blog extends Equatable {
 
   /// Deserialize a Blog object from a Map
   factory Blog.fromJson(Map<String, dynamic> json) => _$BlogFromJson(json);
-  // factory Blog.fromJson(Map<String, dynamic> json) {
-  //   return Blog(
-  //     url: json['url'] as String?,
-  //     created: DateTime.parse(json['created'] as String),
-  //     updated: DateTime.parse(json['updated'] as String),
-  //     published: DateTime.parse(json['published'] as String),
-  //     author: Author.fromJson(json['author'] as Map<String, dynamic>),
-  //     categories: (json['categories'] as List<dynamic>)
-  //         .map(
-  //           (category) => Category.fromJson(category as Map<String, dynamic>),
-  //         )
-  //         .toList(),
-  //     tags: (json['tags'] as List<dynamic>)
-  //         .map((tag) => Tag.fromJson(tag as Map<String, dynamic>))
-  //         .toList(),
-  //     featuredImage: json['featured_image'] as String?,
-  //     featuredImageAlt: json['featured_image_alt'] as String,
-  //     slug: json['slug'] as String,
-  //     title: json['title'] as String,
-  //     body: json['body'] as String?,
-  //     summary: json['summary'] as String,
-  //     seoTitle: json['seo_title'] as String,
-  //     metaDescription: json['meta_description'] as String,
-  //     status: json['status'] as String,
-  //   );
-  // }
 
   /// Serialize a Blog object to a Map
   Map<String, dynamic> toJson() => _$BlogToJson(this);
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     'url': url,
-  //     'created': created.toIso8601String(),
-  //     'updated': updated.toIso8601String(),
-  //     'published': published.toIso8601String(),
-  //     'author': author.toJson(),
-  //     'categories': categories.map((category) => category.toJson()).toList(),
-  //     'tags': tags.map((tag) => tag.toJson()).toList(),
-  //     'featured_image': featuredImage,
-  //     'featured_image_alt': featuredImageAlt,
-  //     'slug': slug,
-  //     'title': title,
-  //     'body': body,
-  //     'summary': summary,
-  //     'seo_title': seoTitle,
-  //     'meta_description': metaDescription,
-  //     'status': status,
-  //   };
-  // }
+  //need to specify category/tags correctly
+
+  static List<Map<String, dynamic>> _categoriesToJson(
+          List<Category> categories) =>
+      categories.map((category) => category.toJson()).toList();
+
+  static List<Map<String, dynamic>> _tagsToJson(List<Tag> tags) =>
+      tags.map((tag) => tag.toJson()).toList();
 
   /// Optional URL of the blog post
   final String? url;
@@ -97,9 +59,11 @@ class Blog extends Equatable {
   final Author author;
 
   /// Categories associated with the blog post
+  @JsonKey(toJson: _categoriesToJson)
   final List<Category> categories;
 
   /// Tags associated with the blog post
+  @JsonKey(toJson: _tagsToJson)
   final List<Tag> tags;
 
   /// URL of the featured image

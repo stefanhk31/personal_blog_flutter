@@ -16,6 +16,6 @@ BlogMeta _$BlogMetaFromJson(Map<String, dynamic> json) => BlogMeta(
     );
 
 Map<String, dynamic> _$BlogMetaToJson(BlogMeta instance) => <String, dynamic>{
-      'next_post': instance.nextPost,
-      'previous_post': instance.previousPost,
+      'next_post': instance.nextPost?.toJson(),
+      'previous_post': instance.previousPost?.toJson(),
     };

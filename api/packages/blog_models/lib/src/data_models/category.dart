@@ -17,21 +17,9 @@ class Category extends Equatable {
   /// Creates a [Category] object from its JSON representation.
   factory Category.fromJson(Map<String, dynamic> json) =>
       _$CategoryFromJson(json);
-  // factory Category.fromJson(Map<String, dynamic> json) {
-  //   return Category(
-  //     name: json['name'] as String,
-  //     slug: json['slug'] as String,
-  //   );
-  // }
 
   /// Converts the [Category] object to a JSON representation.
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     'name': name,
-  //     'slug': slug,
-  //   };
-  // }
 
   /// The name of the category.
   final String name;
