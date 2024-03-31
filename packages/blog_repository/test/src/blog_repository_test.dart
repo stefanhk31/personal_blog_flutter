@@ -24,7 +24,7 @@ void main() {
 
         expect(
           await blogRepository.getBlogPreviews(),
-          equals(_blogsResponse.data.map(BlogPreview.fromApi).toList()),
+          equals(_blogsResponse.data.map(BlogPreview.fromBlog).toList()),
         );
       });
 
@@ -45,7 +45,7 @@ void main() {
 
         expect(
           await blogRepository.getBlogDetail(slug: 'slug'),
-          equals(BlogDetail.fromApi(_blogResponse.data)),
+          equals(BlogDetail.fromBlog(_blogResponse.data)),
         );
       });
 

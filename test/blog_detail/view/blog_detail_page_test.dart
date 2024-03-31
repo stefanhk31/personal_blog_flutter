@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:blog_models/blog_models.dart';
 import 'package:blog_repository/blog_repository.dart';
 import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
@@ -116,15 +117,7 @@ final _blogDetailWithImage = BlogDetail(
   published: DateTime.now(),
   body: 'body',
   slug: 'slug',
-  author: const BlogAuthor(
-    firstName: 'firstName',
-    lastName: 'lastName',
-    slug: 'slug',
-    bio: 'bio',
-    linkedinUrl: 'linkedinUrl',
-    facebookUrl: 'facebookUrl',
-    profileImage: 'profileImage',
-  ),
+  author: author,
   tags: const [],
   categories: const [],
   featuredImage: 'featuredImage',
@@ -136,15 +129,7 @@ final _blogDetailWithHyperlink = BlogDetail(
   published: DateTime.now(),
   body: '<a href="https://url">This is a hyperlink</a>',
   slug: 'slug',
-  author: const BlogAuthor(
-    firstName: 'firstName',
-    lastName: 'lastName',
-    slug: 'slug',
-    bio: 'bio',
-    linkedinUrl: 'linkedinUrl',
-    facebookUrl: 'facebookUrl',
-    profileImage: 'profileImage',
-  ),
+  author: author,
   tags: const [],
   categories: const [],
 );

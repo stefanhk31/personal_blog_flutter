@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:blog_api_client/blog_api_client.dart';
+import 'package:blog_models/blog_models.dart';
 import 'package:blog_repository/blog_repository.dart';
 import 'package:equatable/equatable.dart';
 // ignore: depend_on_referenced_packages
