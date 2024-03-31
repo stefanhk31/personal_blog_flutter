@@ -37,7 +37,8 @@ class Blog extends Equatable {
   //need to specify category/tags correctly
 
   static List<Map<String, dynamic>> _categoriesToJson(
-          List<Category> categories) =>
+    List<Category> categories,
+  ) =>
       categories.map((category) => category.toJson()).toList();
 
   static List<Map<String, dynamic>> _tagsToJson(List<Tag> tags) =>
