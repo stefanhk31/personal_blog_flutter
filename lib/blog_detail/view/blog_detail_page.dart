@@ -1,11 +1,8 @@
-import 'package:blog_models/blog_models.dart';
 import 'package:blog_repository/blog_repository.dart';
 import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:personal_blog_flutter/blog_detail/bloc/blog_detail_bloc.dart';
 
 class BlogDetailPage extends StatelessWidget {
@@ -60,113 +57,21 @@ class BlogDetailView extends StatelessWidget {
                 ),
               ),
             ),
-          BlogDetailLoaded(detail: final detail) =>
-            _BlogDetailContent(detail: detail)
-        };
-      },
-    );
-  }
-}
-
-class _BlogDetailContent extends StatelessWidget {
-  const _BlogDetailContent({required this.detail});
-
-  final BlogDetail detail;
-
-  Style _style({
-    Color? color,
-    TextStyle? textStyle,
-  }) {
-    return Style(
-      color: color,
-      fontSize:
-          textStyle?.fontSize != null ? FontSize(textStyle!.fontSize!) : null,
-      fontStyle: textStyle?.fontStyle,
-      fontWeight: textStyle?.fontWeight,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return SingleChildScrollView(
-      child: Padding(
-        padding: BlogSpacing.horizontalPaddingLarge,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (detail.featuredImage != null) ...[
-              Row(
-                children: [
-                  Expanded(
-                    child: FeaturedImage(
-                      imageUrl: detail.featuredImage!,
-                      imageTag: detail.slug,
-                      constraints: const BoxConstraints(
-                        maxHeight: 500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              BlogSpacing.mediumVerticalSpacing,
-            ],
-            AuthorTile(
-              author: '${detail.author.firstName} ${detail.author.lastName}',
+          BlogDetailLoaded(detail: final detail) => BlogDetailContent(
+              authorName:
+                  '${detail.author.firstName} ${detail.author.lastName}',
+              body: detail.body,
+              published: detail.published,
+              slug: detail.slug,
+              title: detail.title,
               authorImage: detail.author.profileImage,
-            ),
-            Text(
-              DateFormat('MMMM d, yyyy').format(detail.published),
-              style: BlogTextStyles.subtitleTextStyle.copyWith(
-                color: Theme.of(context).colorScheme.secondary,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-            Text(
-              detail.title,
-              style: BlogTextStyles.headerTextStyle.copyWith(
-                color: theme.colorScheme.primary,
-              ),
-            ),
-            Html(
-              data: '''
-                ${detail.body}
-              ''',
-              style: {
-                'p': _style(
-                  color: theme.colorScheme.primary,
-                  textStyle: BlogTextStyles.detailBodyTextStyle,
-                ),
-                'h1': _style(
-                  color: theme.colorScheme.primary,
-                  textStyle: BlogTextStyles.headerTextStyle,
-                ),
-                'h2': _style(
-                  color: theme.colorScheme.primary,
-                  textStyle: BlogTextStyles.headerSubtitleTextStyle,
-                ),
-                'h3': _style(
-                  color: theme.colorScheme.primary,
-                  textStyle: BlogTextStyles.cardTitle,
-                ),
-                'div': _style(color: theme.colorScheme.primary),
-                'figcaption': _style(
-                  color: theme.colorScheme.primary,
-                  textStyle: BlogTextStyles.footerTextStyle,
-                ),
-                'a': _style(
-                  color: theme.colorScheme.secondary,
-                  textStyle: BlogTextStyles.detailBodyTextStyle,
-                ),
-              },
+              featuredImage: detail.featuredImage,
               onLinkTap: (url, attributes, element) => context
                   .read<BlogDetailBloc>()
                   .add(BlogLinkClicked(url: url ?? '')),
-            ),
-          ],
-        ),
-      ),
+            )
+        };
+      },
     );
   }
 }

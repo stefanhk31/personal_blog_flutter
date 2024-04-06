@@ -9,6 +9,7 @@ class CustomFolder extends WidgetbookFolder {
             AuthorAvatarComponent(),
             AuthorTileComponent(),
             BlogCardComponent(),
+            BlogDetailContentComponent(),
             FeaturedImageComponent(),
           ],
         );
