@@ -10,6 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # using alpha version of flutter_html to fix compile issue: 
+  # https://github.com/Sub6Resources/flutter_html/issues/1398
+  flutter_html: ^3.0.0-alpha.3
+  google_fonts: ^6.2.1
+  html: ^0.15.4
   intl: ^0.18.0
 
 dev_dependencies:

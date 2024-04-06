@@ -4,7 +4,6 @@ import 'package:blog_repository/blog_repository.dart';
 import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:personal_blog_flutter/blog_detail/bloc/blog_detail_bloc.dart';
@@ -72,7 +71,7 @@ void main() {
           ),
         );
         expect(find.byType(AuthorTile), findsOneWidget);
-        expect(find.byType(Html), findsOneWidget);
+        expect(find.byType(BlogDetailContent), findsOneWidget);
       });
 
       testWidgets('renders image when featured image is not null',
@@ -101,8 +100,9 @@ void main() {
           ),
         );
 
-        final html = tester.widget<Html>(find.byType(Html));
-        html.onLinkTap?.call('https://url', {}, null);
+        final content =
+            tester.widget<BlogDetailContent>(find.byType(BlogDetailContent));
+        content.onLinkTap?.call('https://url', {}, null);
 
         await tester.pumpAndSettle();
         verify(() => bloc.add(const BlogLinkClicked(url: 'https://url')))
