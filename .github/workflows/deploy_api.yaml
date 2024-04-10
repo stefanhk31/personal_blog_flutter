@@ -27,7 +27,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Dart SDK
-        uses: dart-lang/setup-dart@v1.6.2
+        uses: dart-lang/setup-dart@v1.6.3
         
       - name: Install Dart Frog
         run: dart pub global activate dart_frog_cli
