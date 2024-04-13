@@ -2,7 +2,7 @@ import 'package:blog_api_client/blog_api_client.dart';
 import 'package:blog_models/blog_models.dart';
 
 /// {@template blog_repository}
-/// A Very Good Project created by Very Good CLI.
+/// Repository to process blog data retrieved from the API.
 /// {@endtemplate}
 class BlogRepository {
   /// {@macro blog_repository}
