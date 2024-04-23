@@ -33,6 +33,18 @@ const htmlBody = '''
 <h1>Header 1</h1>
 <h2>Header 2</h2>
 <h3>Header 3</h3>
+<p>List:</p>
+<ul>
+<li>list one</li>
+<li>list two</li>
+<li>list three</li>
+</ul>
+<p>Numbered list:</p>
+<ol>
+<li>item one</li>
+<li>item two&nbsp;</li>
+<li>item three</li>
+</ol>
 <p>Inline <code>code sample</code> example.</p>
 <p> Inline <em>italic</em> and <strong>bold</strong> text.</p>
 <p>Here's a helpful walkthrough of our Blog Engine solution.</p>

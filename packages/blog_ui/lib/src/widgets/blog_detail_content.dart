@@ -149,6 +149,7 @@ Map<String, Style> styles(ThemeData theme) {
       color: theme.colorScheme.primary,
       textStyle: BlogTextStyles.cardTitle,
     ),
+    'li': style(color: theme.colorScheme.primary),
     'p': style(
       color: theme.colorScheme.primary,
       textStyle: BlogTextStyles.detailBodyTextStyle,
