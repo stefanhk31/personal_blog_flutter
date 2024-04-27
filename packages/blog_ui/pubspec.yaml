@@ -10,9 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # using alpha version of flutter_html to fix compile issue: 
-  # https://github.com/Sub6Resources/flutter_html/issues/1398
-  flutter_html: ^3.0.0-alpha.3
+  # Forking flutter_html because of bug that breaks on lower versions of ios
+  # https://github.com/Sub6Resources/flutter_html/issues/1314#issuecomment-1635802042
+  flutter_html: 
+    git: 
+      url: https://github.com/stefanhk31/flutter_html.git
+      ref: hotfix/incompat-regexp
   google_fonts: ^6.2.1
   html: ^0.15.4
   intl: ^0.18.0
