@@ -18,13 +18,15 @@ GoRouter createRouter() {
               GoRoute(
                 path: '/',
                 pageBuilder: (context, state) => NoTransitionPage(
-                  child: BlogOverviewPage.routeBuilder(context, state),
+                  child: SelectionArea(
+                      child: BlogOverviewPage.routeBuilder(context, state)),
                 ),
               ),
               GoRoute(
                 path: '/:slug',
                 pageBuilder: (context, state) => NoTransitionPage(
-                  child: BlogDetailPage.routeBuilder(context, state),
+                  child: SelectionArea(
+                      child: BlogDetailPage.routeBuilder(context, state)),
                 ),
               ),
             ],
