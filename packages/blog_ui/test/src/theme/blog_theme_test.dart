@@ -9,9 +9,9 @@ void main() {
         expect(BlogTheme.lightThemeData.useMaterial3, isTrue);
       });
 
-      test('background color is seedLightBackground', () {
+      test('surface color is seedLightBackground', () {
         expect(
-          BlogTheme.lightThemeData.colorScheme.background,
+          BlogTheme.lightThemeData.colorScheme.surface,
           equals(BlogColors.seedLightBackground),
         );
       });
@@ -43,9 +43,9 @@ void main() {
         expect(BlogTheme.darkThemeData.useMaterial3, isTrue);
       });
 
-      test('background color is seedDarkBackground', () {
+      test('surface color is seedDarkBackground', () {
         expect(
-          BlogTheme.darkThemeData.colorScheme.background,
+          BlogTheme.darkThemeData.colorScheme.surface,
           equals(BlogColors.seedDarkBackground),
         );
       });
