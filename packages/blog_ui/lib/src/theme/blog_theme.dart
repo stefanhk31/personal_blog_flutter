@@ -8,6 +8,7 @@ class BlogTheme {
         useMaterial3: true,
         colorScheme: lightColorScheme,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        scaffoldBackgroundColor: BlogColors.seedLightBackground,
       );
 
   /// Theme data to access dark theme properties in build context.
@@ -15,6 +16,7 @@ class BlogTheme {
         useMaterial3: true,
         colorScheme: darkColorScheme,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        scaffoldBackgroundColor: BlogColors.seedDarkBackground,
       );
 
   /// Color scheme that is used to generate light theme colors.
@@ -28,7 +30,6 @@ class BlogTheme {
   /// Color scheme that is used to generate dark theme colors.
   static ColorScheme get darkColorScheme => ColorScheme.fromSeed(
         seedColor: BlogColors.seedLightPurple,
-        surface: BlogColors.seedDarkBackground,
         primary: BlogColors.seedTextPrimaryLight,
         secondary: BlogColors.seedTextSecondaryLight,
       );
