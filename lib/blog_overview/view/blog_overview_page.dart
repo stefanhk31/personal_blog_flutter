@@ -35,31 +35,25 @@ class BlogOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BlogOverviewBloc, BlogOverviewState>(
-      builder: (context, state) {
-        // Coverage on switch is known issue: https://github.com/dart-lang/sdk/issues/54941
-        // https://github.com/stefanhk31/personal_blog_flutter/issues/43
-        // coverage:ignore-start
-        return switch (state) {
-          // coverage:ignore-end
-          BlogOverviewInitial() || BlogOverviewLoading() => const Center(
-              child: CircularProgressIndicator(),
-            ),
-          BlogOverviewFailure(error: final error) => Center(
-              child: Container(
-                color: Theme.of(context).colorScheme.error,
-                padding: BlogSpacing.allPadding,
-                child: Text(
-                  error.toString(),
-                  style: BlogTextStyles.errorTextStyle.copyWith(
-                    color: Theme.of(context).colorScheme.onError,
-                  ),
+      builder: (context, state) => switch (state) {
+        BlogOverviewInitial() || BlogOverviewLoading() => const Center(
+            child: CircularProgressIndicator(),
+          ),
+        BlogOverviewFailure(error: final error) => Center(
+            child: Container(
+              color: Theme.of(context).colorScheme.error,
+              padding: BlogSpacing.allPadding,
+              child: Text(
+                error.toString(),
+                style: BlogTextStyles.errorTextStyle.copyWith(
+                  color: Theme.of(context).colorScheme.onError,
                 ),
               ),
             ),
-          BlogOverviewLoaded(previews: final previews) => _BlogOverviewContent(
-              previews: previews,
-            )
-        };
+          ),
+        BlogOverviewLoaded(previews: final previews) => _BlogOverviewContent(
+            previews: previews,
+          )
       },
     );
   }
