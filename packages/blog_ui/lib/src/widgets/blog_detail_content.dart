@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:intl/intl.dart';
@@ -19,6 +23,7 @@ class BlogDetailContent extends StatelessWidget {
     this.authorImage,
     this.featuredImage,
     this.onLinkTap,
+    this.onTapUrl,
     super.key,
   });
 
@@ -45,6 +50,9 @@ class BlogDetailContent extends StatelessWidget {
 
   /// A callback function that is called when a link in the HTML body is tapped.
   final void Function(String?, Map<String, String>, dom.Element?)? onLinkTap;
+
+  /// A callback function that is called when a link in the HTML body is tapped.
+  final FutureOr<bool> Function(String)? onTapUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +97,16 @@ class BlogDetailContent extends StatelessWidget {
                 color: theme.colorScheme.primary,
               ),
             ),
-            Html(
-              data: body,
-              style: styles(theme),
-              onLinkTap: onLinkTap,
+            Row(
+              children: [
+                Expanded(
+                  child: HtmlWidget(
+                    body,
+                    //customStylesBuilder: (element) => styles(theme),
+                    onTapUrl: onTapUrl,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
