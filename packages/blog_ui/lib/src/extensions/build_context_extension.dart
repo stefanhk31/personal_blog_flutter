@@ -6,7 +6,7 @@ import 'package:html/dom.dart' as dom;
 /// Extension on BuildContext for rendering styles in Html widgets.
 extension BuildContextExt on BuildContext {
   /// Builder to convert theme data into CSS styles for HTML content.
-  /// NOTE: as of v0.15.0 of flutter_widget_from_html, <iframe> elements
+  /// NOTE: as of v0.15.0 of flutter_widget_from_html, iframe elements
   /// cannot be rendered:
   /// https://github.com/daohoangson/flutter_widget_from_html/issues/1245
   Map<String, String>? styleBuilder(dom.Element element) {
