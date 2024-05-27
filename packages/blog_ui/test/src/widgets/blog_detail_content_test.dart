@@ -52,8 +52,9 @@ void main() {
           published: DateTime.now(),
           slug: slug,
           title: title,
-          onLinkTap: (link, _, __) {
+          onTapUrl: (link) {
             tappedLink = link;
+            return true;
           },
         ),
       );
@@ -61,7 +62,7 @@ void main() {
       final widget =
           tester.widget<BlogDetailContent>(find.byType(BlogDetailContent));
 
-      widget.onLinkTap?.call(testLink, <String, String>{}, null);
+      widget.onTapUrl?.call(testLink);
 
       expect(tappedLink, equals(testLink));
     });

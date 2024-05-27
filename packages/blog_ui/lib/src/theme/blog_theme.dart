@@ -25,6 +25,7 @@ class BlogTheme {
         primary: BlogColors.seedTextPrimaryDark,
         primaryContainer: BlogColors.seedLightPrimaryContainer,
         secondary: BlogColors.seedTextSecondaryDark,
+        secondaryContainer: BlogColors.seedMediumPurple,
       );
 
   /// Color scheme that is used to generate dark theme colors.
@@ -33,5 +34,6 @@ class BlogTheme {
         primary: BlogColors.seedTextPrimaryLight,
         secondary: BlogColors.seedTextSecondaryLight,
         primaryContainer: BlogColors.seedDarkPrimaryContainer,
+        secondaryContainer: BlogColors.seedLightPurple,
       );
 }
