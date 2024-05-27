@@ -94,8 +94,9 @@ class BlogDetailContent extends StatelessWidget {
                 Expanded(
                   child: HtmlWidget(
                     body,
-                    customStylesBuilder: context.styleBuilder,
+                    customStylesBuilder: theme.styleBuilder,
                     onTapUrl: onTapUrl,
+                    rebuildTriggers: [theme],
                   ),
                 ),
               ],
