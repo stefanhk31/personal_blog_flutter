@@ -102,7 +102,7 @@ class BlogDetailContent extends StatelessWidget {
                 Expanded(
                   child: HtmlWidget(
                     body,
-                    //customStylesBuilder: (element) => styles(theme),
+                    customStylesBuilder: context.styleBuilder,
                     onTapUrl: onTapUrl,
                   ),
                 ),
@@ -112,6 +112,97 @@ class BlogDetailContent extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+extension BuildContextExt on BuildContext {
+  Map<String, String>? styleBuilder(dom.Element element) {
+    final el = element.localName
+        ?.replaceAll(RegExp('<html'), '')
+        .replaceAll(RegExp('>'), '');
+    final theme = Theme.of(this);
+
+    if (el == 'a') {
+      return {
+        'color': theme.colorScheme.secondary.toHex(),
+        ...BlogTextStyles.detailBodyTextStyle.toStyleMap(),
+      };
+    } else if (el == 'code') {
+      return {
+        'color': theme.colorScheme.primary.toHex(),
+        ...GoogleFonts.robotoMono().toStyleMap(),
+      };
+    } else if (el == 'div') {
+      return {
+        'color': theme.colorScheme.primary.toHex(),
+      };
+    } else if (el == 'figcaption') {
+      return {
+        'color': theme.colorScheme.primary.toHex(),
+        ...BlogTextStyles.footerTextStyle.toStyleMap(),
+      };
+    } else if (el == 'h1') {
+      return {
+        'color': theme.colorScheme.primary.toHex(),
+        ...BlogTextStyles.headerTextStyle.toStyleMap(),
+      };
+    } else if (el == 'h2') {
+      return {
+        'color': theme.colorScheme.primary.toHex(),
+        ...BlogTextStyles.headerSubtitleTextStyle.toStyleMap(),
+      };
+    } else if (el == 'h3') {
+      return {
+        'color': theme.colorScheme.primary.toHex(),
+        ...BlogTextStyles.cardTitle.toStyleMap(),
+      };
+    } else if (el == 'li') {
+      return {
+        'color': theme.colorScheme.primary.toHex(),
+      };
+    } else if (el == 'p') {
+      return {
+        'color': theme.colorScheme.primary.toHex(),
+        ...BlogTextStyles.detailBodyTextStyle.toStyleMap(),
+      };
+    } else if (el == 'pre') {
+      return {
+        'background-color': theme.colorScheme.primaryContainer.toHex(),
+        'padding': '16px',
+      };
+    }
+
+    return null;
+  }
+}
+
+extension ColorExt on Color {
+  String toHex() {
+    return '#${value.toRadixString(16).substring(2)}';
+  }
+}
+
+extension TextStyleExt on TextStyle {
+  Map<String, String> toStyleMap() {
+    final map = <String, String>{};
+
+    if (fontSize != null) {
+      map['font-size'] = '${fontSize}px';
+    }
+
+    if (fontStyle != null) {
+      map['font-style'] = fontStyle!.toString();
+    }
+
+    if (fontWeight != null) {
+      map['font-weight'] = fontWeight!.toString();
+    }
+
+    if (fontFamily != null) {
+      map['font-family'] = fontFamily!;
+    }
+
+    return map;
   }
 }
 

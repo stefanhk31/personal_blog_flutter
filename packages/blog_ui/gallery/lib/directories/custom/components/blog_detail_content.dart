@@ -48,13 +48,6 @@ const htmlBody = '''
 <p>Inline <code>code sample</code> example.</p>
 <p> Inline <em>italic</em> and <strong>bold</strong> text.</p>
 <p>Here's a helpful walkthrough of our Blog Engine solution.</p>
-<p><!-- Outer Div sets maximum width for iframe on extra wide screens --></p>
-<div style="max-width: 800px; height: auto; margin: auto;">
-    <!-- Inner div allows for responsive iframe scaling, including on mobile -->
-    <div style="position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden; margin: auto;">
-        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;" src="https://www.youtube.com/embed/0dJbHy2XqoY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
-    </div>
-</div>
 <p><br><a href="/demo/blog-engine-why-our-blog-engine/">https://buttercms.com/demo/blog-engine-why-our-blog-engine/</a></p>
 <p></p>
 <p></p>
