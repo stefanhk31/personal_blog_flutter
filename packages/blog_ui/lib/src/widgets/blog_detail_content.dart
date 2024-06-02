@@ -1,8 +1,8 @@
+import 'dart:async';
+
 import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:html/dom.dart' as dom;
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:intl/intl.dart';
 
 /// {@template blog_detail_content}
@@ -18,7 +18,7 @@ class BlogDetailContent extends StatelessWidget {
     required this.title,
     this.authorImage,
     this.featuredImage,
-    this.onLinkTap,
+    this.onTapUrl,
     super.key,
   });
 
@@ -44,7 +44,7 @@ class BlogDetailContent extends StatelessWidget {
   final String? featuredImage;
 
   /// A callback function that is called when a link in the HTML body is tapped.
-  final void Function(String?, Map<String, String>, dom.Element?)? onLinkTap;
+  final FutureOr<bool> Function(String)? onTapUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -89,74 +89,21 @@ class BlogDetailContent extends StatelessWidget {
                 color: theme.colorScheme.primary,
               ),
             ),
-            Html(
-              data: body,
-              style: styles(theme),
-              onLinkTap: onLinkTap,
+            Row(
+              children: [
+                Expanded(
+                  child: HtmlWidget(
+                    body,
+                    customStylesBuilder: theme.styleBuilder,
+                    onTapUrl: onTapUrl,
+                    rebuildTriggers: [theme],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
   }
-}
-
-/// A function that returns a [Map] of styles to be defined for
-/// the HTML body.
-Map<String, Style> styles(ThemeData theme) {
-  Style style({
-    Color? backgroundColor,
-    Color? color,
-    TextStyle? textStyle,
-    HtmlPaddings? padding,
-  }) {
-    return Style(
-      backgroundColor: backgroundColor,
-      color: color,
-      fontSize:
-          textStyle?.fontSize != null ? FontSize(textStyle!.fontSize!) : null,
-      fontStyle: textStyle?.fontStyle,
-      fontWeight: textStyle?.fontWeight,
-      fontFamily: textStyle?.fontFamily,
-      padding: padding,
-    );
-  }
-
-  return {
-    'a': style(
-      color: theme.colorScheme.secondary,
-      textStyle: BlogTextStyles.detailBodyTextStyle,
-    ),
-    'code': style(
-      backgroundColor: Colors.transparent,
-      color: theme.colorScheme.primary,
-      textStyle: GoogleFonts.robotoMono(),
-    ),
-    'div': style(color: theme.colorScheme.primary),
-    'figcaption': style(
-      color: theme.colorScheme.primary,
-      textStyle: BlogTextStyles.footerTextStyle,
-    ),
-    'h1': style(
-      color: theme.colorScheme.primary,
-      textStyle: BlogTextStyles.headerTextStyle,
-    ),
-    'h2': style(
-      color: theme.colorScheme.primary,
-      textStyle: BlogTextStyles.headerSubtitleTextStyle,
-    ),
-    'h3': style(
-      color: theme.colorScheme.primary,
-      textStyle: BlogTextStyles.cardTitle,
-    ),
-    'li': style(color: theme.colorScheme.primary),
-    'p': style(
-      color: theme.colorScheme.primary,
-      textStyle: BlogTextStyles.detailBodyTextStyle,
-    ),
-    'pre': style(
-      backgroundColor: theme.colorScheme.primary.withOpacity(0.1),
-      padding: HtmlPaddings.all(16),
-    ),
-  };
 }

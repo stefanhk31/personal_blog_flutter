@@ -60,9 +60,10 @@ class BlogDetailView extends StatelessWidget {
             title: detail.title,
             authorImage: detail.author.profileImage,
             featuredImage: detail.featuredImage,
-            onLinkTap: (url, attributes, element) => context
-                .read<BlogDetailBloc>()
-                .add(BlogLinkClicked(url: url ?? '')),
+            onTapUrl: (url) {
+              context.read<BlogDetailBloc>().add(BlogLinkClicked(url: url));
+              return true;
+            },
           )
       },
     );

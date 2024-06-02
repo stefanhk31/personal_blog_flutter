@@ -42,7 +42,7 @@ class BlogCard extends StatelessWidget {
         elevation: 5,
         clipBehavior: Clip.hardEdge,
         margin: BlogSpacing.bottomMargin,
-        color: theme.colorScheme.primaryContainer,
+        color: theme.colorScheme.secondaryContainer,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,

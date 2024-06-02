@@ -102,7 +102,7 @@ void main() {
 
         final content =
             tester.widget<BlogDetailContent>(find.byType(BlogDetailContent));
-        content.onLinkTap?.call('https://url', {}, null);
+        content.onTapUrl?.call('https://url');
 
         await tester.pumpAndSettle();
         verify(() => bloc.add(const BlogLinkClicked(url: 'https://url')))

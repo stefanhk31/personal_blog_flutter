@@ -22,9 +22,10 @@ class BlogTheme {
   /// Color scheme that is used to generate light theme colors.
   static ColorScheme get lightColorScheme => ColorScheme.fromSeed(
         seedColor: BlogColors.seedPurple,
-        surface: BlogColors.seedLightBackground,
         primary: BlogColors.seedTextPrimaryDark,
+        primaryContainer: BlogColors.seedLightPrimaryContainer,
         secondary: BlogColors.seedTextSecondaryDark,
+        secondaryContainer: BlogColors.seedMediumPurple,
       );
 
   /// Color scheme that is used to generate dark theme colors.
@@ -32,5 +33,7 @@ class BlogTheme {
         seedColor: BlogColors.seedLightPurple,
         primary: BlogColors.seedTextPrimaryLight,
         secondary: BlogColors.seedTextSecondaryLight,
+        primaryContainer: BlogColors.seedDarkPrimaryContainer,
+        secondaryContainer: BlogColors.seedLightPurple,
       );
 }

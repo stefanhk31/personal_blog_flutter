@@ -5,11 +5,21 @@ abstract class BlogColors {
   /// Seed light background color for the UI.
   static const Color seedLightBackground = Color(0xFFCFCFCF);
 
+  /// Seed light primary container color for the UI.
+  static const Color seedLightPrimaryContainer = Color(0xFFA6A6A6);
+
   /// Seed dark background color for the UI.
   static const Color seedDarkBackground = Color(0xFF333233);
 
+  /// Seed dark primary container color for the UI.
+  /// Seed dark primary container color for the UI.
+  static const Color seedDarkPrimaryContainer = Color(0xFF4D4D4D);
+
   /// Seed purple color for the UI.
   static const Color seedPurple = Color(0xFF6F4180);
+
+  /// Seed medium purple color for the UI.
+  static const Color seedMediumPurple = Color(0xFF9C6BA6);
 
   /// Seed light purple color for the UI.
   static const Color seedLightPurple = Color(0xFFD8B3E6);
