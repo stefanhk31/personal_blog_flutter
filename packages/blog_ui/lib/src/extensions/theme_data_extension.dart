@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:html/dom.dart' as dom;
 
 /// Extension on ThemeData for rendering styles in Html widgets.
-extension ThemeExt on ThemeData {
+extension ThemeExtension on ThemeData {
   /// Builder to convert theme data into CSS styles for HTML content.
   /// NOTE: as of v0.15.0 of flutter_widget_from_html, iframe elements
   /// cannot be rendered:

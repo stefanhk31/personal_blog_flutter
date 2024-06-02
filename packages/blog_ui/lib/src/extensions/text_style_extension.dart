@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// Extension on [TextStyle] to facilitate converting theme data
 /// to HTML/CSS styling.
-extension TextStyleExt on TextStyle {
+extension TextStyleExtension on TextStyle {
   /// Convert elements of a [TextStyle] to a [Map] of
   /// CSS properties.
   Map<String, String> toStyleMap() {
@@ -13,11 +13,11 @@ extension TextStyleExt on TextStyle {
     }
 
     if (fontStyle != null) {
-      map['font-style'] = fontStyle!.toString();
+      map['font-style'] = fontStyle!.name.toLowerCase();
     }
 
     if (fontWeight != null) {
-      map['font-weight'] = fontWeight!.toString();
+      map['font-weight'] = fontWeight!.value.toString();
     }
 
     if (fontFamily != null) {
