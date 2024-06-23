@@ -10,6 +10,7 @@ class BlogOverviewList extends StatelessWidget {
     required this.itemBuilder,
     required this.itemCount,
     required this.onFetchData,
+    this.isLoading = false,
     this.header,
     super.key,
   });
@@ -19,6 +20,9 @@ class BlogOverviewList extends StatelessWidget {
 
   /// The total number of items in the list.
   final int itemCount;
+
+  /// Whether the list is currently loading more data.
+  final bool isLoading;
 
   /// A function that is called when more data needs to be fetched
   /// since the user has scrolled to the bottom of a list.
@@ -41,7 +45,11 @@ class BlogOverviewList extends StatelessWidget {
         SliverInfiniteList(
           itemCount: itemCount,
           onFetchData: onFetchData,
+          isLoading: isLoading,
           itemBuilder: itemBuilder,
+          loadingBuilder: (context) => const Center(
+            child: CircularProgressIndicator(),
+          ),
         ),
       ],
     );
