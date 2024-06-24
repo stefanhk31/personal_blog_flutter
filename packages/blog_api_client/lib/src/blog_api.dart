@@ -24,9 +24,10 @@ class BlogApi {
   /// GET /blogs
   ///
   /// Returns a list of blogs.
-  Future<BlogsResponse> getBlogs() async => _sendRequest(
+  Future<BlogsResponse> getBlogs(BlogsRequest request) async => _sendRequest(
         uri: Uri.parse('$_baseUrl/blogs'),
         fromJson: BlogsResponse.fromJson,
+        body: request.toJson(),
       );
 
   /// GET /blogs/{slug}
@@ -41,9 +42,11 @@ class BlogApi {
     required Uri uri,
     required FromJson<T> fromJson,
     String method = 'GET',
+    Map<String, dynamic>? body,
   }) async {
     try {
-      final request = Request(method.toUpperCase(), uri);
+      final request = Request(method.toUpperCase(), uri)
+        ..body = jsonEncode(body);
 
       final responseStream = await _client.send(request);
       final response = await Response.fromStream(responseStream);

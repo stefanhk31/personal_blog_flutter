@@ -11,8 +11,14 @@ class BlogRepository {
   final BlogApi _blogApi;
 
   /// Gets a list of [BlogPreview] objects.
-  Future<List<BlogPreview>> getBlogPreviews() async {
-    final response = await _blogApi.getBlogs();
+  Future<List<BlogPreview>> getBlogPreviews({
+    int offset = 0,
+  }) async {
+    final request = BlogsRequest(
+      offset: offset,
+    );
+
+    final response = await _blogApi.getBlogs(request);
     return response.data.map(BlogPreview.fromBlog).toList();
   }
 

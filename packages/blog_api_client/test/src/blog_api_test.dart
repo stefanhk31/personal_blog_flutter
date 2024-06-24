@@ -14,6 +14,7 @@ void main() {
     late BlogApiClient client;
     late BlogApi blogApi;
     const baseUrl = 'http://127.0.0.1';
+    const request = BlogsRequest();
 
     setUpAll(() {
       registerFallbackValue(Request('GET', Uri()));
@@ -55,7 +56,7 @@ void main() {
         );
 
         expect(
-          await blogApi.getBlogs(),
+          await blogApi.getBlogs(request),
           equals(response),
         );
       });
@@ -77,7 +78,7 @@ void main() {
         );
 
         expect(
-          () async => blogApi.getBlogs(),
+          () async => blogApi.getBlogs(request),
           throwsA(isA<BlogApiClientMalformedResponse>()),
         );
       });
@@ -101,7 +102,7 @@ void main() {
           );
 
           expect(
-            () async => blogApi.getBlogs(),
+            () async => blogApi.getBlogs(request),
             throwsA(
               isA<BlogApiClientFailure>()
                   .having(
@@ -134,7 +135,7 @@ void main() {
         ).thenThrow(exception);
 
         expect(
-          () async => blogApi.getBlogs(),
+          () async => blogApi.getBlogs(request),
           throwsA(
             isA<BlogApiClientFailure>()
                 .having(

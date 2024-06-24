@@ -79,7 +79,8 @@ class _BlogOverviewContent extends StatelessWidget {
                 padding: BlogSpacing.horizontalPadding,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 1200),
-                  child: ListView.builder(
+                  child: BlogOverviewList(
+                    header: const BlogOverviewHeader(),
                     itemCount: previews.length,
                     itemBuilder: (context, index) {
                       final preview = previews[index];
@@ -95,6 +96,11 @@ class _BlogOverviewContent extends StatelessWidget {
                         },
                       );
                     },
+                    onFetchData: () => context.read<BlogOverviewBloc>().add(
+                          const BlogOverviewPostsRequested(
+                            loadingMoreItems: true,
+                          ),
+                        ),
                   ),
                 ),
               ),

@@ -1,3 +1,4 @@
+import 'package:blog_models/blog_models.dart';
 import 'package:http/http.dart';
 
 /// {@template butter_cms_client}
@@ -19,14 +20,16 @@ class ButterCmsClient {
 
   /// Fetches a list of blog posts from the ButterCMS API.
   Future<Response> fetchBlogPosts({
-    bool excludeBody = false,
+    required BlogsRequest request,
   }) async {
     final queryParameters = <String, dynamic>{
       'auth_token': _apiKey,
     };
 
-    if (excludeBody) {
-      queryParameters['exclude_body'] = 'true';
+    for (final entry in request.toJson().entries) {
+      if (entry.value != null) {
+        queryParameters[entry.key] = entry.value.toString();
+      }
     }
 
     final uri = Uri.https(_baseUrl, '/v2/posts', queryParameters);

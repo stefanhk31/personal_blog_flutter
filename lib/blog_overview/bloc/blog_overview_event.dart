@@ -9,5 +9,7 @@ sealed class BlogOverviewEvent extends Equatable {
 }
 
 final class BlogOverviewPostsRequested extends BlogOverviewEvent {
-  const BlogOverviewPostsRequested();
+  const BlogOverviewPostsRequested({this.loadingMoreItems = false});
+
+  final bool loadingMoreItems;
 }

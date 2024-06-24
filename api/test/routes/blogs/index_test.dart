@@ -19,6 +19,8 @@ class _MockButterCmsClient extends Mock implements ButterCmsClient {}
 
 void main() {
   group('index', () {
+    const blogsRequest = BlogsRequest();
+
     group('GET /', () {
       late ButterCmsClient butterCmsClient;
 
@@ -32,14 +34,14 @@ void main() {
             BlogsResponse(meta: const BlogsMeta(count: 1), data: [blog]);
         when(() => context.request).thenReturn(request);
         when(() => context.read<ButterCmsClient>()).thenReturn(butterCmsClient);
-        when(() => butterCmsClient.fetchBlogPosts(excludeBody: true))
+        when(() => butterCmsClient.fetchBlogPosts(request: blogsRequest))
             .thenAnswer(
           (_) async => http.Response(
             jsonEncode(blogsResponse.toJson()),
             HttpStatus.ok,
           ),
         );
-        final response = await route.onRequest(context);
+        final response = await route.onRequest(context, blogsRequest);
         expect(response.statusCode, equals(HttpStatus.ok));
         expect(
           response.body(),
@@ -52,21 +54,21 @@ void main() {
 
     test('returns 405 for unsupported methods', () async {
       final context = _MockRequestContext();
-      Future<Response> action() async => route.onRequest(context);
+      Future<Response> action() async => route.onRequest(context, blogsRequest);
 
       await testMethodNotAllowed(
         context,
-        () => route.onRequest(context),
+        () => route.onRequest(context, blogsRequest),
         'POST',
       );
       await testMethodNotAllowed(
         context,
-        () => route.onRequest(context),
+        () => route.onRequest(context, blogsRequest),
         'PUT',
       );
       await testMethodNotAllowed(
         context,
-        () => route.onRequest(context),
+        () => route.onRequest(context, blogsRequest),
         'DELETE',
       );
       await testMethodNotAllowed(

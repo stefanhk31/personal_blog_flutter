@@ -24,10 +24,18 @@ class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
     BlogOverviewPostsRequested event,
     Emitter<BlogOverviewState> emit,
   ) async {
-    emit(BlogOverviewLoading());
+    if (!event.loadingMoreItems) {
+      emit(BlogOverviewLoading());
+    }
     try {
-      final previews = await _blogRepository.getBlogPreviews();
-      emit(BlogOverviewLoaded(previews: previews));
+      final previews =
+          await _blogRepository.getBlogPreviews(offset: state.currentOffset);
+      emit(
+        BlogOverviewLoaded(
+          previews: previews,
+          currentOffset: state.currentOffset + previews.length,
+        ),
+      );
     } on Exception catch (e) {
       if (e is BlogApiClientFailure) {
         emit(BlogOverviewFailure(error: e.body));
