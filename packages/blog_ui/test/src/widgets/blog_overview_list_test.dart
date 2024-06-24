@@ -19,7 +19,7 @@ void main() {
       expect(find.byType(BlogOverviewList), findsOneWidget);
     });
 
-    testWidgets('renders with header', (tester) async {
+    testWidgets('renders with header in SliverAppBar', (tester) async {
       await tester.pumpMaterial(
         BlogOverviewList(
           itemCount: 10,
@@ -32,7 +32,9 @@ void main() {
       expect(find.byType(BlogOverviewList), findsOneWidget);
       expect(
         find.descendant(
-            of: find.byType(SliverAppBar), matching: find.text('Header')),
+          of: find.byType(SliverAppBar),
+          matching: find.text('Header'),
+        ),
         findsOneWidget,
       );
     });
