@@ -73,7 +73,6 @@ class _BlogOverviewContent extends StatelessWidget {
         margin: BlogSpacing.topMargin,
         child: Column(
           children: [
-            const BlogOverviewHeader(),
             Expanded(
               child: Padding(
                 padding: BlogSpacing.horizontalPadding,

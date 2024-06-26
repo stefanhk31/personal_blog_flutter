@@ -20,9 +20,9 @@ void main() {
 
     group('JSON Serialization', () {
       final blogsRequestJson = {
-        'offset': 0,
-        'limit': 10,
-        'exclude_body': false,
+        'offset': defaultRequestOffset,
+        'limit': defaultRequestLimit,
+        'exclude_body': true,
         'author_slug': null,
         'category_slug': null,
         'tag_slug': null,
