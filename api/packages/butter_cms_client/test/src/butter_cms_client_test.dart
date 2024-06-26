@@ -1,7 +1,5 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_string_escapes
 import 'dart:io';
 
-import 'package:blog_models/blog_models.dart';
 import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';
@@ -18,7 +16,6 @@ void main() {
     const baseUrl = '127.0.0.1';
     const apiKey = '12345';
     const errorMessage = 'error';
-    const request = BlogsRequest();
 
     setUpAll(() {
       registerFallbackValue(Uri());
@@ -60,7 +57,7 @@ void main() {
           ),
         );
 
-        final result = await butterCmsClient.fetchBlogPosts(request: request);
+        final result = await butterCmsClient.fetchBlogPosts();
         expect(result.statusCode, equals(HttpStatus.ok));
         expect(result.body, equals(rawJsonBlogsResponse));
       });
@@ -83,7 +80,7 @@ void main() {
           ),
         );
 
-        final result = await butterCmsClient.fetchBlogPosts(request: request);
+        final result = await butterCmsClient.fetchBlogPosts();
         expect(result.statusCode, equals(HttpStatus.notFound));
         expect(result.body, equals(errorMessage));
       });

@@ -7,13 +7,13 @@ void main() {
   group('BlogDetailState', () {
     group('BlogDetailInitial', () {
       test('supports value comparisons', () {
-        expect(BlogDetailInitial(), equals(BlogDetailInitial()));
+        expect(const BlogDetailInitial(), equals(const BlogDetailInitial()));
       });
     });
 
     group('BlogDetailLoading', () {
       test('supports value comparisons', () {
-        expect(BlogDetailLoading(), equals(BlogDetailLoading()));
+        expect(const BlogDetailLoading(), equals(const BlogDetailLoading()));
       });
     });
 

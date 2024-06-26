@@ -37,7 +37,7 @@ void main() {
       final bloc = _MockBlogOverviewBloc();
 
       testWidgets('renders loading view', (tester) async {
-        when(() => bloc.state).thenReturn(BlogOverviewLoading());
+        when(() => bloc.state).thenReturn(const BlogOverviewLoading());
         await tester.pumpApp(
           BlocProvider<BlogOverviewBloc>.value(
             value: bloc,
@@ -49,7 +49,7 @@ void main() {
 
       testWidgets('renders error view', (tester) async {
         when(() => bloc.state).thenReturn(
-          BlogOverviewFailure(
+          const BlogOverviewFailure(
             error: failureMessage,
           ),
         );

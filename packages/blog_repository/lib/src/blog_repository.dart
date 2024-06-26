@@ -11,10 +11,16 @@ class BlogRepository {
   final BlogApi _blogApi;
 
   /// Gets a list of [BlogPreview] objects.
+  ///
+  /// [limit] is the maximum number of previews to fetch from the API.
+  /// [offset] is the number of previews to skip on an API call, and is
+  /// used for pagination.
   Future<List<BlogPreview>> getBlogPreviews({
-    int offset = 0,
+    int limit = defaultRequestLimit,
+    int offset = defaultRequestOffset,
   }) async {
     final request = BlogsRequest(
+      limit: limit,
       offset: offset,
     );
 

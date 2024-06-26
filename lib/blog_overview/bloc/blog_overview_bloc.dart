@@ -14,7 +14,7 @@ part 'blog_overview_state.dart';
 class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
   BlogOverviewBloc({required BlogRepository blogRepository})
       : _blogRepository = blogRepository,
-        super(BlogOverviewInitial()) {
+        super(const BlogOverviewInitial()) {
     on<BlogOverviewPostsRequested>(_onBlogOverviewPostsRequested);
   }
 
@@ -24,8 +24,17 @@ class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
     BlogOverviewPostsRequested event,
     Emitter<BlogOverviewState> emit,
   ) async {
-    if (!event.loadingMoreItems) {
-      emit(BlogOverviewLoading());
+    if (state is BlogOverviewLoaded) {
+      final loadedState = state as BlogOverviewLoaded;
+      emit(
+        BlogOverviewLoaded(
+          previews: loadedState.previews,
+          currentOffset: loadedState.currentOffset,
+          loadingMoreItems: true,
+        ),
+      );
+    } else {
+      emit(const BlogOverviewLoading());
     }
     try {
       final previews =

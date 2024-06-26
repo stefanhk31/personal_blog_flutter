@@ -35,7 +35,7 @@ void main() {
       final bloc = _MockBlogDetailBloc();
 
       testWidgets('renders loading view', (tester) async {
-        when(() => bloc.state).thenReturn(BlogDetailLoading());
+        when(() => bloc.state).thenReturn(const BlogDetailLoading());
         await tester.pumpApp(
           BlocProvider<BlogDetailBloc>.value(
             value: bloc,

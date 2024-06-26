@@ -96,10 +96,11 @@ class _BlogOverviewContent extends StatelessWidget {
                         },
                       );
                     },
+                    isLoading: context.select(
+                      (BlogOverviewBloc bloc) => bloc.state.loadingMoreItems,
+                    ),
                     onFetchData: () => context.read<BlogOverviewBloc>().add(
-                          const BlogOverviewPostsRequested(
-                            loadingMoreItems: true,
-                          ),
+                          const BlogOverviewPostsRequested(),
                         ),
                   ),
                 ),

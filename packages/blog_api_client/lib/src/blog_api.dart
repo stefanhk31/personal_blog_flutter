@@ -23,11 +23,12 @@ class BlogApi {
 
   /// GET /blogs
   ///
-  /// Returns a list of blogs.
+  /// Returns a list of blogs, with a [BlogsRequest] to specify
+  /// details for pagination/filtering.
   Future<BlogsResponse> getBlogs(BlogsRequest request) async => _sendRequest(
         uri: Uri.parse('$_baseUrl/blogs'),
         fromJson: BlogsResponse.fromJson,
-        body: request.toJson(),
+        queryParameters: request.toJson(),
       );
 
   /// GET /blogs/{slug}
@@ -42,11 +43,17 @@ class BlogApi {
     required Uri uri,
     required FromJson<T> fromJson,
     String method = 'GET',
-    Map<String, dynamic>? body,
+    Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      final request = Request(method.toUpperCase(), uri)
-        ..body = jsonEncode(body);
+      final requestUri = Uri(
+        scheme: uri.scheme,
+        host: uri.host,
+        path: uri.path,
+        queryParameters: queryParameters,
+      );
+
+      final request = Request(method.toUpperCase(), requestUri);
 
       final responseStream = await _client.send(request);
       final response = await Response.fromStream(responseStream);

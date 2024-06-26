@@ -54,3 +54,9 @@ class BlogsRequest extends Equatable {
         tagSlug,
       ];
 }
+
+/// Default limit for how many blog posts to fetch per API call.
+const defaultRequestLimit = 10;
+
+/// Default offset for how many blog posts to skip per API call.
+const defaultRequestOffset = 0;
