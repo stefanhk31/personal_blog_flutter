@@ -4,14 +4,12 @@ part of 'blog_overview_bloc.dart';
 sealed class BlogOverviewState extends Equatable {
   const BlogOverviewState({
     this.currentOffset = 0,
-    this.loadingMoreItems = false,
   });
 
   final int currentOffset;
-  final bool loadingMoreItems;
 
   @override
-  List<Object> get props => [currentOffset, loadingMoreItems];
+  List<Object> get props => [currentOffset];
 }
 
 final class BlogOverviewInitial extends BlogOverviewState {
@@ -36,7 +34,17 @@ final class BlogOverviewLoaded extends BlogOverviewState {
   const BlogOverviewLoaded({
     required this.previews,
     super.currentOffset,
-    super.loadingMoreItems,
+  });
+  final List<BlogPreview> previews;
+
+  @override
+  List<Object> get props => [previews];
+}
+
+final class BlogOverviewLoadingAdditionalItems extends BlogOverviewState {
+  const BlogOverviewLoadingAdditionalItems({
+    required this.previews,
+    super.currentOffset,
   });
   final List<BlogPreview> previews;
 

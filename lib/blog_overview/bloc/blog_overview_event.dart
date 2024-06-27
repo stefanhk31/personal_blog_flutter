@@ -8,6 +8,10 @@ sealed class BlogOverviewEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class BlogOverviewPostsRequested extends BlogOverviewEvent {
-  const BlogOverviewPostsRequested();
+final class BlogOverviewInitialPostsRequested extends BlogOverviewEvent {
+  const BlogOverviewInitialPostsRequested();
+}
+
+final class BlogOverviewAdditionalPostsRequested extends BlogOverviewEvent {
+  const BlogOverviewAdditionalPostsRequested();
 }

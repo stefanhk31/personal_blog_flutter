@@ -7,9 +7,16 @@ part of 'blogs_request.dart';
 // **************************************************************************
 
 BlogsRequest _$BlogsRequestFromJson(Map<String, dynamic> json) => BlogsRequest(
-      excludeBody: json['exclude_body'] as bool? ?? false,
-      limit: json['limit'] as int? ?? 10,
-      offset: json['offset'] as int? ?? 0,
+      excludeBody: json['exclude_body'] == null
+          ? true
+          : BlogsRequest._boolFromQueryParameter(
+              json['exclude_body'] as String),
+      limit: json['limit'] == null
+          ? 10
+          : BlogsRequest._intFromQueryParameter(json['limit'] as String),
+      offset: json['offset'] == null
+          ? 0
+          : BlogsRequest._intFromQueryParameter(json['offset'] as String),
       authorSlug: json['author_slug'] as String?,
       categorySlug: json['category_slug'] as String?,
       tagSlug: json['tag_slug'] as String?,
@@ -17,10 +24,10 @@ BlogsRequest _$BlogsRequestFromJson(Map<String, dynamic> json) => BlogsRequest(
 
 Map<String, dynamic> _$BlogsRequestToJson(BlogsRequest instance) =>
     <String, dynamic>{
-      'exclude_body': instance.excludeBody,
-      'author_slug': instance.authorSlug,
-      'category_slug': instance.categorySlug,
-      'tag_slug': instance.tagSlug,
-      'limit': instance.limit,
-      'offset': instance.offset,
+      'exclude_body': BlogsRequest._toQueryParameter(instance.excludeBody),
+      'author_slug': BlogsRequest._toQueryParameter(instance.authorSlug),
+      'category_slug': BlogsRequest._toQueryParameter(instance.categorySlug),
+      'tag_slug': BlogsRequest._toQueryParameter(instance.tagSlug),
+      'limit': BlogsRequest._toQueryParameter(instance.limit),
+      'offset': BlogsRequest._toQueryParameter(instance.offset),
     };

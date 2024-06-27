@@ -50,6 +50,7 @@ class BlogApi {
         scheme: uri.scheme,
         host: uri.host,
         path: uri.path,
+        port: uri.port,
         queryParameters: queryParameters,
       );
 

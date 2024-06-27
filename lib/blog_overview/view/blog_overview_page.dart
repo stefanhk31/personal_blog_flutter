@@ -23,7 +23,7 @@ class BlogOverviewPage extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           BlogOverviewBloc(blogRepository: context.read<BlogRepository>())
-            ..add(const BlogOverviewPostsRequested()),
+            ..add(const BlogOverviewInitialPostsRequested()),
       child: const BlogOverview(),
     );
   }
@@ -51,7 +51,9 @@ class BlogOverview extends StatelessWidget {
               ),
             ),
           ),
-        BlogOverviewLoaded(previews: final previews) => _BlogOverviewContent(
+        BlogOverviewLoaded(previews: final previews) ||
+        BlogOverviewLoadingAdditionalItems(previews: final previews) =>
+          _BlogOverviewContent(
             previews: previews,
           )
       },
@@ -96,10 +98,11 @@ class _BlogOverviewContent extends StatelessWidget {
                       );
                     },
                     isLoading: context.select(
-                      (BlogOverviewBloc bloc) => bloc.state.loadingMoreItems,
+                      (BlogOverviewBloc bloc) =>
+                          bloc.state is BlogOverviewLoadingAdditionalItems,
                     ),
                     onFetchData: () => context.read<BlogOverviewBloc>().add(
-                          const BlogOverviewPostsRequested(),
+                          const BlogOverviewAdditionalPostsRequested(),
                         ),
                   ),
                 ),

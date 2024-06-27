@@ -31,7 +31,7 @@ void main() {
           );
         },
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
-        act: (bloc) => bloc.add(const BlogOverviewPostsRequested()),
+        act: (bloc) => bloc.add(const BlogOverviewInitialPostsRequested()),
         expect: () => <BlogOverviewState>[
           const BlogOverviewLoading(),
           BlogOverviewLoaded(
@@ -46,7 +46,7 @@ void main() {
         setUp: () => when(blogRepository.getBlogPreviews)
             .thenThrow(Exception(failureMessage)),
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
-        act: (bloc) => bloc.add(const BlogOverviewPostsRequested()),
+        act: (bloc) => bloc.add(const BlogOverviewInitialPostsRequested()),
         expect: () => <BlogOverviewState>[
           const BlogOverviewLoading(),
           const BlogOverviewFailure(error: 'Exception: $failureMessage'),
@@ -64,7 +64,7 @@ void main() {
           ),
         ),
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
-        act: (bloc) => bloc.add(const BlogOverviewPostsRequested()),
+        act: (bloc) => bloc.add(const BlogOverviewInitialPostsRequested()),
         expect: () => <BlogOverviewState>[
           const BlogOverviewLoading(),
           const BlogOverviewFailure(error: {'error': 'Not Found'}),

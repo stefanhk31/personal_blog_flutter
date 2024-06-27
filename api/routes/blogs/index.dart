@@ -12,16 +12,23 @@ Future<Response> onRequest(RequestContext context) async {
 }
 
 Future<Response> _get(RequestContext context) async {
-  final queryParameters = context.request.uri.queryParameters;
-
-  final excludeBody = (queryParameters['exclude_body'] ?? false) as bool;
-  final limit = (queryParameters['limit'] ?? defaultRequestLimit) as int;
-  final offset = (queryParameters['offset'] ?? defaultRequestOffset) as int;
+  late final BlogsRequest request;
+  try {
+    request = BlogsRequest.fromJson(context.request.uri.queryParameters);
+  } catch (e) {
+    return Response(
+      statusCode: 400,
+      body: 'Could not parse request from '
+          'query parameters '
+          '${context.request.uri.queryParameters} '
+          ': $e',
+    );
+  }
 
   final blogsResponse = await context.read<ButterCmsClient>().fetchBlogPosts(
-        excludeBody: excludeBody,
-        limit: limit,
-        offset: offset,
+        excludeBody: request.excludeBody,
+        limit: request.limit,
+        offset: request.offset,
       );
 
   return Response(

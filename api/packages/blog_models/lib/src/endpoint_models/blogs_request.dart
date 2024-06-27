@@ -25,23 +25,54 @@ class BlogsRequest extends Equatable {
   /// Convert the BlogsRequest object to a JSON map.
   Map<String, dynamic> toJson() => _$BlogsRequestToJson(this);
 
+  static String _toQueryParameter(dynamic value) => value.toString();
+
+  static bool _boolFromQueryParameter(String param) {
+    return param == 'true';
+  }
+
+  static int _intFromQueryParameter(String param) {
+    return int.parse(param);
+  }
+
   /// Whether to exclude the HTML body of blog posts in the response
   /// for performance reasons.
+  @JsonKey(
+    toJson: _toQueryParameter,
+    fromJson: _boolFromQueryParameter,
+  )
   final bool excludeBody;
 
   /// Slug of the author to filter blog posts by.
+  @JsonKey(
+    toJson: _toQueryParameter,
+  )
   final String? authorSlug;
 
   /// Slug of the category to filter blog posts by.
+  @JsonKey(
+    toJson: _toQueryParameter,
+  )
   final String? categorySlug;
 
   /// Slug of the tag to filter blog posts by.
+  @JsonKey(
+    toJson: _toQueryParameter,
+  )
   final String? tagSlug;
 
   /// Maximum number of blog posts to return in the response.
+  @JsonKey(
+    toJson: _toQueryParameter,
+    fromJson: _intFromQueryParameter,
+  )
   final int limit;
 
   /// Number of blog posts to skip in the response.
+  @JsonKey(
+    toJson: _toQueryParameter,
+    fromJson: _intFromQueryParameter,
+  )
   final int offset;
 
   @override

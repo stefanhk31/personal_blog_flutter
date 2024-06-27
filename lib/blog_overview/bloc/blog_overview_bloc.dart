@@ -15,27 +15,18 @@ class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
   BlogOverviewBloc({required BlogRepository blogRepository})
       : _blogRepository = blogRepository,
         super(const BlogOverviewInitial()) {
-    on<BlogOverviewPostsRequested>(_onBlogOverviewPostsRequested);
+    on<BlogOverviewInitialPostsRequested>(_onBlogOverviewPostsRequested);
+    on<BlogOverviewAdditionalPostsRequested>(
+        _onBlogOverviewAdditionalPostsRequested);
   }
 
   final BlogRepository _blogRepository;
 
   FutureOr<void> _onBlogOverviewPostsRequested(
-    BlogOverviewPostsRequested event,
+    BlogOverviewInitialPostsRequested event,
     Emitter<BlogOverviewState> emit,
   ) async {
-    if (state is BlogOverviewLoaded) {
-      final loadedState = state as BlogOverviewLoaded;
-      emit(
-        BlogOverviewLoaded(
-          previews: loadedState.previews,
-          currentOffset: loadedState.currentOffset,
-          loadingMoreItems: true,
-        ),
-      );
-    } else {
-      emit(const BlogOverviewLoading());
-    }
+    emit(const BlogOverviewLoading());
     try {
       final previews =
           await _blogRepository.getBlogPreviews(offset: state.currentOffset);
@@ -52,5 +43,35 @@ class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
       }
       emit(BlogOverviewFailure(error: e.toString()));
     }
+  }
+
+  FutureOr<void> _onBlogOverviewAdditionalPostsRequested(
+    BlogOverviewAdditionalPostsRequested event,
+    Emitter<BlogOverviewState> emit,
+  ) async {
+    if (state is! BlogOverviewLoaded) {
+      emit(
+        BlogOverviewFailure(
+          error: Exception('Cannot call BlogOverviewAdditionalPostsRequested '
+              'if state is not BlogOverviewLoaded'),
+        ),
+      );
+    }
+
+    final currentPreviews = (state as BlogOverviewLoaded).previews;
+    emit(BlogOverviewLoadingAdditionalItems(previews: currentPreviews));
+
+    final newPreviews = await _blogRepository.getBlogPreviews(
+      offset: state.currentOffset,
+    );
+
+    final updatedPreviews = [...currentPreviews, ...newPreviews];
+
+    emit(
+      BlogOverviewLoaded(
+        previews: updatedPreviews,
+        currentOffset: state.currentOffset + updatedPreviews.length,
+      ),
+    );
   }
 }
