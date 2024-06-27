@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
-import 'package:personal_blog_flutter/blog_overview/widgets/widgets.dart';
+import 'package:personal_blog_flutter/blog_overview/widgets/blog_overview_header.dart';
 
 class BlogOverviewPage extends StatelessWidget {
   const BlogOverviewPage({super.key});

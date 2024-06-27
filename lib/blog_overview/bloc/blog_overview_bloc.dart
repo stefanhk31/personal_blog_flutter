@@ -17,7 +17,8 @@ class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
         super(const BlogOverviewInitial()) {
     on<BlogOverviewInitialPostsRequested>(_onBlogOverviewPostsRequested);
     on<BlogOverviewAdditionalPostsRequested>(
-        _onBlogOverviewAdditionalPostsRequested);
+      _onBlogOverviewAdditionalPostsRequested,
+    );
   }
 
   final BlogRepository _blogRepository;

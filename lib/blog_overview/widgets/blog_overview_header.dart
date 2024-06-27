@@ -9,27 +9,12 @@ class BlogOverviewHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: Padding(
-        padding: BlogSpacing.horizontalPadding,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              context.l10n.blogOverviewHeader.toUpperCase(),
-              style: BlogTextStyles.headerTextStyle.copyWith(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-            BlogSpacing.smallVerticalSpacing,
-            Text(
-              context.l10n.blogOverviewHeaderSubtitle,
-              style: BlogTextStyles.headerSubtitleTextStyle.copyWith(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-          ],
+    // TODO (@stefanhk31): update title, add background image
+    return FlexibleSpaceBar(
+      title: Text(
+        context.l10n.blogOverviewHeaderSubtitle,
+        style: BlogTextStyles.headerSubtitleTextStyle.copyWith(
+          color: Theme.of(context).colorScheme.primary,
         ),
       ),
     );
