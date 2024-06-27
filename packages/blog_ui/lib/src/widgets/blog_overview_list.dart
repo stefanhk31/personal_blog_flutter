@@ -36,12 +36,7 @@ class BlogOverviewList extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        if (header != null)
-          SliverAppBar(
-            expandedHeight: 200,
-            pinned: true,
-            flexibleSpace: header,
-          ),
+        if (header != null) header!,
         SliverInfiniteList(
           itemCount: itemCount,
           onFetchData: onFetchData,

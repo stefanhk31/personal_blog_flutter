@@ -9,13 +9,35 @@ class BlogOverviewHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO (@stefanhk31): update title, add background image
-    return FlexibleSpaceBar(
-      title: Text(
-        context.l10n.blogOverviewHeaderSubtitle,
-        style: BlogTextStyles.headerSubtitleTextStyle.copyWith(
-          color: Theme.of(context).colorScheme.primary,
+    final theme = Theme.of(context);
+    return SliverAppBar(
+      expandedHeight: 200,
+      backgroundColor: theme.colorScheme.surfaceTint,
+      pinned: true,
+      flexibleSpace: FlexibleSpaceBar(
+        title: Text(
+          context.l10n.blogOverviewListTitle,
+          style: BlogTextStyles.headerTextStyle.copyWith(
+            color: theme.colorScheme.onPrimary,
+          ),
         ),
+        background: Image.asset(
+          'assets/images/background.jpg',
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+
+    FlexibleSpaceBar(
+      title: Text(
+        context.l10n.blogOverviewListTitle,
+        style: BlogTextStyles.headerTextStyle.copyWith(
+          color: theme.colorScheme.onPrimary,
+        ),
+      ),
+      background: Image.asset(
+        'assets/images/background.jpg',
+        fit: BoxFit.cover,
       ),
     );
   }
