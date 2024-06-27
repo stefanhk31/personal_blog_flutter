@@ -101,9 +101,20 @@ class _BlogOverviewContent extends StatelessWidget {
                       (BlogOverviewBloc bloc) =>
                           bloc.state is BlogOverviewLoadingAdditionalItems,
                     ),
-                    onFetchData: () => context.read<BlogOverviewBloc>().add(
-                          const BlogOverviewAdditionalPostsRequested(),
-                        ),
+                    onFetchData: () {
+                      final count = context.select(
+                        (BlogOverviewBloc bloc) =>
+                            bloc.state is BlogOverviewLoaded
+                                ? (bloc.state as BlogOverviewLoaded).count
+                                : 0,
+                      );
+
+                      if (count! >= previews.length) {
+                        context.read<BlogOverviewBloc>().add(
+                              const BlogOverviewAdditionalPostsRequested(),
+                            );
+                      }
+                    },
                   ),
                 ),
               ),

@@ -4,12 +4,16 @@ part of 'blog_overview_bloc.dart';
 sealed class BlogOverviewState extends Equatable {
   const BlogOverviewState({
     this.currentOffset = 0,
+    this.count,
+    this.hasReachedMax = false,
   });
 
   final int currentOffset;
+  final int? count;
+  final bool hasReachedMax;
 
   @override
-  List<Object> get props => [currentOffset];
+  List<Object?> get props => [currentOffset, count, hasReachedMax];
 }
 
 final class BlogOverviewInitial extends BlogOverviewState {
@@ -34,20 +38,24 @@ final class BlogOverviewLoaded extends BlogOverviewState {
   const BlogOverviewLoaded({
     required this.previews,
     super.currentOffset,
+    super.count,
+    super.hasReachedMax,
   });
   final List<BlogPreview> previews;
 
   @override
-  List<Object> get props => [previews];
+  List<Object?> get props => [previews, currentOffset, count, hasReachedMax];
 }
 
 final class BlogOverviewLoadingAdditionalItems extends BlogOverviewState {
   const BlogOverviewLoadingAdditionalItems({
     required this.previews,
     super.currentOffset,
+    super.count,
+    super.hasReachedMax,
   });
   final List<BlogPreview> previews;
 
   @override
-  List<Object> get props => [previews];
+  List<Object?> get props => [previews, currentOffset, count, hasReachedMax];
 }

@@ -23,7 +23,8 @@ void main() {
     final blogRepository = _MockBlogRepository();
 
     testWidgets('renders BlogOverview', (tester) async {
-      when(blogRepository.getBlogPreviews).thenAnswer((_) async => []);
+      when(blogRepository.getBlogPreviews)
+          .thenAnswer((_) async => const BlogPreviews(previews: [], count: 0));
       when(() => blogRepository.getBlogDetail(slug: any(named: 'slug')))
           .thenAnswer((_) async => dummyBlogDetail);
       await tester.pumpApp(

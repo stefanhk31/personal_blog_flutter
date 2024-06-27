@@ -28,12 +28,14 @@ class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
   ) async {
     emit(const BlogOverviewLoading());
     try {
-      final previews =
+      final response =
           await _blogRepository.getBlogPreviews(offset: state.currentOffset);
       emit(
         BlogOverviewLoaded(
-          previews: previews,
-          currentOffset: state.currentOffset + previews.length,
+          previews: response.previews,
+          currentOffset: state.currentOffset + response.previews.length,
+          count: response.count,
+          hasReachedMax: response.previews.length >= response.count,
         ),
       );
     } on Exception catch (e) {
@@ -59,18 +61,28 @@ class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
     }
 
     final currentPreviews = (state as BlogOverviewLoaded).previews;
-    emit(BlogOverviewLoadingAdditionalItems(previews: currentPreviews));
+    emit(
+      BlogOverviewLoadingAdditionalItems(
+        previews: currentPreviews,
+        currentOffset: state.currentOffset,
+        count: state.count,
+        hasReachedMax: state.hasReachedMax,
+      ),
+    );
 
-    final newPreviews = await _blogRepository.getBlogPreviews(
+    final response = await _blogRepository.getBlogPreviews(
       offset: state.currentOffset,
     );
 
-    final updatedPreviews = [...currentPreviews, ...newPreviews];
+    final updatedPreviews = [...currentPreviews, ...response.previews];
 
     emit(
       BlogOverviewLoaded(
         previews: updatedPreviews,
         currentOffset: state.currentOffset + updatedPreviews.length,
+        count: state.count,
+        hasReachedMax:
+            state.count != null && updatedPreviews.length >= state.count!,
       ),
     );
   }
