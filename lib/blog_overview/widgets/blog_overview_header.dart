@@ -27,18 +27,5 @@ class BlogOverviewHeader extends StatelessWidget {
         ),
       ),
     );
-
-    FlexibleSpaceBar(
-      title: Text(
-        context.l10n.blogOverviewListTitle,
-        style: BlogTextStyles.headerTextStyle.copyWith(
-          color: theme.colorScheme.onPrimary,
-        ),
-      ),
-      background: Image.asset(
-        'assets/images/background.jpg',
-        fit: BoxFit.cover,
-      ),
-    );
   }
 }
