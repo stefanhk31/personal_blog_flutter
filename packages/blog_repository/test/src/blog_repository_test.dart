@@ -11,6 +11,13 @@ void main() {
   group('BlogRepository', () {
     final blogApi = _MockBlogApi();
     final blogRepository = BlogRepository(blogApi: blogApi);
+
+    setUpAll(
+      () {
+        registerFallbackValue(BlogsRequest());
+      },
+    );
+
     test('can be instantiated', () {
       expect(
         blogRepository,
@@ -25,7 +32,10 @@ void main() {
 
         expect(
           await blogRepository.getBlogPreviews(),
-          equals(_blogsResponse.data.map(BlogPreview.fromBlog).toList()),
+          equals(BlogPreviews(
+            previews: _blogsResponse.data.map(BlogPreview.fromBlog).toList(),
+            count: _blogsResponse.meta.count,
+          )),
         );
       });
 

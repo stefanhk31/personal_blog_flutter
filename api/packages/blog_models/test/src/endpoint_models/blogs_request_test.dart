@@ -5,7 +5,11 @@ import 'package:test/test.dart';
 
 void main() {
   group('BlogsRequest', () {
-    final blogsRequest = BlogsRequest();
+    final blogsRequest = BlogsRequest(
+      authorSlug: 'author_slug',
+      categorySlug: 'category_slug',
+      tagSlug: 'tag_slug',
+    );
 
     test('can be instantiated', () {
       expect(blogsRequest, isNotNull);
@@ -20,12 +24,12 @@ void main() {
 
     group('JSON Serialization', () {
       final blogsRequestJson = {
-        'offset': defaultRequestOffset,
-        'limit': defaultRequestLimit,
-        'exclude_body': true,
-        'author_slug': null,
-        'category_slug': null,
-        'tag_slug': null,
+        'offset': defaultRequestOffset.toString(),
+        'limit': defaultRequestLimit.toString(),
+        'exclude_body': true.toString(),
+        'author_slug': 'author_slug',
+        'category_slug': 'category_slug',
+        'tag_slug': 'tag_slug',
       };
       test('can be created from JSON', () {
         expect(BlogsRequest.fromJson(blogsRequestJson), isA<BlogsRequest>());

@@ -33,11 +33,22 @@ void main() {
     });
 
     group('getBlogs', () {
-      final url = Uri.parse('$baseUrl/blogs');
       final response = BlogsResponse(
         meta: const BlogsMeta(count: 1),
         data: [blog],
       );
+
+      TypeMatcher<Uri> isAGetBlogsUri() => isA<Uri>()
+          .having(
+            (uri) => uri.path,
+            'path',
+            contains('blogs'),
+          )
+          .having(
+            (uri) => uri.queryParameters,
+            'query parameters',
+            equals(request.toJson()),
+          );
 
       test('returns a blog response on a 200 response', () async {
         when(
@@ -45,7 +56,11 @@ void main() {
             any(
               that: isA<Request>()
                   .having((req) => req.method, 'method', 'GET')
-                  .having((req) => req.url, 'url', url),
+                  .having(
+                    (req) => req.url,
+                    'url',
+                    isAGetBlogsUri(),
+                  ),
             ),
           ),
         ).thenAnswer(
@@ -67,7 +82,11 @@ void main() {
             any(
               that: isA<Request>()
                   .having((req) => req.method, 'method', 'GET')
-                  .having((req) => req.url, 'url', url),
+                  .having(
+                    (req) => req.url,
+                    'url',
+                    isAGetBlogsUri(),
+                  ),
             ),
           ),
         ).thenAnswer(
@@ -91,7 +110,11 @@ void main() {
               any(
                 that: isA<Request>()
                     .having((req) => req.method, 'method', 'GET')
-                    .having((req) => req.url, 'url', url),
+                    .having(
+                      (req) => req.url,
+                      'url',
+                      isAGetBlogsUri(),
+                    ),
               ),
             ),
           ).thenAnswer(
@@ -129,7 +152,11 @@ void main() {
             any(
               that: isA<Request>()
                   .having((req) => req.method, 'method', 'GET')
-                  .having((req) => req.url, 'url', url),
+                  .having(
+                    (req) => req.url,
+                    'url',
+                    isAGetBlogsUri(),
+                  ),
             ),
           ),
         ).thenThrow(exception);
