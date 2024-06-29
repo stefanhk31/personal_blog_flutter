@@ -20,5 +20,33 @@ void main() {
 
       expect(find.byType(BlogListHeader), findsOneWidget);
     });
+
+    testWidgets(
+      'renders with no expanded title scale '
+      'when screen is below 600 pixels',
+      (tester) async {
+        tester.view.physicalSize = const Size(599, 800);
+
+        await tester.pumpMaterial(
+          CustomScrollView(
+            slivers: [
+              BlogListHeader(
+                title: 'Title',
+                background: Image.network('https://picsum.photos/200/300'),
+              ),
+            ],
+          ),
+          mockNetworkImages: true,
+        );
+
+        final flexibleSpaceBar = tester.widget<FlexibleSpaceBar>(
+          find.byType(FlexibleSpaceBar),
+        );
+
+        expect(flexibleSpaceBar.expandedTitleScale, equals(1.0));
+
+        tester.view.resetPhysicalSize();
+      },
+    );
   });
 }

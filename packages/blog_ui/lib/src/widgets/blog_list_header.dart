@@ -22,6 +22,8 @@ class BlogListHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.sizeOf(context);
+
     return SliverAppBar(
       expandedHeight: 200,
       backgroundColor: theme.colorScheme.surfaceTint,
@@ -29,11 +31,14 @@ class BlogListHeader extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
           title,
-          style: BlogTextStyles.headerTextStyle.copyWith(
+          style: BlogTextStyles.listHeaderTextStyle.copyWith(
             color: theme.colorScheme.onPrimary,
           ),
+          textScaler: const TextScaler.linear(.75),
         ),
         background: background,
+        titlePadding: BlogSpacing.allPadding,
+        expandedTitleScale: size.width < 600 ? 1.0 : 1.5,
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:blog_ui/blog_ui.dart';
+import 'package:blog_ui/src/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:very_good_infinite_list/very_good_infinite_list.dart';
 
@@ -37,7 +39,12 @@ class BlogListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        if (header != null) header!,
+        if (header != null) ...[
+          header!,
+          const SliverToBoxAdapter(
+            child: BlogSpacing.mediumVerticalSpacing,
+          ),
+        ],
         SliverInfiniteList(
           itemCount: itemCount,
           onFetchData: onFetchData,
