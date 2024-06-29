@@ -32,10 +32,12 @@ void main() {
 
         expect(
           await blogRepository.getBlogPreviews(),
-          equals(BlogPreviews(
-            previews: _blogsResponse.data.map(BlogPreview.fromBlog).toList(),
-            count: _blogsResponse.meta.count,
-          )),
+          equals(
+            BlogPreviews(
+              previews: _blogsResponse.data.map(BlogPreview.fromBlog).toList(),
+              count: _blogsResponse.meta.count,
+            ),
+          ),
         );
       });
 

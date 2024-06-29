@@ -7,10 +7,15 @@ void main() {
   group('BlogListHeader', () {
     testWidgets('renders', (tester) async {
       await tester.pumpMaterial(
-        BlogListHeader(
-          title: 'Title',
-          background: Image.asset(''),
+        CustomScrollView(
+          slivers: [
+            BlogListHeader(
+              title: 'Title',
+              background: Image.network('https://picsum.photos/200/300'),
+            ),
+          ],
         ),
+        mockNetworkImages: true,
       );
 
       expect(find.byType(BlogListHeader), findsOneWidget);

@@ -32,11 +32,13 @@ void main() {
             BlogsResponse(meta: const BlogsMeta(count: 1), data: [blog]);
         when(() => context.request).thenReturn(request);
         when(() => context.read<ButterCmsClient>()).thenReturn(butterCmsClient);
-        when(() => butterCmsClient.fetchBlogPosts(
-              excludeBody: any(named: 'excludeBody'),
-              limit: any(named: 'limit'),
-              offset: any(named: 'offset'),
-            )).thenAnswer(
+        when(
+          () => butterCmsClient.fetchBlogPosts(
+            excludeBody: any(named: 'excludeBody'),
+            limit: any(named: 'limit'),
+            offset: any(named: 'offset'),
+          ),
+        ).thenAnswer(
           (_) async => http.Response(
             jsonEncode(blogsResponse.toJson()),
             HttpStatus.ok,
