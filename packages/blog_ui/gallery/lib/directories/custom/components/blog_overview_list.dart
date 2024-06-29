@@ -30,7 +30,7 @@ class _BlogOverviewListState extends State<_BlogOverviewList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlogOverviewList(
+    return BlogListView(
       itemCount: itemCount,
       itemBuilder: (context, index) => BlogCard(
         title: 'Example Post $index',

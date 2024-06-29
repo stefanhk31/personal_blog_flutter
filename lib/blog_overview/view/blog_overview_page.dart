@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
-import 'package:personal_blog_flutter/blog_overview/widgets/blog_overview_header.dart';
+import 'package:personal_blog_flutter/l10n/l10n.dart';
 
 class BlogOverviewPage extends StatelessWidget {
   const BlogOverviewPage({super.key});
@@ -70,6 +70,15 @@ class _BlogOverviewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final count = context.select(
+      (BlogOverviewBloc bloc) => bloc.state.count,
+    );
+
+    final isLoading = context.select(
+      (BlogOverviewBloc bloc) =>
+          bloc.state is BlogOverviewLoadingAdditionalItems,
+    );
+
     return Center(
       child: Container(
         margin: BlogSpacing.topMargin,
@@ -80,8 +89,14 @@ class _BlogOverviewContent extends StatelessWidget {
                 padding: BlogSpacing.horizontalPadding,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 1200),
-                  child: BlogOverviewList(
-                    header: const BlogOverviewHeader(),
+                  child: BlogListView(
+                    header: BlogListHeader(
+                      title: context.l10n.blogOverviewListTitle,
+                      background: Image.asset(
+                        'assets/images/background.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                     itemCount: previews.length,
                     itemBuilder: (context, index) {
                       final preview = previews[index];
@@ -97,19 +112,9 @@ class _BlogOverviewContent extends StatelessWidget {
                         },
                       );
                     },
-                    isLoading: context.select(
-                      (BlogOverviewBloc bloc) =>
-                          bloc.state is BlogOverviewLoadingAdditionalItems,
-                    ),
+                    isLoading: isLoading,
                     onFetchData: () {
-                      final count = context.select(
-                        (BlogOverviewBloc bloc) =>
-                            bloc.state is BlogOverviewLoaded
-                                ? (bloc.state as BlogOverviewLoaded).count
-                                : 0,
-                      );
-
-                      if (count! >= previews.length) {
+                      if (count != null && count >= previews.length) {
                         context.read<BlogOverviewBloc>().add(
                               const BlogOverviewAdditionalPostsRequested(),
                             );

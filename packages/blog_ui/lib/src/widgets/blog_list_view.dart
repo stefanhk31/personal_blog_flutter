@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:very_good_infinite_list/very_good_infinite_list.dart';
 
 /// {@template blog_overview_list}
-/// A widget that displays a scrollable list of blog post previews.
+/// A widget that displays an infinitely scrolling list of blog content
+/// within a [CustomScrollView]. Can take an optional header widget
+/// that must also be a sliver.
 /// {@endtemplate}
-class BlogOverviewList extends StatelessWidget {
+class BlogListView extends StatelessWidget {
   /// {@macro blog_overview_list}
-  const BlogOverviewList({
+  const BlogListView({
     required this.itemBuilder,
     required this.itemCount,
     required this.onFetchData,
@@ -28,8 +30,7 @@ class BlogOverviewList extends StatelessWidget {
   /// since the user has scrolled to the bottom of a list.
   final void Function() onFetchData;
 
-  /// An optional header to be displayed within a [SliverAppBar
-  /// at the top of the list.
+  /// An optional header to be displayed at the top of the list.
   final Widget? header;
 
   @override

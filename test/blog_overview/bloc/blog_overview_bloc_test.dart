@@ -36,6 +36,9 @@ void main() {
           const BlogOverviewLoading(),
           BlogOverviewLoaded(
             previews: _previewsResponse.previews,
+            currentOffset: _previewsResponse.previews.length,
+            hasReachedMax: true,
+            count: _previewsResponse.count,
           ),
         ],
       );

@@ -1,11 +1,23 @@
 import 'package:blog_ui/blog_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:personal_blog_flutter/l10n/l10n.dart';
 
-class BlogOverviewHeader extends StatelessWidget {
-  const BlogOverviewHeader({
+/// {@template blog_overview_header}
+/// Header to display at the top of a blog list.
+/// Returns of [SliverAppBar].
+/// {@endtemplate}
+class BlogListHeader extends StatelessWidget {
+  /// {@macro blog_overview_header}
+  const BlogListHeader({
+    required this.title,
+    required this.background,
     super.key,
   });
+
+  /// The title to display in the header.
+  final String title;
+
+  /// The background image to display in the header.
+  final Image background;
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +28,12 @@ class BlogOverviewHeader extends StatelessWidget {
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
-          context.l10n.blogOverviewListTitle,
+          title,
           style: BlogTextStyles.headerTextStyle.copyWith(
             color: theme.colorScheme.onPrimary,
           ),
         ),
-        background: Image.asset(
-          'assets/images/background.jpg',
-          fit: BoxFit.cover,
-        ),
+        background: background,
       ),
     );
   }
