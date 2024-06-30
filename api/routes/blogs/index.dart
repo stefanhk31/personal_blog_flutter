@@ -12,18 +12,7 @@ Future<Response> onRequest(RequestContext context) async {
 }
 
 Future<Response> _get(RequestContext context) async {
-  late final BlogsRequest request;
-  try {
-    request = BlogsRequest.fromJson(context.request.uri.queryParameters);
-  } catch (e) {
-    return Response(
-      statusCode: 400,
-      body: 'Could not parse request from '
-          'query parameters '
-          '${context.request.uri.queryParameters} '
-          ': $e',
-    );
-  }
+  final request = BlogsRequest.fromJson(context.request.uri.queryParameters);
 
   final blogsResponse = await context.read<ButterCmsClient>().fetchBlogPosts(
         excludeBody: request.excludeBody,

@@ -18,7 +18,7 @@ void main() {
     test('supports value equality', () {
       expect(
         BlogsRequest(),
-        equals(blogsRequest),
+        equals(BlogsRequest()),
       );
     });
 

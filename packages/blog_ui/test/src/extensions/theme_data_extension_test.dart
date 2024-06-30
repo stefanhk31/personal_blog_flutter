@@ -56,7 +56,7 @@ void main() {
             } else if (el == 'h2') {
               return {
                 'color': theme.colorScheme.primary.toHex(),
-                ...BlogTextStyles.listHeaderTextStyle.toStyleMap(),
+                ...BlogTextStyles.headerSubtitleTextStyle.toStyleMap(),
               };
             } else if (el == 'h3') {
               return {

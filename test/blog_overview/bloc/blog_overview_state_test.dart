@@ -26,6 +26,15 @@ void main() {
       });
     });
 
+    group('BlogOverviewLoadingAdditionalItems', () {
+      test('supports value comparisons', () {
+        expect(
+          BlogOverviewLoadingAdditionalItems(previews: const []),
+          equals(BlogOverviewLoadingAdditionalItems(previews: const [])),
+        );
+      });
+    });
+
     group('BlogOverviewFailure', () {
       test('supports value comparisons', () {
         expect(
