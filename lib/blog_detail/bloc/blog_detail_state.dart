@@ -7,9 +7,13 @@ sealed class BlogDetailState extends Equatable {
   List<Object> get props => [];
 }
 
-final class BlogDetailInitial extends BlogDetailState {}
+final class BlogDetailInitial extends BlogDetailState {
+  const BlogDetailInitial();
+}
 
-final class BlogDetailLoading extends BlogDetailState {}
+final class BlogDetailLoading extends BlogDetailState {
+  const BlogDetailLoading();
+}
 
 final class BlogDetailFailure extends BlogDetailState {
   const BlogDetailFailure({required this.error});

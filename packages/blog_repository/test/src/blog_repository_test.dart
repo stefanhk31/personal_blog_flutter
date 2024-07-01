@@ -11,6 +11,13 @@ void main() {
   group('BlogRepository', () {
     final blogApi = _MockBlogApi();
     final blogRepository = BlogRepository(blogApi: blogApi);
+
+    setUpAll(
+      () {
+        registerFallbackValue(BlogsRequest());
+      },
+    );
+
     test('can be instantiated', () {
       expect(
         blogRepository,
@@ -20,16 +27,23 @@ void main() {
 
     group('getBlogPreviews', () {
       test('gets blog previews on successful api call', () async {
-        when(blogApi.getBlogs).thenAnswer((_) async => _blogsResponse);
+        when(() => blogApi.getBlogs(any(that: isA<BlogsRequest>())))
+            .thenAnswer((_) async => _blogsResponse);
 
         expect(
           await blogRepository.getBlogPreviews(),
-          equals(_blogsResponse.data.map(BlogPreview.fromBlog).toList()),
+          equals(
+            BlogPreviews(
+              previews: _blogsResponse.data.map(BlogPreview.fromBlog).toList(),
+              count: _blogsResponse.meta.count,
+            ),
+          ),
         );
       });
 
       test('rethrows on failed api call', () async {
-        when(blogApi.getBlogs).thenThrow(Exception());
+        when(() => blogApi.getBlogs(any(that: isA<BlogsRequest>())))
+            .thenThrow(Exception());
 
         expect(
           () async => blogRepository.getBlogPreviews(),

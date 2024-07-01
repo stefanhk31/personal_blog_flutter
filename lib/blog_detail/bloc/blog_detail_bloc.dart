@@ -18,7 +18,7 @@ class BlogDetailBloc extends Bloc<BlogDetailEvent, BlogDetailState> {
   })  : _blogRepository = blogRepository,
         _slug = slug,
         _urlLauncher = urlLauncher ?? UrlLauncher(),
-        super(BlogDetailInitial()) {
+        super(const BlogDetailInitial()) {
     on<BlogDetailRequested>(_onBlogDetailRequested);
     on<BlogLinkClicked>(_onBlogLinkClicked);
   }
@@ -31,7 +31,7 @@ class BlogDetailBloc extends Bloc<BlogDetailEvent, BlogDetailState> {
     BlogDetailRequested event,
     Emitter<BlogDetailState> emit,
   ) async {
-    emit(BlogDetailLoading());
+    emit(const BlogDetailLoading());
     try {
       final detail = await _blogRepository.getBlogDetail(slug: _slug);
       emit(BlogDetailLoaded(detail: detail));

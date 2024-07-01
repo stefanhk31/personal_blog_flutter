@@ -8,8 +8,8 @@ void main() {
     group('BlogOverviewPostsRequested', () {
       test('supports value comparisons', () {
         expect(
-          BlogOverviewPostsRequested(),
-          equals(BlogOverviewPostsRequested()),
+          BlogOverviewInitialPostsRequested(),
+          equals(BlogOverviewInitialPostsRequested()),
         );
       });
     });

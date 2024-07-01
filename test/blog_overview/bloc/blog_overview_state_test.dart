@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
 
@@ -20,6 +22,15 @@ void main() {
         expect(
           BlogOverviewLoaded(previews: const []),
           equals(BlogOverviewLoaded(previews: const [])),
+        );
+      });
+    });
+
+    group('BlogOverviewLoadingAdditionalItems', () {
+      test('supports value comparisons', () {
+        expect(
+          BlogOverviewLoadingAdditionalItems(previews: const []),
+          equals(BlogOverviewLoadingAdditionalItems(previews: const [])),
         );
       });
     });

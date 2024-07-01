@@ -45,6 +45,12 @@ abstract class BlogTextStyles {
     fontStyle: FontStyle.italic,
   );
 
+  /// Style for the list header text.
+  static const TextStyle listHeaderTextStyle = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w600,
+  );
+
   /// Style for general subtitles.
   static const TextStyle subtitleTextStyle = TextStyle(
     fontSize: 14,

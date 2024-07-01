@@ -1,3 +1,4 @@
+import 'package:blog_models/blog_models.dart';
 import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:dart_frog/dart_frog.dart';
 
@@ -11,8 +12,12 @@ Future<Response> onRequest(RequestContext context) async {
 }
 
 Future<Response> _get(RequestContext context) async {
+  final request = BlogsRequest.fromJson(context.request.uri.queryParameters);
+
   final blogsResponse = await context.read<ButterCmsClient>().fetchBlogPosts(
-        excludeBody: true,
+        excludeBody: request.excludeBody,
+        limit: request.limit,
+        offset: request.offset,
       );
 
   return Response(

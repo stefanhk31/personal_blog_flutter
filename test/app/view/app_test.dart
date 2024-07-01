@@ -1,3 +1,4 @@
+import 'package:blog_models/blog_models.dart';
 import 'package:blog_repository/blog_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -13,7 +14,8 @@ void main() {
 
     setUp(() {
       blogRepository = _MockBlogRepository();
-      when(blogRepository.getBlogPreviews).thenAnswer((_) async => []);
+      when(blogRepository.getBlogPreviews)
+          .thenAnswer((_) async => const BlogPreviews(previews: [], count: 0));
     });
     testWidgets('renders', (tester) async {
       await tester.pumpWidget(
