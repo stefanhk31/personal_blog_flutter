@@ -156,7 +156,7 @@ void main() {
             hasReachedMax: true,
             count: _previewsResponse.count,
           ),
-          const BlogOverviewFailure(error: 'Exception: $failureMessage')
+          const BlogOverviewFailure(error: 'Exception: $failureMessage'),
         ],
       );
 
