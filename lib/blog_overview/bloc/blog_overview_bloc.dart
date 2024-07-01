@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:blog_api_client/blog_api_client.dart';
 import 'package:blog_models/blog_models.dart';
 import 'package:blog_repository/blog_repository.dart';
@@ -18,6 +19,7 @@ class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
     on<BlogOverviewInitialPostsRequested>(_onBlogOverviewInitialPostsRequested);
     on<BlogOverviewAdditionalPostsRequested>(
       _onBlogOverviewAdditionalPostsRequested,
+      transformer: droppable(),
     );
   }
 
