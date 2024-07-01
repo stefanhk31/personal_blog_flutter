@@ -182,7 +182,12 @@ void main() {
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
         act: (bloc) => bloc.add(const BlogOverviewAdditionalPostsRequested()),
         expect: () => <BlogOverviewState>[
-          const BlogOverviewLoading(),
+          BlogOverviewLoadingAdditionalItems(
+            previews: _previewsResponse.previews,
+            currentOffset: _previewsResponse.previews.length,
+            hasReachedMax: true,
+            count: _previewsResponse.count,
+          ),
           const BlogOverviewFailure(error: {'error': 'Not Found'}),
         ],
       );
