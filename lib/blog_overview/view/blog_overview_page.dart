@@ -70,8 +70,8 @@ class _BlogOverviewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final count = context.select(
-      (BlogOverviewBloc bloc) => bloc.state.count,
+    final hasReachedMax = context.select(
+      (BlogOverviewBloc bloc) => bloc.state.hasReachedMax,
     );
 
     final isLoading = context.select(
@@ -114,7 +114,7 @@ class _BlogOverviewContent extends StatelessWidget {
                     },
                     isLoading: isLoading,
                     onFetchData: () {
-                      if (count != null && count >= previews.length) {
+                      if (!hasReachedMax) {
                         context.read<BlogOverviewBloc>().add(
                               const BlogOverviewAdditionalPostsRequested(),
                             );

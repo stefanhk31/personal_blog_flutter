@@ -62,6 +62,34 @@ void main() {
         expect(find.text(failureMessage), findsOneWidget);
       });
 
+      group('renders content view', () {
+        testWidgets('when state is BlogOverviewLoaded', (tester) async {
+          when(() => bloc.state)
+              .thenReturn(const BlogOverviewLoaded(previews: []));
+          await tester.pumpApp(
+            BlocProvider<BlogOverviewBloc>.value(
+              value: bloc,
+              child: const BlogOverview(),
+            ),
+          );
+          expect(find.byType(BlogListView), findsOneWidget);
+        });
+
+        testWidgets('when state is BlogOverviewLoadingAdditionalItems',
+            (tester) async {
+          when(() => bloc.state).thenReturn(
+            const BlogOverviewLoadingAdditionalItems(previews: []),
+          );
+          await tester.pumpApp(
+            BlocProvider<BlogOverviewBloc>.value(
+              value: bloc,
+              child: const BlogOverview(),
+            ),
+          );
+          expect(find.byType(BlogListView), findsOneWidget);
+        });
+      });
+
       group('_BlogOverviewContent', () {
         final previews = List.generate(
           3,
@@ -106,6 +134,69 @@ void main() {
             verify(() => router.go('/${previews.first.slug}')).called(1);
           },
         );
+
+        group('scrolling to bottom', () {
+          final previews = List.generate(
+            25,
+            (index) => BlogPreview(
+              title: 'title $index',
+              description: 'desc $index',
+              authorName: 'author $index',
+              published: DateTime.now(),
+              slug: 'slug-$index',
+            ),
+          );
+          testWidgets(
+            'adds BlogOverviewAdditionalPostsRequested '
+            'when hasReachedMax is false',
+            (tester) async {
+              when(() => bloc.state)
+                  .thenReturn(BlogOverviewLoaded(previews: previews));
+              await tester.pumpApp(
+                BlocProvider<BlogOverviewBloc>.value(
+                  value: bloc,
+                  child: const BlogOverview(),
+                ),
+              );
+
+              await tester.drag(
+                find.byType(BlogListView),
+                const Offset(0, -500),
+              );
+              await tester.pumpAndSettle();
+
+              verify(
+                () => bloc.add(const BlogOverviewAdditionalPostsRequested()),
+              ).called(1);
+            },
+          );
+
+          testWidgets(
+            'does not add BlogOverviewAdditionalPostsRequested '
+            'when hasReachedMax is true',
+            (tester) async {
+              when(() => bloc.state).thenReturn(
+                BlogOverviewLoaded(previews: previews, hasReachedMax: true),
+              );
+              await tester.pumpApp(
+                BlocProvider<BlogOverviewBloc>.value(
+                  value: bloc,
+                  child: const BlogOverview(),
+                ),
+              );
+
+              await tester.drag(
+                find.byType(BlogListView),
+                const Offset(0, -500),
+              );
+              await tester.pumpAndSettle();
+
+              verifyNever(
+                () => bloc.add(const BlogOverviewAdditionalPostsRequested()),
+              );
+            },
+          );
+        });
       });
     });
   });
