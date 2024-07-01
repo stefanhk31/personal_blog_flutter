@@ -180,7 +180,7 @@ void main() {
           count: _previewsResponse.count,
         ),
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
-        act: (bloc) => bloc.add(const BlogOverviewInitialPostsRequested()),
+        act: (bloc) => bloc.add(const BlogOverviewAdditionalPostsRequested()),
         expect: () => <BlogOverviewState>[
           const BlogOverviewLoading(),
           const BlogOverviewFailure(error: {'error': 'Not Found'}),
