@@ -15,7 +15,7 @@ class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
   BlogOverviewBloc({required BlogRepository blogRepository})
       : _blogRepository = blogRepository,
         super(const BlogOverviewInitial()) {
-    on<BlogOverviewInitialPostsRequested>(_onBlogOverviewPostsRequested);
+    on<BlogOverviewInitialPostsRequested>(_onBlogOverviewInitialPostsRequested);
     on<BlogOverviewAdditionalPostsRequested>(
       _onBlogOverviewAdditionalPostsRequested,
     );
@@ -23,7 +23,7 @@ class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
 
   final BlogRepository _blogRepository;
 
-  FutureOr<void> _onBlogOverviewPostsRequested(
+  FutureOr<void> _onBlogOverviewInitialPostsRequested(
     BlogOverviewInitialPostsRequested event,
     Emitter<BlogOverviewState> emit,
   ) async {
@@ -59,32 +59,41 @@ class BlogOverviewBloc extends Bloc<BlogOverviewEvent, BlogOverviewState> {
               'if state is not BlogOverviewLoaded'),
         ),
       );
+      return;
     }
 
-    final currentPreviews = (state as BlogOverviewLoaded).previews;
-    emit(
-      BlogOverviewLoadingAdditionalItems(
-        previews: currentPreviews,
-        currentOffset: state.currentOffset,
-        count: state.count,
-        hasReachedMax: state.hasReachedMax,
-      ),
-    );
+    try {
+      final currentPreviews = (state as BlogOverviewLoaded).previews;
+      emit(
+        BlogOverviewLoadingAdditionalItems(
+          previews: currentPreviews,
+          currentOffset: state.currentOffset,
+          count: state.count,
+          hasReachedMax: state.hasReachedMax,
+        ),
+      );
 
-    final response = await _blogRepository.getBlogPreviews(
-      offset: state.currentOffset,
-    );
+      final response = await _blogRepository.getBlogPreviews(
+        offset: state.currentOffset,
+      );
 
-    final updatedPreviews = [...currentPreviews, ...response.previews];
+      final updatedPreviews = [...currentPreviews, ...response.previews];
 
-    emit(
-      BlogOverviewLoaded(
-        previews: updatedPreviews,
-        currentOffset: state.currentOffset + updatedPreviews.length,
-        count: state.count,
-        hasReachedMax:
-            state.count != null && updatedPreviews.length >= state.count!,
-      ),
-    );
+      emit(
+        BlogOverviewLoaded(
+          previews: updatedPreviews,
+          currentOffset: state.currentOffset + response.previews.length,
+          count: state.count,
+          hasReachedMax:
+              state.count != null && updatedPreviews.length >= state.count!,
+        ),
+      );
+    } on Exception catch (e) {
+      if (e is BlogApiClientFailure) {
+        emit(BlogOverviewFailure(error: e.body));
+        return;
+      }
+      emit(BlogOverviewFailure(error: e.toString()));
+    }
   }
 }

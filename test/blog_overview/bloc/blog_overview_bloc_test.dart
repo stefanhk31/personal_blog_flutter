@@ -21,7 +21,7 @@ void main() {
       );
     });
 
-    group('when BlogOverviewPostsRequested is added', () {
+    group('when BlogOverviewInitialPostsRequested is added', () {
       blocTest<BlogOverviewBloc, BlogOverviewState>(
         'emits [BlogOverviewLoading, BlogOverviewSuccess] '
         'when BlogRepository returns posts',
@@ -65,6 +65,119 @@ void main() {
             statusCode: 404,
             error: 'Not Found',
           ),
+        ),
+        build: () => BlogOverviewBloc(blogRepository: blogRepository),
+        act: (bloc) => bloc.add(const BlogOverviewInitialPostsRequested()),
+        expect: () => <BlogOverviewState>[
+          const BlogOverviewLoading(),
+          const BlogOverviewFailure(error: {'error': 'Not Found'}),
+        ],
+      );
+    });
+
+    group('when BlogOverviewAdditionalPostsRequested is added', () {
+      blocTest<BlogOverviewBloc, BlogOverviewState>(
+        'emits [BlogOverviewFailure] '
+        'if initial state is not BlogOverviewLoaded',
+        seed: () => const BlogOverviewInitial(),
+        build: () => BlogOverviewBloc(blogRepository: blogRepository),
+        act: (bloc) => bloc.add(const BlogOverviewAdditionalPostsRequested()),
+        expect: () => [
+          isA<BlogOverviewFailure>(),
+        ],
+      );
+
+      blocTest<BlogOverviewBloc, BlogOverviewState>(
+        'emits [BlogOverviewLoadingAdditionalItems] and [BlogOverviewLoaded] '
+        'with additional posts when BlogRepository returns additional posts',
+        setUp: () {
+          when(blogRepository.getBlogPreviews).thenAnswer(
+            (_) async => _previewsResponse,
+          );
+          when(
+            () => blogRepository.getBlogPreviews(
+              offset: any(named: 'offset'),
+            ),
+          ).thenAnswer(
+            (_) async => _previewsResponse,
+          );
+        },
+        seed: () => BlogOverviewLoaded(
+          previews: _previewsResponse.previews,
+          currentOffset: _previewsResponse.previews.length,
+          hasReachedMax: true,
+          count: _previewsResponse.count,
+        ),
+        build: () => BlogOverviewBloc(blogRepository: blogRepository),
+        act: (bloc) => bloc.add(const BlogOverviewAdditionalPostsRequested()),
+        expect: () => <BlogOverviewState>[
+          BlogOverviewLoadingAdditionalItems(
+            previews: _previewsResponse.previews,
+            currentOffset: _previewsResponse.previews.length,
+            hasReachedMax: true,
+            count: _previewsResponse.count,
+          ),
+          BlogOverviewLoaded(
+            previews: [
+              ..._previewsResponse.previews,
+              ..._previewsResponse.previews,
+            ],
+            currentOffset: _previewsResponse.previews.length * 2,
+            hasReachedMax: true,
+            count: _previewsResponse.count,
+          ),
+        ],
+      );
+
+      blocTest<BlogOverviewBloc, BlogOverviewState>(
+        'emits [BlogOverviewLoadingAdditionalItems] and [BlogOverviewFailure] '
+        'when BlogRepository throws exception',
+        setUp: () {
+          when(
+            () => blogRepository.getBlogPreviews(
+              offset: any(named: 'offset'),
+            ),
+          ).thenThrow(
+            Exception(failureMessage),
+          );
+        },
+        seed: () => BlogOverviewLoaded(
+          previews: _previewsResponse.previews,
+          currentOffset: _previewsResponse.previews.length,
+          hasReachedMax: true,
+          count: _previewsResponse.count,
+        ),
+        build: () => BlogOverviewBloc(blogRepository: blogRepository),
+        act: (bloc) => bloc.add(const BlogOverviewAdditionalPostsRequested()),
+        expect: () => <BlogOverviewState>[
+          BlogOverviewLoadingAdditionalItems(
+            previews: _previewsResponse.previews,
+            currentOffset: _previewsResponse.previews.length,
+            hasReachedMax: true,
+            count: _previewsResponse.count,
+          ),
+          const BlogOverviewFailure(error: 'Exception: $failureMessage')
+        ],
+      );
+
+      blocTest<BlogOverviewBloc, BlogOverviewState>(
+        'emits [BlogOverviewLoadingAdditionalItems] and [BlogOverviewFailure] '
+        'when BlogRepository throws an api request failure',
+        setUp: () => when(
+          () => blogRepository.getBlogPreviews(
+            offset: any(named: 'offset'),
+          ),
+        ).thenThrow(
+          const BlogApiClientFailure(
+            statusCode: 404,
+            error: 'Not Found',
+          ),
+        ),
+        seed: () => BlogOverviewLoaded(
+          previews: _previewsResponse.previews,
+          currentOffset: _previewsResponse.previews.length,
+          hasReachedMax: true,
+          count: _previewsResponse.count,
         ),
         build: () => BlogOverviewBloc(blogRepository: blogRepository),
         act: (bloc) => bloc.add(const BlogOverviewInitialPostsRequested()),
