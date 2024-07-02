@@ -92,7 +92,7 @@ void main() {
 
       group('_BlogOverviewContent', () {
         final previews = List.generate(
-          3,
+          25,
           (index) => BlogPreview(
             title: 'title $index',
             description: 'desc $index',
@@ -101,9 +101,13 @@ void main() {
             slug: 'slug-$index',
           ),
         );
-        testWidgets('renders header and blog cards', (tester) async {
+
+        setUp(() {
           when(() => bloc.state)
               .thenReturn(BlogOverviewLoaded(previews: previews));
+        });
+
+        testWidgets('renders header and blog cards', (tester) async {
           await tester.pumpApp(
             BlocProvider<BlogOverviewBloc>.value(
               value: bloc,
@@ -117,8 +121,6 @@ void main() {
         testWidgets(
           'tapping on card navigates to blog detail page',
           (tester) async {
-            when(() => bloc.state)
-                .thenReturn(BlogOverviewLoaded(previews: previews));
             final router = MockGoRouter();
             when(() => router.go(any())).thenAnswer((_) async {});
             await tester.pumpApp(
@@ -130,28 +132,15 @@ void main() {
             );
 
             await tester.tap(find.byType(BlogCard).first);
-            await tester.pumpAndSettle();
             verify(() => router.go('/${previews.first.slug}')).called(1);
           },
         );
 
         group('scrolling to bottom', () {
-          final previews = List.generate(
-            25,
-            (index) => BlogPreview(
-              title: 'title $index',
-              description: 'desc $index',
-              authorName: 'author $index',
-              published: DateTime.now(),
-              slug: 'slug-$index',
-            ),
-          );
           testWidgets(
             'adds BlogOverviewAdditionalPostsRequested '
             'when hasReachedMax is false',
             (tester) async {
-              when(() => bloc.state)
-                  .thenReturn(BlogOverviewLoaded(previews: previews));
               await tester.pumpApp(
                 BlocProvider<BlogOverviewBloc>.value(
                   value: bloc,
@@ -176,7 +165,10 @@ void main() {
             'when hasReachedMax is true',
             (tester) async {
               when(() => bloc.state).thenReturn(
-                BlogOverviewLoaded(previews: previews, hasReachedMax: true),
+                BlogOverviewLoaded(
+                  previews: previews,
+                  hasReachedMax: true,
+                ),
               );
               await tester.pumpApp(
                 BlocProvider<BlogOverviewBloc>.value(
