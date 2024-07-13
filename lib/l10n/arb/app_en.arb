@@ -1,4 +1,5 @@
 {
+    
     "@@locale": "en",
     "copyrightText": "Copyright {year}",
     "@copyrightText": {
@@ -16,5 +17,10 @@
     "blogOverviewHeaderSubtitle": "Developer, adventurer, scholar",
     "@blogOverviewHeaderSubtitle": {
         "description": "String displaying header subtitle for Blog Overview Page"
+    },
+    "blogOverviewListTitle": "Stefan's Post-Academic Chronicles",
+    "@blogOverviewListTitle": {
+        "description": "String displaying header subtitle for Blog Overview List"
     }
+    
 }

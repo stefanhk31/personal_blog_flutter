@@ -1,3 +1,4 @@
+import 'package:blog_models/blog_models.dart';
 import 'package:http/http.dart';
 
 /// {@template butter_cms_client}
@@ -18,16 +19,25 @@ class ButterCmsClient {
   final String _baseUrl;
 
   /// Fetches a list of blog posts from the ButterCMS API.
+  ///
+  /// If [excludeBody] is set, the call will return blogs
+  /// without the HTML content of the body. This helps performance
+  /// when fetching previews of numerous posts.
+  ///
+  /// [limit] and [offset] are used to paginate the list. [limit]
+  /// is the maximum number of posts to return, and [offset] denotes
+  /// how many posts to skip before beginning the fetch.
   Future<Response> fetchBlogPosts({
     bool excludeBody = false,
+    int limit = defaultRequestLimit,
+    int offset = defaultRequestOffset,
   }) async {
     final queryParameters = <String, dynamic>{
       'auth_token': _apiKey,
+      'exclude_body': excludeBody.toString(),
+      'limit': limit.toString(),
+      'offset': offset.toString(),
     };
-
-    if (excludeBody) {
-      queryParameters['exclude_body'] = 'true';
-    }
 
     final uri = Uri.https(_baseUrl, '/v2/posts', queryParameters);
 

@@ -35,7 +35,7 @@ void main() {
         build: () => BlogDetailBloc(blogRepository: blogRepository, slug: slug),
         act: (bloc) => bloc.add(const BlogDetailRequested()),
         expect: () => <BlogDetailState>[
-          BlogDetailLoading(),
+          const BlogDetailLoading(),
           BlogDetailLoaded(detail: dummyBlogDetail),
         ],
       );
@@ -54,7 +54,7 @@ void main() {
         ),
         act: (bloc) => bloc.add(const BlogDetailRequested()),
         expect: () => <BlogDetailState>[
-          BlogDetailLoading(),
+          const BlogDetailLoading(),
           const BlogDetailFailure(error: 'Exception: $failureMessage'),
         ],
       );
@@ -79,7 +79,7 @@ void main() {
         ),
         act: (bloc) => bloc.add(const BlogDetailRequested()),
         expect: () => <BlogDetailState>[
-          BlogDetailLoading(),
+          const BlogDetailLoading(),
           const BlogDetailFailure(error: {'error': 'Not Found'}),
         ],
       );

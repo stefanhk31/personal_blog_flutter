@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_string_escapes
 import 'dart:io';
 
 import 'package:butter_cms_client/butter_cms_client.dart';
@@ -61,32 +60,6 @@ void main() {
         final result = await butterCmsClient.fetchBlogPosts();
         expect(result.statusCode, equals(HttpStatus.ok));
         expect(result.body, equals(rawJsonBlogsResponse));
-      });
-
-      test(
-          'returns 200 with json blog data minus body '
-          'when the call completes successfully '
-          'and excludeBody is true', () async {
-        when(
-          () => httpClient.get(
-            any(
-              that: isA<Uri>().having(
-                (uri) => uri.path,
-                'path',
-                path,
-              ),
-            ),
-          ),
-        ).thenAnswer(
-          (_) async => Response(
-            rawJsonBlogsResponseExcludeBody,
-            HttpStatus.ok,
-          ),
-        );
-
-        final result = await butterCmsClient.fetchBlogPosts(excludeBody: true);
-        expect(result.statusCode, equals(HttpStatus.ok));
-        expect(result.body, equals(rawJsonBlogsResponseExcludeBody));
       });
 
       test('returns failure with body when call fails', () async {

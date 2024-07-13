@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:personal_blog_flutter/blog_overview/bloc/blog_overview_bloc.dart';
-import 'package:personal_blog_flutter/blog_overview/widgets/widgets.dart';
+import 'package:personal_blog_flutter/l10n/l10n.dart';
 
 class BlogOverviewPage extends StatelessWidget {
   const BlogOverviewPage({super.key});
@@ -23,7 +23,7 @@ class BlogOverviewPage extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           BlogOverviewBloc(blogRepository: context.read<BlogRepository>())
-            ..add(const BlogOverviewPostsRequested()),
+            ..add(const BlogOverviewInitialPostsRequested()),
       child: const BlogOverview(),
     );
   }
@@ -51,7 +51,9 @@ class BlogOverview extends StatelessWidget {
               ),
             ),
           ),
-        BlogOverviewLoaded(previews: final previews) => _BlogOverviewContent(
+        BlogOverviewLoaded(previews: final previews) ||
+        BlogOverviewLoadingAdditionalItems(previews: final previews) =>
+          _BlogOverviewContent(
             previews: previews,
           )
       },
@@ -68,18 +70,33 @@ class _BlogOverviewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasReachedMax = context.select(
+      (BlogOverviewBloc bloc) => bloc.state.hasReachedMax,
+    );
+
+    final isLoading = context.select(
+      (BlogOverviewBloc bloc) =>
+          bloc.state is BlogOverviewLoadingAdditionalItems,
+    );
+
     return Center(
       child: Container(
         margin: BlogSpacing.topMargin,
         child: Column(
           children: [
-            const BlogOverviewHeader(),
             Expanded(
               child: Padding(
                 padding: BlogSpacing.horizontalPadding,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 1200),
-                  child: ListView.builder(
+                  child: BlogListView(
+                    header: BlogListHeader(
+                      title: context.l10n.blogOverviewListTitle,
+                      background: Image.asset(
+                        'assets/images/background.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                     itemCount: previews.length,
                     itemBuilder: (context, index) {
                       final preview = previews[index];
@@ -94,6 +111,14 @@ class _BlogOverviewContent extends StatelessWidget {
                           );
                         },
                       );
+                    },
+                    isLoading: isLoading,
+                    onFetchData: () {
+                      if (!hasReachedMax) {
+                        context.read<BlogOverviewBloc>().add(
+                              const BlogOverviewAdditionalPostsRequested(),
+                            );
+                      }
                     },
                   ),
                 ),
