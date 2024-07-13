@@ -7,9 +7,9 @@ part of 'blogs_meta.dart';
 // **************************************************************************
 
 BlogsMeta _$BlogsMetaFromJson(Map<String, dynamic> json) => BlogsMeta(
-      count: json['count'] as int,
-      nextPage: json['next_page'] as int?,
-      previousPage: json['previous_page'] as int?,
+      count: (json['count'] as num).toInt(),
+      nextPage: (json['next_page'] as num?)?.toInt(),
+      previousPage: (json['previous_page'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$BlogsMetaToJson(BlogsMeta instance) => <String, dynamic>{

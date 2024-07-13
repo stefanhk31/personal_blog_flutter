@@ -6,6 +6,9 @@ import 'package:aws_signature_v4/aws_signature_v4.dart';
 /// Default AWS Region that the client will use.
 const defaultAwsRegion = 'us-east-1';
 
+/// Service url for Amazon SES.
+const sesServiceUrl = 'email.$defaultAwsRegion.amazonaws.com';
+
 /// {@template aws_ses_client}
 /// A client for interacting with AWS' Simple Email Service (SES).
 /// {@endtemplate}
@@ -37,10 +40,8 @@ class AwsSesClient {
     final request = AWSHttpRequest(
       method: method,
       uri: _uri,
-      headers: {
-        // TODO(stefanhk31): confirm correct target
-        AWSHeaders.target: 'AmazonSimpleEmailService.$target',
-        // TODO(stefanhk31): confirm correct version
+      headers: const {
+        AWSHeaders.host: sesServiceUrl,
         AWSHeaders.contentType: 'application/x-amz-json-1.1',
       },
       body: jsonEncode(body).codeUnits,
