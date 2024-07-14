@@ -34,15 +34,15 @@ SendEmailRequest _$SendEmailRequestFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$SendEmailRequestToJson(SendEmailRequest instance) =>
     <String, dynamic>{
-      'content': instance.content,
+      'content': instance.content.toJson(),
       'configurationSetName': instance.configurationSetName,
-      'destination': instance.destination,
-      'emailTags': instance.emailTags,
+      'destination': instance.destination?.toJson(),
+      'emailTags': instance.emailTags?.map((e) => e.toJson()).toList(),
       'feedbackForwardingEmailAddress': instance.feedbackForwardingEmailAddress,
       'feedbackForwardingEmailAddressIdentityArn':
           instance.feedbackForwardingEmailAddressIdentityArn,
       'fromEmailAddress': instance.fromEmailAddress,
       'fromEmailAddressIdentityArn': instance.fromEmailAddressIdentityArn,
-      'listManagementOptions': instance.listManagementOptions,
+      'listManagementOptions': instance.listManagementOptions?.toJson(),
       'replyToAddresses': instance.replyToAddresses,
     };

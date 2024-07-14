@@ -52,7 +52,7 @@ void main() {
         expect(BlogResponse.fromJson(blogResponseJson), isA<BlogResponse>());
       });
 
-      test('can map a BlogRespones to JSON', () {
+      test('can map a BlogResponse to JSON', () {
         expect(blogResponse.toJson(), equals(blogResponseJson));
       });
     });

@@ -17,7 +17,7 @@ SimpleContent _$SimpleContentFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$SimpleContentToJson(SimpleContent instance) =>
     <String, dynamic>{
-      'body': instance.body,
-      'headers': instance.headers,
-      'subject': instance.subject,
+      'body': instance.body.toJson(),
+      'headers': instance.headers.map((e) => e.toJson()).toList(),
+      'subject': instance.subject.toJson(),
     };

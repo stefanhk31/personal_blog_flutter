@@ -17,6 +17,6 @@ SimpleBody _$SimpleBodyFromJson(Map<String, dynamic> json) => SimpleBody(
 
 Map<String, dynamic> _$SimpleBodyToJson(SimpleBody instance) =>
     <String, dynamic>{
-      'html': instance.html,
-      'text': instance.text,
+      'html': instance.html?.toJson(),
+      'text': instance.text?.toJson(),
     };

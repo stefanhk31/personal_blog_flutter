@@ -12,5 +12,5 @@ EmailContent _$EmailContentFromJson(Map<String, dynamic> json) => EmailContent(
 
 Map<String, dynamic> _$EmailContentToJson(EmailContent instance) =>
     <String, dynamic>{
-      'simple': instance.simple,
+      'simple': instance.simple.toJson(),
     };
