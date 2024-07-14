@@ -7,12 +7,12 @@ part of 'html_content.dart';
 // **************************************************************************
 
 HtmlContent _$HtmlContentFromJson(Map<String, dynamic> json) => HtmlContent(
-      charset: json['charset'] as String,
       data: json['data'] as String,
+      charset: json['charset'] as String?,
     );
 
 Map<String, dynamic> _$HtmlContentToJson(HtmlContent instance) =>
     <String, dynamic>{
-      'charset': instance.charset,
       'data': instance.data,
+      'charset': instance.charset,
     };

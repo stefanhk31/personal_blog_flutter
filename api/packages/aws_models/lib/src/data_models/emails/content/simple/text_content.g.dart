@@ -7,12 +7,12 @@ part of 'text_content.dart';
 // **************************************************************************
 
 TextContent _$TextContentFromJson(Map<String, dynamic> json) => TextContent(
-      charset: json['charset'] as String,
       data: json['data'] as String,
+      charset: json['charset'] as String?,
     );
 
 Map<String, dynamic> _$TextContentToJson(TextContent instance) =>
     <String, dynamic>{
-      'charset': instance.charset,
       'data': instance.data,
+      'charset': instance.charset,
     };

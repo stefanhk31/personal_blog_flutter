@@ -7,11 +7,11 @@ part of 'subject.dart';
 // **************************************************************************
 
 Subject _$SubjectFromJson(Map<String, dynamic> json) => Subject(
-      charset: json['charset'] as String,
       data: json['data'] as String,
+      charset: json['charset'] as String?,
     );
 
 Map<String, dynamic> _$SubjectToJson(Subject instance) => <String, dynamic>{
-      'charset': instance.charset,
       'data': instance.data,
+      'charset': instance.charset,
     };
