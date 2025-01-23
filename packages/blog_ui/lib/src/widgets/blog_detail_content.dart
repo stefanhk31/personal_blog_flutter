@@ -50,60 +50,58 @@ class BlogDetailContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Center(
-      child: SingleChildScrollView(
-        child: ContentBox(
-          padding: BlogSpacing.horizontalPaddingLarge,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (featuredImage != null) ...[
-                Row(
-                  children: [
-                    Expanded(
-                      child: FeaturedImage(
-                        imageUrl: featuredImage!,
-                        imageTag: slug,
-                        constraints: const BoxConstraints(
-                          maxHeight: 500,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                BlogSpacing.mediumVerticalSpacing,
-              ],
-              AuthorTile(
-                author: authorName,
-                authorImage: authorImage,
-              ),
-              Text(
-                DateFormat('MMMM d, yyyy').format(published),
-                style: BlogTextStyles.subtitleTextStyle.copyWith(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-              Text(
-                title,
-                style: BlogTextStyles.headerTextStyle.copyWith(
-                  color: theme.colorScheme.primary,
-                ),
-              ),
+    return SingleChildScrollView(
+      child: ContentBox(
+        padding: BlogSpacing.horizontalPaddingLarge,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (featuredImage != null) ...[
               Row(
                 children: [
                   Expanded(
-                    child: HtmlWidget(
-                      body,
-                      customStylesBuilder: theme.styleBuilder,
-                      onTapUrl: onTapUrl,
-                      rebuildTriggers: [theme],
+                    child: FeaturedImage(
+                      imageUrl: featuredImage!,
+                      imageTag: slug,
+                      constraints: const BoxConstraints(
+                        maxHeight: 500,
+                      ),
                     ),
                   ),
                 ],
               ),
+              BlogSpacing.mediumVerticalSpacing,
             ],
-          ),
+            AuthorTile(
+              author: authorName,
+              authorImage: authorImage,
+            ),
+            Text(
+              DateFormat('MMMM d, yyyy').format(published),
+              style: BlogTextStyles.subtitleTextStyle.copyWith(
+                color: Theme.of(context).colorScheme.secondary,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+            Text(
+              title,
+              style: BlogTextStyles.headerTextStyle.copyWith(
+                color: theme.colorScheme.primary,
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: HtmlWidget(
+                    body,
+                    customStylesBuilder: theme.styleBuilder,
+                    onTapUrl: onTapUrl,
+                    rebuildTriggers: [theme],
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

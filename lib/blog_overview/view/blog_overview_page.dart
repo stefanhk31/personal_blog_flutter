@@ -79,50 +79,48 @@ class _BlogOverviewContent extends StatelessWidget {
           bloc.state is BlogOverviewLoadingAdditionalItems,
     );
 
-    return Center(
-      child: Container(
-        margin: BlogSpacing.topMargin,
-        child: Column(
-          children: [
-            Expanded(
-              child: ContentBox(
-                padding: BlogSpacing.horizontalPadding,
-                child: BlogListView(
-                  header: BlogListHeader(
-                    title: context.l10n.blogOverviewListTitle,
-                    background: Image.asset(
-                      'assets/images/background.jpg',
-                      fit: BoxFit.cover,
-                    ),
+    return Container(
+      margin: BlogSpacing.topMargin,
+      child: Column(
+        children: [
+          Expanded(
+            child: ContentBox(
+              padding: BlogSpacing.horizontalPadding,
+              child: BlogListView(
+                header: BlogListHeader(
+                  title: context.l10n.blogOverviewListTitle,
+                  background: Image.asset(
+                    'assets/images/background.jpg',
+                    fit: BoxFit.cover,
                   ),
-                  itemCount: previews.length,
-                  itemBuilder: (context, index) {
-                    final preview = previews[index];
-                    return BlogCard(
-                      title: preview.title,
-                      subtitle: preview.description,
-                      published: preview.published,
-                      imageUrl: preview.image,
-                      onTap: () {
-                        context.go(
-                          '/${preview.slug}',
-                        );
-                      },
-                    );
-                  },
-                  isLoading: isLoading,
-                  onFetchData: () {
-                    if (!hasReachedMax) {
-                      context.read<BlogOverviewBloc>().add(
-                            const BlogOverviewAdditionalPostsRequested(),
-                          );
-                    }
-                  },
                 ),
+                itemCount: previews.length,
+                itemBuilder: (context, index) {
+                  final preview = previews[index];
+                  return BlogCard(
+                    title: preview.title,
+                    subtitle: preview.description,
+                    published: preview.published,
+                    imageUrl: preview.image,
+                    onTap: () {
+                      context.go(
+                        '/${preview.slug}',
+                      );
+                    },
+                  );
+                },
+                isLoading: isLoading,
+                onFetchData: () {
+                  if (!hasReachedMax) {
+                    context.read<BlogOverviewBloc>().add(
+                          const BlogOverviewAdditionalPostsRequested(),
+                        );
+                  }
+                },
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
