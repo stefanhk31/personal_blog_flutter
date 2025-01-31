@@ -51,7 +51,7 @@ class BlogDetailContent extends StatelessWidget {
     final theme = Theme.of(context);
 
     return SingleChildScrollView(
-      child: Padding(
+      child: ContentBox(
         padding: BlogSpacing.horizontalPaddingLarge,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
