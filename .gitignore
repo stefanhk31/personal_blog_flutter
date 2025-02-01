@@ -132,4 +132,4 @@ windows/flutter/generated_plugins.cmake
 
 api/.dart_frog/server.dart
 
-api/public/styles/node_modules/
+api/node_modules/

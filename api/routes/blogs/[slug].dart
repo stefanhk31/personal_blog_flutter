@@ -27,7 +27,7 @@ Future<Response> _get(RequestContext context, String slug) async {
   <!DOCTYPE html>
   <html>
     <head>
-      <link href="/styles/output.css" rel="stylesheet">
+      <link href="/output.css" rel="stylesheet">
     </head>
     <body>
       <article class="mx-auto prose">
