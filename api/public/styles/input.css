@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .content h2 {
+    @apply font-bold text-lg text-primary-950 leading-10;
+  }
+  .content h1 {
+    @apply font-semibold text-xl text-primary-950 leading-10;
+  }
+  .content h3 {
+    @apply font-semibold text-base text-primary-950 leading-10;
+  }
+} */
