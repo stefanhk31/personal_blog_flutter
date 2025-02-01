@@ -131,3 +131,5 @@ windows/flutter/generated_plugin_registrant.cc
 windows/flutter/generated_plugins.cmake
 
 api/.dart_frog/server.dart
+
+api/node_modules/

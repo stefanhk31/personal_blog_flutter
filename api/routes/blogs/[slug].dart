@@ -23,9 +23,22 @@ Future<Response> _get(RequestContext context, String slug) async {
 
   final blogBody = blogObj.data.body;
 
+  final html = '''
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <link href="/output.css" rel="stylesheet">
+    </head>
+    <body>
+      <article class="mx-auto prose">
+        $blogBody
+      </article>
+    </body>
+  </html>
+  ''';
   return Response(
     statusCode: blogResponse.statusCode,
-    body: blogBody,
+    body: html,
     headers: {'content-type': 'text/html'},
   );
 }
