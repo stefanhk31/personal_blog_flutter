@@ -1082,7 +1082,15 @@ video {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+.prose blockquote {
+  color: var(--text-light);
+}
+
 @media (prefers-color-scheme: dark) {
+  .prose blockquote {
+    color: var(--text-dark);
+  }
+
   .dark\:bg-background-dark {
     --tw-bg-opacity: 1;
     background-color: rgb(51 50 51 / var(--tw-bg-opacity, 1));

@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.prose blockquote {
+  color: var(--text-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  .prose blockquote {
+    color: var(--text-dark);
+  }
+}
