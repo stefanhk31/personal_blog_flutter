@@ -133,3 +133,4 @@ windows/flutter/generated_plugins.cmake
 api/.dart_frog/server.dart
 
 api/node_modules/
+set_env_key.sh

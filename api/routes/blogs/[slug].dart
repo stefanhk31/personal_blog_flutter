@@ -30,9 +30,11 @@ Future<Response> _get(RequestContext context, String slug) async {
       <link href="/output.css" rel="stylesheet">
     </head>
     <body>
-      <article class="mx-auto prose">
+    <div class="bg-background-light dark:bg-background-dark">
+      <article class="mx-auto prose text-text-light dark:text-text-dark">
         $blogBody
       </article>
+    </div>
     </body>
   </html>
   ''';
