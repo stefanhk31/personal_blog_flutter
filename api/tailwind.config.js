@@ -5,12 +5,12 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          light: '#9C6BA6',
-          dark: '#6F4180',
+          light: 'var(--color-primary-light)',
+          dark: 'var(--color-primary-dark)',
         },
         secondary: {
-          light: '#D8B3E6',
-          dark: '#4D4D4D',
+          light: 'var(--color-secondary-light)',
+          dark: 'var(--color-secondary-dark)',
         },
         background: {
           light: '#CFCFCF',
