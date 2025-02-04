@@ -5,29 +5,29 @@
 :root {
   --color-primary-light: #8A4FFF;
   --color-primary-dark: #a88bf4;
-  --color-secondary-light: #00BFFF;
-  --color-secondary-dark: #0099CC;
+  --color-secondary-light: #0099CC;
+  --color-secondary-dark: #00BFFF;
   --tw-prose-headings: var(--color-primary-light);
 }
 
 .prose {
   --tw-prose-headings: var(--color-primary-light);
-}
 
-.prose blockquote {
-  color: var(--text-light);
-}
+  a {
+    color: var(--color-secondary-light);
+  }
 
-.prose a {
-  color: var(--color-secondary-light);
-}
+  blockquote {
+    color: var(--text-light);
+  }
 
-.prose h1, h2, h3 {
-  color: var(--color-primary-light);
-}
+  code {
+    color: var(--text-light);
+  }
 
-.prose code {
-  color: var(--text-light);
+  h1, h2, h3 {
+    color: var(--color-primary-light);
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -37,21 +37,21 @@
 
   .prose {
     --tw-prose-headings: var(--color-primary-dark);
-  }
 
-  .prose blockquote {
-    color: var(--text-dark);
-  }
+    a {
+      color: var(--color-secondary-dark);
+    }
 
-  .prose a {
-    color: var(--color-secondary-dark);
-  }
+    blockquote {
+      color: var(--text-dark);
+    }
 
-  .prose h1, h2, h3 {
-    color: var(--color-primary-dark);
-  }
+    code {
+      color: var(--text-dark);
+    }
 
-  .prose code {
-    color: var(--text-dark);
+    h1, h2, h3 {
+      color: var(--color-primary-dark);
+    }
   }
 }
