@@ -1,14 +1,21 @@
-import 'package:blog_html_builder/src/templates/blog_footer.dart';
 import 'package:blog_html_builder/src/templates/templates.dart';
 
+/// {@template blog_page}
+/// A class that generates the Html for a full page on the blog site.
+/// {@endtemplate}
 class BlogPage extends HtmlTemplate {
-  final HtmlTemplate innerHtml;
-  final BlogMetaContent? metaContent;
-
-  BlogPage({
+  /// {@macro blog_page}
+  const BlogPage({
     required this.innerHtml,
     this.metaContent,
   });
+
+  /// The inner html content of the page.
+  final HtmlTemplate innerHtml;
+
+  /// Optional meta content for the page. If not provided, the default meta
+  /// content will be used.
+  final BlogMetaContent? metaContent;
 
   @override
   String html() {
