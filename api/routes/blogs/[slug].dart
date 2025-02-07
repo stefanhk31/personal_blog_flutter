@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:blog_html_builder/blog_html_builder.dart';
 import 'package:blog_models/blog_models.dart';
 import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:dart_frog/dart_frog.dart';
@@ -21,23 +22,18 @@ Future<Response> _get(RequestContext context, String slug) async {
     jsonDecode(blogResponse.body) as Map<String, dynamic>,
   );
 
-  final blogBody = blogObj.data.body;
+  final html = BlogPage(
+    innerHtml: BlogDetailContent(
+      authorName:
+          '${blogObj.data.author.firstName} ${blogObj.data.author.lastName}',
+      body: blogObj.data.body ?? '',
+      published: blogObj.data.published,
+      title: blogObj.data.title,
+      authorImage: blogObj.data.author.profileImage,
+      featuredImage: blogObj.data.featuredImage,
+    ),
+  ).html();
 
-  final html = '''
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <link href="/output.css" rel="stylesheet">
-    </head>
-    <body>
-    <div class="bg-background-light dark:bg-background-dark">
-      <article class="mx-auto prose text-text-light dark:text-text-dark">
-        $blogBody
-      </article>
-    </div>
-    </body>
-  </html>
-  ''';
   return Response(
     statusCode: blogResponse.statusCode,
     body: html,

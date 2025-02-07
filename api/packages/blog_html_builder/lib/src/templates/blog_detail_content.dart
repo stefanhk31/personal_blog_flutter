@@ -40,11 +40,12 @@ class BlogDetailContent extends HtmlTemplate {
       ${featuredImage != null ? '<img src="$featuredImage" alt="$title" class="w-full h-96 object-cover object-center">' : ''}
       <header>
         <h1 class="text-4xl font-bold">$title</h1>
-        <div class = "flex justify-start">
+        <div class="flex flex-row">
           ${authorImage != null ? '<img src="$authorImage" alt="$authorName" class="w-12 h-12 rounded-full object-cover object-center">' : ''}
           <p class="text-sm text-text-light dark:text-text-dark">
             By $authorName on ${DateFormat.yMMMMd().format(published)}
           </p>
+        </div>
       </header>
       $body
     </article>

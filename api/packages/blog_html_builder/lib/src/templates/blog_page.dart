@@ -25,8 +25,8 @@ class BlogPage extends HtmlTemplate {
       <head>
         ${metaContent?.html() ?? defaultMetaContent.html()}
         <link href="/output.css" rel="stylesheet">
-        <link rel="icon" type="image/png" href="favicon.png" />
-        <link rel="manifest" href="manifest.json">
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="manifest" href="/manifest.json">
       </head>
       <body>
         <div class="bg-background-light dark:bg-background-dark">
