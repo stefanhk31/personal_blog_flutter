@@ -36,13 +36,6 @@ class BlogDetailContent extends HtmlTemplate {
   @override
   String html() {
     return '''
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <link href="/output.css" rel="stylesheet">
-      </head>
-      <body>
-        <div class="bg-background-light dark:bg-background-dark">
           <article class="mx-auto prose text-text-light dark:text-text-dark">
             ${featuredImage != null ? '<img src="$featuredImage" alt="$title" class="w-full h-96 object-cover object-center">' : ''}
             <header>
@@ -55,9 +48,6 @@ class BlogDetailContent extends HtmlTemplate {
             </header>
             $body
           </article>
-        </div>
-      </body>
-    </html>
     ''';
   }
 }
