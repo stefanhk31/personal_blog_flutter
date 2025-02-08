@@ -29,7 +29,7 @@ class BlogPage extends HtmlTemplate {
         <link rel="manifest" href="/manifest.json">
       </head>
       <body>
-        <div class="bg-background-light dark:bg-background-dark">
+        <div class="mx-auto bg-background-light dark:bg-background-dark">
           ${innerHtml.html()}
         </div>
       </body>

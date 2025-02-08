@@ -36,8 +36,8 @@ class BlogDetailContent extends HtmlTemplate {
   @override
   String html() {
     return '''
-    <div class="container-xl mx-auto">
-    <header class="w-full px-8 text-text-light dark:text-text-dark">
+    <div class="container-xl">
+    <header class="w-full px-2 md:px-4 lg:px-8 text-text-light dark:text-text-dark">
       ${featuredImage != null ? '<img src="$featuredImage" alt="$title" class="w-full h-96 object-cover object-center">' : ''}
       <h1 class="pt-4 pb-2 text-4xl font-bold">$title</h1>
       <div class="pt-2 pb-4 flex flex-row flex-wrap items-center">
@@ -47,7 +47,7 @@ class BlogDetailContent extends HtmlTemplate {
         </p>
       </div>
     </header>
-    <article class="mx-auto prose text-text-light dark:text-text-dark">
+    <article class="mx-auto px-2 prose text-text-light dark:text-text-dark">
       $body
     </article>
   </div>
