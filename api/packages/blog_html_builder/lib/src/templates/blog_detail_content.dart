@@ -36,19 +36,21 @@ class BlogDetailContent extends HtmlTemplate {
   @override
   String html() {
     return '''
-    <article class="mx-auto prose text-text-light dark:text-text-dark">
+    <div class="container-xl mx-auto">
+    <header class="w-full px-8 text-text-light dark:text-text-dark">
       ${featuredImage != null ? '<img src="$featuredImage" alt="$title" class="w-full h-96 object-cover object-center">' : ''}
-      <header>
-        <h1 class="text-4xl font-bold">$title</h1>
-        <div class="flex flex-row">
-          ${authorImage != null ? '<img src="$authorImage" alt="$authorName" class="w-12 h-12 rounded-full object-cover object-center">' : ''}
-          <p class="text-sm text-text-light dark:text-text-dark">
-            By $authorName on ${DateFormat.yMMMMd().format(published)}
-          </p>
-        </div>
-      </header>
+      <h1 class="pt-4 pb-2 text-4xl font-bold">$title</h1>
+      <div class="pt-2 pb-4 flex flex-row flex-wrap items-center">
+        ${authorImage != null ? '<img src="$authorImage" alt="$authorName" class="w-12 h-12 rounded-full object-cover object-center pr-2">' : ''}
+        <p class="text-sm text-text-light dark:text-text-dark">
+          by $authorName on ${DateFormat.yMMMMd().format(published)}
+        </p>
+      </div>
+    </header>
+    <article class="mx-auto prose text-text-light dark:text-text-dark">
       $body
     </article>
+  </div>
     ''';
   }
 }
