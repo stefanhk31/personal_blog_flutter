@@ -7,6 +7,8 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+  blog_html_builder:
+    path: packages/blog_html_builder
   blog_models:
     path: packages/blog_models
   butter_cms_client:
