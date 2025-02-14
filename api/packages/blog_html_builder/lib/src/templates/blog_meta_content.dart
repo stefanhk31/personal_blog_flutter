@@ -8,6 +8,7 @@ class BlogMetaContent extends HtmlTemplate {
   const BlogMetaContent({
     required this.title,
     required this.description,
+    required super.templateEngine,
     this.imageUrl,
   });
 
@@ -23,17 +24,8 @@ class BlogMetaContent extends HtmlTemplate {
   final String? imageUrl;
 
   @override
-  String html() {
-    return '''
-        <title>$title</title>
-        <meta charset="UTF-8">
-        <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="$description">
-        <meta property="og:title" content="$title">
-        <meta property="og:description" content="$description">
-        ${imageUrl != null ? '<meta property="og:image" content="$imageUrl">' : ''} 
-    ''';
+  Future<String> html() async {
+    return templateEngine.render('blog_meta_content.html');
   }
 }
 

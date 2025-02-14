@@ -1,0 +1,174 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:logging/logging.dart';
+
+/// {@template TemplateEngine}
+/// Engine to read the content of an HTML file and
+/// replace placeholders with the provided properties.
+/// {@endtemplate}
+class TemplateEngine {
+  /// {@macro TemplateEngine}
+  TemplateEngine({required this.context, Logger? logger})
+      : _logger = logger ?? Logger('TemplateEngine');
+
+  /// Context storing the properties to be inserted into the HTML file.
+  final Map<String, dynamic> context;
+
+  final Logger _logger;
+
+  /// Renders the content of an HTML file and parses according to
+  /// the properties in [context], using [mustache](https://mustache.github.io/mustache.5.html) syntax.
+  /// Logic is adapted from the simple_mustache package:
+  /// https://github.com/DavBfr/simple_mustache/blob/master/lib/src/mustache.dart
+  ///
+  Future<String> render(String filePath) async {
+    final file = await File(filePath).readAsString();
+
+    final buffer = StringBuffer();
+    final regex =
+        RegExp(r'({{\s*([#/^!]?) *([\w\d_]*)\s*\|?\s*([\w\d\s_\|]*)}})');
+
+    try {
+      final matches = regex.allMatches(file);
+      if (matches.isEmpty) return file;
+
+      var startIndex = 0;
+      var skip = false;
+      var skipField = '';
+      var listValues = <dynamic>[];
+      var listLoop = 0;
+      final ctx = Map<String, dynamic>.from(context);
+
+      for (final match in matches) {
+        buffer.write(file.substring(startIndex, match.start));
+        startIndex = match.end;
+
+        final modifier = match.group(2);
+        final field = match.group(3);
+
+        // comment tag
+        if (modifier == '!') {
+          buffer.write(file.substring(startIndex, match.start));
+          startIndex = match.end;
+          continue;
+        }
+
+        // end tag
+        if (modifier == '/') {
+          if (!skip) {
+            buffer.write(file.substring(startIndex, match.start));
+            if (listValues.isNotEmpty) {
+              startIndex = listLoop;
+              ctx
+                ..clear()
+                ..addAll(context)
+                ..addAll(listValues.first as Map<String, dynamic>);
+              listValues.removeAt(0);
+              continue;
+            }
+            ctx
+              ..clear()
+              ..addAll(context);
+          }
+          if (skipField == field) {
+            skip = false;
+            skipField = '';
+          }
+
+          startIndex = match.end;
+          continue;
+        }
+
+        if (skip) {
+          startIndex = match.end;
+          continue;
+        }
+
+        // start tag
+        if (modifier == '#') {
+          buffer.write(file.substring(startIndex, match.start));
+          if (ctx.containsKey(field)) {
+            var value = ctx[field];
+            if (value is bool) {
+              skip = !value;
+            } else {
+              skip = false;
+            }
+
+            if (value is Map) {
+              value = <dynamic>[value];
+            }
+
+            if (value is List) {
+              if (value.isEmpty) {
+                skip = true;
+                skipField = field!;
+                startIndex = match.end;
+                continue;
+              }
+              context
+                ..clear()
+                ..addAll(ctx);
+              listValues = <dynamic>[...value];
+              ctx
+                ..clear()
+                ..addAll(context)
+                ..addAll(listValues.first as Map<String, dynamic>);
+              listValues.removeAt(0);
+              listLoop = match.end;
+            }
+          } else {
+            skip = true;
+          }
+          skipField = field!;
+          startIndex = match.end;
+          continue;
+        }
+
+        // inverted start tag
+        if (modifier == '^') {
+          buffer.write(file.substring(startIndex, match.start));
+          if (ctx.containsKey(field)) {
+            final value = ctx[field!];
+            if (value is bool) {
+              skip = value;
+            } else {
+              skip = true;
+            }
+          }
+          skipField = field!;
+          startIndex = match.end;
+          continue;
+        }
+
+        // Is this necessary if we render a stringified innerHtml?
+        // partial tag
+        // if (modifier == '>') {
+        //   buffer.write(file.substring(startIndex, match.start));
+        //   final partial = await render('templates/$field.html');
+        //   buffer.write(partial);
+        //   continue;
+        // }
+
+        buffer.write(file.substring(startIndex, match.start));
+
+        dynamic value;
+        if (!ctx.containsKey(field)) {
+          _logger.warning('field $field not found');
+          value = field;
+        } else {
+          value = ctx[field!];
+        }
+        buffer.write(value);
+        startIndex = match.end;
+      }
+
+      buffer.write(file.substring(startIndex));
+      return buffer.toString();
+    } on Exception catch (e) {
+      _logger.severe('Error rendering template: $e');
+      rethrow;
+    }
+  }
+}

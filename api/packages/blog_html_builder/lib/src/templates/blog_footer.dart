@@ -5,28 +5,12 @@ import 'package:blog_html_builder/src/templates/templates.dart';
 /// {@endtemplate}
 class BlogFooter extends HtmlTemplate {
   /// {@macro blog_footer}
-  const BlogFooter();
+  const BlogFooter({
+    required super.templateEngine,
+  });
 
   @override
-  String html() {
-    final dateTime = DateTime.now();
-    return '''
-    <footer class="w-full bg-background-light dark:bg-background-dark">
-      <div class="flex justify-between">
-        <div class="max-w-4xl p-4">
-          <picture>
-            <source srcset="assets/images/butter_cms_black.png" media="(prefers-color-scheme: light)"/>
-            <source srcset="assets/images/butter_cms_white.png"  media="(prefers-color-scheme: dark)"/>
-            <img src="assets/images/butter_cms_black.png"/>
-          </picture>
-        </div>
-        <div class="max-w-4xl p-4">
-          <p class="text-text-light dark:text-text-dark">
-            Copyright ${dateTime.year}
-          </p>
-        </div>
-      </div>
-    </footer>
-    ''';
+  Future<String> html() async {
+    return templateEngine.render('blog_footer.html');
   }
 }

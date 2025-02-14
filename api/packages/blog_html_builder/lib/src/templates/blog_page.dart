@@ -6,19 +6,13 @@ import 'package:blog_html_builder/src/templates/templates.dart';
 class BlogPage extends HtmlTemplate {
   /// {@macro blog_page}
   const BlogPage({
-    required this.innerHtml,
-    this.metaContent,
+    required super.templateEngine,
   });
 
-  /// The inner html content of the page.
-  final HtmlTemplate innerHtml;
-
-  /// Optional meta content for the page. If not provided, the default meta
-  /// content will be used.
-  final BlogMetaContent? metaContent;
-
   @override
-  String html() {
+  Future<String> html() async {
+    return templateEngine.render('blog_page.html');
+
     return '''
     <!DOCTYPE html>
     <html>
