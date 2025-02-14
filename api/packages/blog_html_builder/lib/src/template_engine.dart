@@ -111,6 +111,8 @@ class TemplateEngine {
                 startIndex = match.end;
                 continue;
               }
+              // All list values after the first
+              // are not getting added...investigate.
               tempCtx
                 ..clear()
                 ..addAll(ctx);
