@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:blog_html_builder/blog_html_builder.dart';
 
@@ -17,4 +18,7 @@ abstract class HtmlTemplate {
 
   /// Generates the HTML content to be delivered to the client.
   Future<String> html();
+
+  /// Provide the base path to the HTML template file.
+  String get basePath => '${Directory.current.path}/lib/src/templates/';
 }

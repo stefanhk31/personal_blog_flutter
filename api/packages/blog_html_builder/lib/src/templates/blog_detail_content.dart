@@ -11,6 +11,6 @@ class BlogDetailContent extends HtmlTemplate {
   });
   @override
   Future<String> html() async {
-    return templateEngine.render('blog_detail_content.html');
+    return templateEngine.render('$basePath\blog_detail_content.html');
   }
 }

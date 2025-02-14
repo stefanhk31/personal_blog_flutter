@@ -23,7 +23,14 @@ class TemplateEngine {
   /// https://github.com/DavBfr/simple_mustache/blob/master/lib/src/mustache.dart
   ///
   Future<String> render(String filePath) async {
-    final file = await File(filePath).readAsString();
+    String? file;
+    try {
+      file = await File(filePath).readAsString();
+    } on Exception catch (e) {
+      _logger.severe('Error reading file: $e');
+    }
+
+    file = file!;
 
     final buffer = StringBuffer();
     final regex =
@@ -38,14 +45,15 @@ class TemplateEngine {
       var skipField = '';
       var listValues = <dynamic>[];
       var listLoop = 0;
+      final tempCtx = <String, dynamic>{};
       final ctx = Map<String, dynamic>.from(context);
 
       for (final match in matches) {
-        buffer.write(file.substring(startIndex, match.start));
-        startIndex = match.end;
-
         final modifier = match.group(2);
         final field = match.group(3);
+        if (modifier == null || field == null) {
+          continue;
+        }
 
         // comment tag
         if (modifier == '!') {
@@ -62,14 +70,10 @@ class TemplateEngine {
               startIndex = listLoop;
               ctx
                 ..clear()
-                ..addAll(context)
+                ..addAll(tempCtx)
                 ..addAll(listValues.first as Map<String, dynamic>);
               listValues.removeAt(0);
-              continue;
             }
-            ctx
-              ..clear()
-              ..addAll(context);
           }
           if (skipField == field) {
             skip = false;
@@ -103,17 +107,17 @@ class TemplateEngine {
             if (value is List) {
               if (value.isEmpty) {
                 skip = true;
-                skipField = field!;
+                skipField = field;
                 startIndex = match.end;
                 continue;
               }
-              context
+              tempCtx
                 ..clear()
                 ..addAll(ctx);
               listValues = <dynamic>[...value];
               ctx
                 ..clear()
-                ..addAll(context)
+                ..addAll(tempCtx)
                 ..addAll(listValues.first as Map<String, dynamic>);
               listValues.removeAt(0);
               listLoop = match.end;
@@ -121,7 +125,7 @@ class TemplateEngine {
           } else {
             skip = true;
           }
-          skipField = field!;
+          skipField = field;
           startIndex = match.end;
           continue;
         }
@@ -130,26 +134,17 @@ class TemplateEngine {
         if (modifier == '^') {
           buffer.write(file.substring(startIndex, match.start));
           if (ctx.containsKey(field)) {
-            final value = ctx[field!];
+            final value = ctx[field];
             if (value is bool) {
               skip = value;
             } else {
               skip = true;
             }
           }
-          skipField = field!;
+          skipField = field;
           startIndex = match.end;
           continue;
         }
-
-        // Is this necessary if we render a stringified innerHtml?
-        // partial tag
-        // if (modifier == '>') {
-        //   buffer.write(file.substring(startIndex, match.start));
-        //   final partial = await render('templates/$field.html');
-        //   buffer.write(partial);
-        //   continue;
-        // }
 
         buffer.write(file.substring(startIndex, match.start));
 
@@ -158,7 +153,7 @@ class TemplateEngine {
           _logger.warning('field $field not found');
           value = field;
         } else {
-          value = ctx[field!];
+          value = ctx[field];
         }
         buffer.write(value);
         startIndex = match.end;

@@ -11,7 +11,7 @@ class BlogMetaContent extends HtmlTemplate {
 
   @override
   Future<String> html() async {
-    return templateEngine.render('blog_meta_content.html');
+    return templateEngine.render('$basePath/blog_meta_content.html');
   }
 }
 

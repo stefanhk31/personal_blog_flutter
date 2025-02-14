@@ -11,6 +11,6 @@ class BlogPage extends HtmlTemplate {
 
   @override
   Future<String> html() async {
-    return templateEngine.render('blog_page.html');
+    return templateEngine.render('$basePath/blog_page.html');
   }
 }
