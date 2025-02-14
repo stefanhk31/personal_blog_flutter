@@ -1,30 +1,27 @@
 import 'package:blog_html_builder/blog_html_builder.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
+
+class _MockTemplateEngine extends Mock implements TemplateEngine {}
 
 void main() {
   group('BlogMetaContent', () {
-    const title = 'Test Title';
-    const description = 'Test Description';
-    group('html', () {
-      test('returns a string with the title and description', () {
-        const blogMetaContent = BlogMetaContent(
-          title: title,
-          description: description,
-        );
-        final result = blogMetaContent.html();
-        expect(result, contains(title));
-        expect(result, contains(description));
-      });
+    late TemplateEngine templateEngine;
+    late BlogMetaContent blogMetaContent;
 
-      test('returns a string with the imageUrl if provided', () {
-        const imageUrl = 'https://example.com/image.png';
-        const blogMetaContent = BlogMetaContent(
-          title: title,
-          description: description,
-          imageUrl: imageUrl,
-        );
-        final result = blogMetaContent.html();
-        expect(result, contains(imageUrl));
+    setUp(() {
+      templateEngine = _MockTemplateEngine();
+      blogMetaContent = BlogMetaContent(
+        templateEngine: templateEngine,
+      );
+
+      when(() => templateEngine.render('blog_meta_content.html'))
+          .thenAnswer((_) async => '<meta></meta>');
+    });
+    group('html', () {
+      test('calls on template engine to render string', () async {
+        await blogMetaContent.html();
+        verify(() => templateEngine.render('blog_meta_content.html')).called(1);
       });
     });
   });

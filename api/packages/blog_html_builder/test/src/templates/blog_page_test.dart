@@ -1,39 +1,27 @@
 import 'package:blog_html_builder/blog_html_builder.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
+
+class _MockTemplateEngine extends Mock implements TemplateEngine {}
 
 void main() {
   group('BlogPage', () {
-    group('html', () {
-      final innerHtml = BlogDetailContent(
-        authorName: 'Author Name',
-        title: 'Title',
-        published: DateTime(2024),
-        body: '<p>Body</p>',
+    late TemplateEngine templateEngine;
+    late BlogPage blogPage;
+
+    setUp(() {
+      templateEngine = _MockTemplateEngine();
+      blogPage = BlogPage(
+        templateEngine: templateEngine,
       );
 
-      test('returns a string with the inner html content', () {
-        final blogPage = BlogPage(innerHtml: innerHtml);
-        final result = blogPage.html();
-        expect(result, contains(innerHtml.html()));
-      });
-
-      test('returns default meta content if none is provided', () {
-        final blogPage = BlogPage(innerHtml: innerHtml);
-        final result = blogPage.html();
-        expect(result, contains(defaultMetaContent.html()));
-      });
-
-      test('returns provided meta content if provided', () {
-        const metaContent = BlogMetaContent(
-          title: 'Title',
-          description: 'Description',
-        );
-        final blogPage = BlogPage(
-          innerHtml: innerHtml,
-          metaContent: metaContent,
-        );
-        final result = blogPage.html();
-        expect(result, contains(metaContent.html()));
+      when(() => templateEngine.render('blog_page.html'))
+          .thenAnswer((_) async => '<html></html>');
+    });
+    group('html', () {
+      test('calls on template engine to render string', () async {
+        await blogPage.html();
+        verify(() => templateEngine.render('blog_page.html')).called(1);
       });
     });
   });

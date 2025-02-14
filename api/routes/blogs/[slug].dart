@@ -26,7 +26,14 @@ Future<Response> _get(RequestContext context, String slug) async {
   final html = await BlogPage(
     templateEngine: TemplateEngine(
       context: {
-        'metaContent': defaultMetaContent.html(),
+        'metaContent': BlogMetaContent(
+          templateEngine: TemplateEngine(
+            context: {
+              'title': defaultMetaTitle,
+              'description': defaultMetaDescription,
+            },
+          ),
+        ).html(),
         'innerHtml': BlogDetailContent(
           templateEngine: TemplateEngine(
             context: {

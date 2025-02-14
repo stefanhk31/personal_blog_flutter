@@ -12,23 +12,5 @@ class BlogPage extends HtmlTemplate {
   @override
   Future<String> html() async {
     return templateEngine.render('blog_page.html');
-
-    return '''
-    <!DOCTYPE html>
-    <html>
-      <head>
-        ${metaContent?.html() ?? defaultMetaContent.html()}
-        <link href="/output.css" rel="stylesheet">
-        <link rel="icon" type="image/png" href="/favicon.png" />
-        <link rel="manifest" href="/manifest.json">
-      </head>
-      <body>
-        <div class="mx-auto bg-background-light dark:bg-background-dark">
-          ${innerHtml.html()}
-        </div>
-      </body>
-      ${const BlogFooter().html()}
-    </html>
-    ''';
   }
 }
