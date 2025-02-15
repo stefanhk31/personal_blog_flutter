@@ -4,7 +4,6 @@ import 'package:blog_html_builder/blog_html_builder.dart';
 import 'package:blog_models/blog_models.dart';
 import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:dart_frog/dart_frog.dart';
-import 'package:intl/intl.dart';
 
 /// Request handler for the `/blogs/{slug}` route.
 /// Supports GET requests.
@@ -23,38 +22,15 @@ Future<Response> _get(RequestContext context, String slug) async {
     jsonDecode(blogResponse.body) as Map<String, dynamic>,
   );
 
-  final html = await BlogPage(
-    templateEngine: TemplateEngine(
-      context: {
-        'metaContent': BlogMetaContent(
-          templateEngine: TemplateEngine(
-            context: {
-              'title': defaultMetaTitle,
-              'description': defaultMetaDescription,
-            },
-          ),
-        ).html(),
-        'innerHtml': BlogDetailContent(
-          templateEngine: TemplateEngine(
-            context: {
-              'authorName': '${blogObj.data.author.firstName} '
-                  '${blogObj.data.author.lastName}',
-              'body': blogObj.data.body ?? '',
-              'published': DateFormat.yMMMMd().format(blogObj.data.published),
-              'title': blogObj.data.title,
-              'authorImage?': blogObj.data.author.profileImage,
-              'featuredImage?': blogObj.data.featuredImage,
-            },
-          ),
-        ).html(),
-        'footer': BlogFooter(
-          templateEngine: TemplateEngine(
-            context: {
-              'year': DateTime.now().year,
-            },
-          ),
-        ).html(),
-      },
+  final html = await BlogDetailPage(
+    blogDetail: BlogDetail(
+      title: blogObj.data.title,
+      published: blogObj.data.published,
+      body: blogObj.data.body ?? '',
+      slug: slug,
+      author: author,
+      tags: blogObj.data.tags,
+      categories: blogObj.data.categories,
     ),
   ).html();
 

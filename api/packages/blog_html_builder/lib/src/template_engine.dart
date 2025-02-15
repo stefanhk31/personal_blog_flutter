@@ -9,9 +9,11 @@ import 'package:logging/logging.dart';
 /// {@endtemplate}
 class TemplateEngine {
   /// {@macro TemplateEngine}
-  TemplateEngine(
-      {required this.context, required String basePath, Logger? logger})
-      : _basePath = basePath,
+  TemplateEngine({
+    required this.context,
+    required String basePath,
+    Logger? logger,
+  })  : _basePath = basePath,
         _logger = logger ?? Logger('TemplateEngine');
 
   /// Context storing the properties to be inserted into the HTML file.

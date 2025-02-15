@@ -13,7 +13,7 @@ class BlogPreviews extends Equatable {
 
   /// Factory to create [BlogPreviews] from the [BlogsResponse] data model
   /// using the [BlogPreview.fromBlog] factory and the count returned
-  /// by [BlogsResponse.meta.count].
+  /// by the api.
   factory BlogPreviews.fromBlogs(BlogsResponse blogs) {
     return BlogPreviews(
       previews: blogs.data.map(BlogPreview.fromBlog).toList(),
