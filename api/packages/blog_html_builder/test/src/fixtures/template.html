@@ -1,0 +1,26 @@
+<html>
+    <head>
+    <title>{{title}}</title>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{#imageUrl}}
+    <meta property="og:image" content="{{imageUrl}}">
+    {{/imageUrl}}
+    </head>
+    <body>
+        {{! This is a comment }}
+        {{#header}}
+        <h1>{{header}}</h1>
+        {{/header}}
+        {{#people}}
+        <p>{{name}}</p>
+        {{/people}}
+        {{^people}}
+        <p>No people</p>
+        {{/people}}
+        <div>
+            {{innerHtml}}
+        </div>
+    </body>
+</html>

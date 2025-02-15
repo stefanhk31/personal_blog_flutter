@@ -22,14 +22,15 @@ Future<Response> _get(RequestContext context, String slug) async {
     jsonDecode(blogResponse.body) as Map<String, dynamic>,
   );
 
-  final html = BlogPage(
-    innerHtml: BlogDetailContent(
-      authorName:
-          '${blogObj.data.author.firstName} ${blogObj.data.author.lastName}',
-      body: blogObj.data.body ?? '',
-      published: blogObj.data.published,
+  final html = await BlogDetailPage(
+    blogDetail: BlogDetail(
       title: blogObj.data.title,
-      authorImage: blogObj.data.author.profileImage,
+      published: blogObj.data.published,
+      body: blogObj.data.body ?? '',
+      slug: slug,
+      author: blogObj.data.author,
+      tags: blogObj.data.tags,
+      categories: blogObj.data.categories,
       featuredImage: blogObj.data.featuredImage,
     ),
   ).html();

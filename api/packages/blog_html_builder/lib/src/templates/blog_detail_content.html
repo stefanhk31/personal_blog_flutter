@@ -1,0 +1,19 @@
+<div class="container-xl">
+  <header class="w-full px-2 md:px-4 lg:px-8 text-text-light dark:text-text-dark">
+    {{#featuredImage}}
+    <img src="{{featuredImage}}" alt="{{title}}" class="w-full h-96 object-cover object-center">
+    {{/featuredImage}}
+    <h1 class="pt-4 pb-2 text-4xl font-bold">{{title}}</h1>
+    <div class="pt-2 pb-4 flex flex-row flex-wrap items-center">
+      {{#authorImage}}
+      <img src="{{authorImage}}" alt="{{authorName}}" class="w-12 h-12 rounded-full object-cover object-center pr-2"/>
+      {{/authorImage}}
+      <p class="text-sm text-text-light dark:text-text-dark">
+        by {{authorName}} on {{published}}
+      </p>
+    </div>
+  </header>
+  <article class="mx-auto px-2 prose text-text-light dark:text-text-dark">
+    {{body}}
+  </article>
+</div>

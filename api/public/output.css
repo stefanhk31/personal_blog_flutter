@@ -1088,8 +1088,36 @@ video {
   width: 100%;
 }
 
+.max-w-4 {
+  max-width: 1rem;
+}
+
 .max-w-4xl {
   max-width: 56rem;
+}
+
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+.max-w-32 {
+  max-width: 8rem;
+}
+
+.max-w-96 {
+  max-width: 24rem;
+}
+
+.max-w-80 {
+  max-width: 20rem;
+}
+
+.max-w-24 {
+  max-width: 6rem;
+}
+
+.max-w-48 {
+  max-width: 12rem;
 }
 
 .flex-row {
@@ -1233,6 +1261,10 @@ video {
 }
 
 @media (min-width: 1024px) {
+  .lg\:max-w-96 {
+    max-width: 24rem;
+  }
+
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;

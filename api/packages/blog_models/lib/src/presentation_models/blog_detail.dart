@@ -1,5 +1,6 @@
 import 'package:blog_models/blog_models.dart';
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
 
 /// {@template blog_detail}
 /// Represents detailed content of a blog post.
@@ -33,6 +34,12 @@ class BlogDetail extends Equatable {
         featuredImage: blog.featuredImage,
         featuredImageAlt: blog.featuredImageAlt,
       );
+
+  /// Returns the full name of the author.
+  String get authorName => '${author.firstName} ${author.lastName}';
+
+  /// Returns the date of publication in the format `Month Day, Year`.
+  String get publishDateFormatted => DateFormat.yMMMMd().format(published);
 
   //// Title of the blog post
   final String title;

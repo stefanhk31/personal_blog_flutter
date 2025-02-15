@@ -38,6 +38,8 @@ void main() {
       expect(blogDetail.title, equals(blog.title));
       expect(blogDetail.published, equals(blog.published));
       expect(blogDetail.body, equals(blog.body));
+      expect(blogDetail.authorName, equals('firstName lastName'));
+      expect(blogDetail.publishDateFormatted, equals('January 1, 2021'));
     });
 
     test('supports value equality', () {
