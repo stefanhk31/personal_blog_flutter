@@ -37,9 +37,6 @@ class TemplateEngine {
         RegExp(r'({{\s*([#/^!]?) *([\w\d_]*)\s*\|?\s*([\w\d\s_\|]*)}})');
 
     try {
-      final matches = regex.allMatches(file);
-      if (matches.isEmpty) return file;
-
       var startIndex = 0;
       var skip = false;
       var skipField = '';
@@ -48,7 +45,10 @@ class TemplateEngine {
       final tempCtx = <String, dynamic>{};
       final ctx = Map<String, dynamic>.from(context);
 
-      for (final match in matches) {
+      while (true) {
+        final matches = regex.allMatches(file, startIndex);
+        if (matches.isEmpty) break;
+        final match = matches.first;
         final modifier = match.group(2);
         final field = match.group(3);
         if (modifier == null || field == null) {
@@ -73,6 +73,7 @@ class TemplateEngine {
                 ..addAll(tempCtx)
                 ..addAll(listValues.first as Map<String, dynamic>);
               listValues.removeAt(0);
+              continue;
             }
           }
           if (skipField == field) {
@@ -111,8 +112,7 @@ class TemplateEngine {
                 startIndex = match.end;
                 continue;
               }
-              // All list values after the first
-              // are not getting added...investigate.
+
               tempCtx
                 ..clear()
                 ..addAll(ctx);
