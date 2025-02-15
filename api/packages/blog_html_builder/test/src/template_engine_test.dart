@@ -18,8 +18,6 @@ void main() {
       {'name': 'John Doe'},
       {'name': 'Jane Doe'},
     ];
-    const inner = '<p>Inner</p>';
-    final innerHtml = TemplateEngine(context: {'inner': inner});
 
     setUp(
       () {
@@ -34,16 +32,19 @@ void main() {
     );
 
     group('render', () {
-      // Refactor into smaller tests by fields, iterables, conditionals?
-      test('can insert fields into template', () async {
+      test('inserts fields into template', () async {
         final context = {
           'title': title,
           'imageUrl': imageUrl,
           'header': header,
           'people': people,
         };
-        final engine = TemplateEngine(context: context, logger: logger);
-        final result = await engine.render('$basePath/template.html');
+        final engine = TemplateEngine(
+          context: context,
+          basePath: basePath,
+          logger: logger,
+        );
+        final result = await engine.render('/template.html');
         expect(result, contains('<title>$title</title>'));
         expect(
           result,
@@ -55,12 +56,68 @@ void main() {
         }
       });
 
-      test('omits fields when not present', () {
-        //test null imageUrl and header
+      test('omits comments', () async {
+        final context = {
+          'title': title,
+          'imageUrl': imageUrl,
+          'header': header,
+          'people': people,
+        };
+        final engine = TemplateEngine(
+          context: context,
+          basePath: basePath,
+          logger: logger,
+        );
+        final result = await engine.render('/template.html');
+        expect(result, isNot(contains('This is a comment')));
       });
 
-      test('can insert fields based on negation', () {
-        //test no names
+      test('omits fields when not present', () async {
+        final context = {
+          'title': title,
+          'people': people,
+        };
+        final engine = TemplateEngine(
+          context: context,
+          basePath: basePath,
+          logger: logger,
+        );
+        final result = await engine.render('/template.html');
+        expect(
+          result,
+          isNot(contains('<meta property="og:image" content="$imageUrl">')),
+        );
+        expect(result, isNot(contains('<h1>$header</h1>')));
+      });
+
+      test('displays content for negative conditions', () async {
+        final context = {
+          'title': title,
+          'imageUrl': imageUrl,
+          'header': header,
+        };
+        final engine = TemplateEngine(
+          context: context,
+          basePath: basePath,
+          logger: logger,
+        );
+        final result = await engine.render('/template.html');
+        expect(result, contains('<p>No people</p>'));
+      });
+
+      test('inserts fields into partials', () async {
+        final context = {
+          'people': people,
+        };
+        final engine = TemplateEngine(
+          context: context,
+          basePath: basePath,
+          logger: logger,
+        );
+        final result = await engine.render('/template_with_partial.html');
+        for (final person in people) {
+          expect(result, contains('<p>${person['name']}</p>'));
+        }
       });
     });
   });

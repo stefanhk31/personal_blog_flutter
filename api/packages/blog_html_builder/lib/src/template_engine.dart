@@ -9,12 +9,15 @@ import 'package:logging/logging.dart';
 /// {@endtemplate}
 class TemplateEngine {
   /// {@macro TemplateEngine}
-  TemplateEngine({required this.context, Logger? logger})
-      : _logger = logger ?? Logger('TemplateEngine');
+  TemplateEngine(
+      {required this.context, required String basePath, Logger? logger})
+      : _basePath = basePath,
+        _logger = logger ?? Logger('TemplateEngine');
 
   /// Context storing the properties to be inserted into the HTML file.
   final Map<String, dynamic> context;
 
+  final String _basePath;
   final Logger _logger;
 
   /// Renders the content of an HTML file and parses according to
@@ -25,7 +28,7 @@ class TemplateEngine {
   Future<String> render(String filePath) async {
     String? file;
     try {
-      file = await File(filePath).readAsString();
+      file = await File('$_basePath/$filePath').readAsString();
     } on Exception catch (e) {
       _logger.severe('Error reading file: $e');
     }
@@ -34,7 +37,7 @@ class TemplateEngine {
 
     final buffer = StringBuffer();
     final regex =
-        RegExp(r'({{\s*([#/^!]?) *([\w\d_]*)\s*\|?\s*([\w\d\s_\|]*)}})');
+        RegExp(r'({{\s*([#/^>!]?) *([\w\d_]*)\s*\|?\s*([\w\d\s_\|]*)}})');
 
     try {
       var startIndex = 0;
@@ -144,6 +147,15 @@ class TemplateEngine {
             }
           }
           skipField = field;
+          startIndex = match.end;
+          continue;
+        }
+
+        // partial tag
+        if (modifier == '>') {
+          buffer.write(file.substring(startIndex, match.start));
+          final partial = await render('/$field.html');
+          buffer.write(partial);
           startIndex = match.end;
           continue;
         }
