@@ -103,7 +103,7 @@ class TemplateEngine {
             if (value is bool) {
               skip = !value;
             } else {
-              skip = false;
+              skip = value == null;
             }
 
             if (value is Map) {

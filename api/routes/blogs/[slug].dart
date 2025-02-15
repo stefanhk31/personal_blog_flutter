@@ -28,9 +28,10 @@ Future<Response> _get(RequestContext context, String slug) async {
       published: blogObj.data.published,
       body: blogObj.data.body ?? '',
       slug: slug,
-      author: author,
+      author: blogObj.data.author,
       tags: blogObj.data.tags,
       categories: blogObj.data.categories,
+      featuredImage: blogObj.data.featuredImage,
     ),
   ).html();
 

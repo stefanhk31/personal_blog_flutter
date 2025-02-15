@@ -72,10 +72,12 @@ void main() {
         expect(result, isNot(contains('This is a comment')));
       });
 
-      test('omits fields when not present', () async {
+      test('omits null values', () async {
         final context = {
           'title': title,
           'people': people,
+          'header': null,
+          'imageUrl': null,
         };
         final engine = TemplateEngine(
           context: context,
@@ -85,9 +87,9 @@ void main() {
         final result = await engine.render('/template.html');
         expect(
           result,
-          isNot(contains('<meta property="og:image" content="$imageUrl">')),
+          isNot(contains('<meta property="og:image"')),
         );
-        expect(result, isNot(contains('<h1>$header</h1>')));
+        expect(result, isNot(contains('<h1>')));
       });
 
       test('displays content for negative conditions', () async {
