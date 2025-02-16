@@ -40,11 +40,11 @@ void main() {
           'people': people,
         };
         final engine = TemplateEngine(
-          context: context,
           basePath: basePath,
           logger: logger,
         );
-        final result = await engine.render('/template.html');
+        final result =
+            await engine.render(filePath: '/template.html', context: context);
         expect(result, contains('<title>$title</title>'));
         expect(
           result,
@@ -64,11 +64,11 @@ void main() {
           'people': people,
         };
         final engine = TemplateEngine(
-          context: context,
           basePath: basePath,
           logger: logger,
         );
-        final result = await engine.render('/template.html');
+        final result =
+            await engine.render(filePath: '/template.html', context: context);
         expect(result, isNot(contains('This is a comment')));
       });
 
@@ -80,11 +80,11 @@ void main() {
           'imageUrl': null,
         };
         final engine = TemplateEngine(
-          context: context,
           basePath: basePath,
           logger: logger,
         );
-        final result = await engine.render('/template.html');
+        final result =
+            await engine.render(filePath: '/template.html', context: context);
         expect(
           result,
           isNot(contains('<meta property="og:image"')),
@@ -99,11 +99,11 @@ void main() {
           'header': header,
         };
         final engine = TemplateEngine(
-          context: context,
           basePath: basePath,
           logger: logger,
         );
-        final result = await engine.render('/template.html');
+        final result =
+            await engine.render(filePath: '/template.html', context: context);
         expect(result, contains('<p>No people</p>'));
       });
 
@@ -112,11 +112,13 @@ void main() {
           'people': people,
         };
         final engine = TemplateEngine(
-          context: context,
           basePath: basePath,
           logger: logger,
         );
-        final result = await engine.render('/template_with_partial.html');
+        final result = await engine.render(
+          filePath: '/template_with_partial.html',
+          context: context,
+        );
         for (final person in people) {
           expect(result, contains('<p>${person['name']}</p>'));
         }

@@ -10,14 +10,10 @@ import 'package:logging/logging.dart';
 class TemplateEngine {
   /// {@macro TemplateEngine}
   TemplateEngine({
-    required this.context,
     required String basePath,
     Logger? logger,
   })  : _basePath = basePath,
         _logger = logger ?? Logger('TemplateEngine');
-
-  /// Context storing the properties to be inserted into the HTML file.
-  final Map<String, dynamic> context;
 
   final String _basePath;
   final Logger _logger;
@@ -27,15 +23,18 @@ class TemplateEngine {
   /// Logic is adapted from the simple_mustache package:
   /// https://github.com/DavBfr/simple_mustache/blob/master/lib/src/mustache.dart
   ///
-  Future<String> render(String filePath) async {
+  Future<String> render({
+    required String filePath,
+    Map<String, dynamic> context = const {},
+  }) async {
     String? file;
     try {
       file = await File('$_basePath/$filePath').readAsString();
     } on Exception catch (e) {
-      _logger.severe('Error reading file: $e');
+      final message = 'Error reading file: $e';
+      _logger.severe(message);
+      throw Exception(message);
     }
-
-    file = file!;
 
     final buffer = StringBuffer();
     final regex =
@@ -156,7 +155,10 @@ class TemplateEngine {
         // partial tag
         if (modifier == '>') {
           buffer.write(file.substring(startIndex, match.start));
-          final partial = await render('/$field.html');
+          final partial = await render(
+            filePath: '/$field.html',
+            context: context,
+          );
           buffer.write(partial);
           startIndex = match.end;
           continue;
