@@ -6,3 +6,6 @@ const defaultMetaTitle = "Stefan's Post-Academic Chronicles";
 /// content, not the content of an individual post.
 const defaultMetaDescription = 'Exploring my post-academic experiences '
     'in software, the outdoors, and life in general.';
+
+/// The current year, used in the footer of the blog site.
+final currentYear = DateTime.now().year;

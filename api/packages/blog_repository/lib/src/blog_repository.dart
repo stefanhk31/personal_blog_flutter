@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:blog_html_builder/blog_html_builder.dart';
 import 'package:blog_models/blog_models.dart';
+import 'package:blog_repository/src/constants.dart';
 import 'package:butter_cms_client/butter_cms_client.dart';
 
 /// {@template rendered_api_data}
@@ -56,7 +57,7 @@ class BlogRepository {
           'featuredImage': blogDetail.featuredImage,
           'metaTitle': blogDetail.seoTitle,
           'metaDescription': blogDetail.metaDescription,
-          'year': DateTime.now().year,
+          'year': currentYear,
         },
       );
       return (200, html);
