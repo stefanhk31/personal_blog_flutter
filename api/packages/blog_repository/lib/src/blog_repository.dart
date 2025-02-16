@@ -45,6 +45,7 @@ class BlogRepository {
           'featuredImage': blogDetail.featuredImage,
           'metaTitle': blogDetail.seoTitle,
           'metaDescription': blogDetail.metaDescription,
+          'year': DateTime.now().year,
         },
       );
       return html;
