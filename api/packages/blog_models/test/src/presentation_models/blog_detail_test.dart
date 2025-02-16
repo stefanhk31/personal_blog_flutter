@@ -38,6 +38,15 @@ void main() {
       expect(blogDetail.title, equals(blog.title));
       expect(blogDetail.published, equals(blog.published));
       expect(blogDetail.body, equals(blog.body));
+      expect(blogDetail.slug, equals(blog.slug));
+      expect(blogDetail.url, equals(blog.url));
+      expect(blogDetail.author, equals(blog.author));
+      expect(blogDetail.tags, equals(blog.tags));
+      expect(blogDetail.categories, equals(blog.categories));
+      expect(blogDetail.featuredImage, equals(blog.featuredImage));
+      expect(blogDetail.featuredImageAlt, equals(blog.featuredImageAlt));
+      expect(blogDetail.seoTitle, equals(blog.seoTitle));
+      expect(blogDetail.metaDescription, equals(blog.metaDescription));
       expect(blogDetail.authorName, equals('firstName lastName'));
       expect(blogDetail.publishDateFormatted, equals('January 1, 2021'));
     });
