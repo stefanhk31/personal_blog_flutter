@@ -1,2 +1,2 @@
 export 'blog_detail_page.dart';
-export 'html_template.dart';
+export 'html_page.dart';
