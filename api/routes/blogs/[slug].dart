@@ -11,9 +11,11 @@ Future<Response> onRequest(RequestContext context, String slug) async {
 }
 
 Future<Response> _get(RequestContext context, String slug) async {
-  final html = await context.read<BlogRepository>().getBlogDetailHtml(slug);
+  final (statusCode, html) =
+      await context.read<BlogRepository>().getBlogDetailHtml(slug);
 
   return Response(
+    statusCode: statusCode,
     body: html,
     headers: {'content-type': 'text/html'},
   );

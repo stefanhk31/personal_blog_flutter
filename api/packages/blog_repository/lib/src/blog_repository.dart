@@ -4,6 +4,12 @@ import 'package:blog_html_builder/blog_html_builder.dart';
 import 'package:blog_models/blog_models.dart';
 import 'package:butter_cms_client/butter_cms_client.dart';
 
+/// {@template rendered_api_data}
+/// A tuple containing the status code of the API call
+/// and the rendered HTML content.
+/// {@endtemplate}
+typedef RenderedContent = (int, String);
+
 /// {@template blog_repository}
 /// A repository for fetching blog data from the CMS
 /// and generating HTML for the client.
@@ -20,12 +26,17 @@ class BlogRepository {
   final TemplateEngine _templateEngine;
 
   /// Fetches a detailed blog post by [slug] and generates HTML for the client.
-  Future<String> getBlogDetailHtml(String slug) async {
+  Future<RenderedContent> getBlogDetailHtml(String slug) async {
     try {
       final response = await _cmsClient.fetchBlogPost(slug: slug);
 
       if (response.statusCode != 200) {
-        throw Exception('Failed to fetch blog post');
+        return _renderErrorPage(
+          message: 'Failed to fetch blog post: \n '
+              'Status Code: ${response.statusCode} \n '
+              'Body: ${response.body} ',
+          statusCode: response.statusCode,
+        );
       }
 
       final blogResponse = BlogResponse.fromJson(
@@ -48,15 +59,22 @@ class BlogRepository {
           'year': DateTime.now().year,
         },
       );
-      return html;
+      return (200, html);
     } on Exception catch (e) {
-      final errorHtml = await _templateEngine.render(
-        filePath: 'error_page.html',
-        context: {
-          'message': e.toString(),
-        },
-      );
-      return errorHtml;
+      return _renderErrorPage(message: e.toString());
     }
+  }
+
+  Future<(int, String)> _renderErrorPage({
+    required String message,
+    int statusCode = 500,
+  }) async {
+    final errorHtml = await _templateEngine.render(
+      filePath: 'error_page.html',
+      context: {
+        'message': message,
+      },
+    );
+    return (statusCode, errorHtml);
   }
 }
