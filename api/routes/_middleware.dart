@@ -1,13 +1,33 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:blog_html_builder/blog_html_builder.dart';
+import 'package:blog_repository/blog_repository.dart';
 import 'package:butter_cms_client/butter_cms_client.dart';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:http/http.dart';
 import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 
 Handler middleware(Handler handler) {
-  return handler.use(requestLogger()).use(
+  return handler
+      .use(requestLogger())
+      .use(
+        provider<BlogRepository>(
+          (context) => BlogRepository(
+            cmsClient: context.read<ButterCmsClient>(),
+            templateEngine: context.read<TemplateEngine>(),
+          ),
+        ),
+      )
+      .use(
+        provider<TemplateEngine>(
+          (_) => TemplateEngine(
+            basePath:
+                '${Directory.current.path}/packages/blog_repository/templates',
+          ),
+        ),
+      )
+      .use(
     provider<ButterCmsClient>(
       (_) {
         final secretJson = Platform.environment['BUTTER_CMS_API_KEY'];

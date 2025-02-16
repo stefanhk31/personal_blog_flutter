@@ -11,6 +11,8 @@ dependencies:
     path: packages/blog_html_builder
   blog_models:
     path: packages/blog_models
+  blog_repository:
+    path: packages/blog_repository
   butter_cms_client:
     path: packages/butter_cms_client
   dart_frog: ^1.0.0

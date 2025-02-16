@@ -24,6 +24,10 @@ class BlogRepository {
     try {
       final response = await _cmsClient.fetchBlogPost(slug: slug);
 
+      if (response.statusCode != 200) {
+        throw Exception('Failed to fetch blog post');
+      }
+
       final blogResponse = BlogResponse.fromJson(
         jsonDecode(response.body) as Map<String, dynamic>,
       );
@@ -31,26 +35,22 @@ class BlogRepository {
       final blogDetail = BlogDetail.fromBlog(blogResponse.data);
 
       final html = await _templateEngine.render(
-        filePath: 'blog_detail.html',
+        filePath: 'blog_detail_page.html',
         context: {
           'title': blogDetail.title,
           'published': blogDetail.publishDateFormatted,
           'body': blogDetail.body,
-          'author': blogDetail.authorName,
-          'tags': blogDetail.tags.map((tag) => tag.name).join(', '),
-          'categories':
-              blogDetail.categories.map((category) => category.name).join(', '),
-          'featuredImage': blogDetail.featuredImage ?? '',
-          'featuredImageAlt': blogDetail.featuredImageAlt ?? '',
-          'seoTitle': blogDetail.seoTitle ?? '',
-          'metaDescription': blogDetail.metaDescription ?? '',
-          'url': blogDetail.url,
+          'authorName': blogDetail.authorName,
+          'authorImage': blogDetail.author.profileImage,
+          'featuredImage': blogDetail.featuredImage,
+          'metaTitle': blogDetail.seoTitle,
+          'metaDescription': blogDetail.metaDescription,
         },
       );
       return html;
     } on Exception catch (e) {
       final errorHtml = await _templateEngine.render(
-        filePath: 'error.html',
+        filePath: 'error_page.html',
         context: {
           'message': e.toString(),
         },
