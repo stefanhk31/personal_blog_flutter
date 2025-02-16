@@ -33,6 +33,9 @@ Future<Response> _get(RequestContext context, String slug) async {
       categories: blogObj.data.categories,
       featuredImage: blogObj.data.featuredImage,
     ),
+    metaTitle: blogObj.data.seoTitle,
+    metaDescription: blogObj.data.metaDescription,
+    metaImageUrl: blogObj.data.featuredImage,
   ).html();
 
   return Response(

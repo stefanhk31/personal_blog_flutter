@@ -17,6 +17,8 @@ class BlogDetail extends Equatable {
     required this.categories,
     this.featuredImage,
     this.featuredImageAlt,
+    this.seoTitle,
+    this.metaDescription,
     this.url,
   });
 
@@ -33,6 +35,8 @@ class BlogDetail extends Equatable {
         categories: blog.categories,
         featuredImage: blog.featuredImage,
         featuredImageAlt: blog.featuredImageAlt,
+        seoTitle: blog.seoTitle,
+        metaDescription: blog.metaDescription,
       );
 
   /// Returns the full name of the author.
@@ -71,6 +75,12 @@ class BlogDetail extends Equatable {
   /// Optional url to access the blog post in Butter CMS.
   final String? url;
 
+  /// Title of the blog post to be displayed in metadata for search engines.
+  final String? seoTitle;
+
+  /// Description of the blog post to be displayed in metadata.
+  final String? metaDescription;
+
   @override
   List<Object?> get props => [
         title,
@@ -83,5 +93,7 @@ class BlogDetail extends Equatable {
         featuredImage,
         featuredImageAlt,
         url,
+        seoTitle,
+        metaDescription,
       ];
 }
