@@ -66,7 +66,7 @@ class BlogRepository {
     }
   }
 
-  Future<(int, String)> _renderErrorPage({
+  Future<RenderedContent> _renderErrorPage({
     required String message,
     int statusCode = 500,
   }) async {
