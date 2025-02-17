@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+{{>header}}
+
+<body>
+    <div class="mx-auto bg-background-light dark:bg-background-dark">
+        {{#posts}}
+        {{>blog_overview_card}}
+        {{/posts}}
+    </div>
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+</body>
+
+{{>footer}}
+
+</html>
