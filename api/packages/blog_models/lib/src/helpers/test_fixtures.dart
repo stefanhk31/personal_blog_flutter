@@ -78,6 +78,12 @@ const blogSummaryJson = {
   'featured_image': 'https://example.com/featured-image.jpg',
 };
 
+/// Mock [BlogMeta] data in JSON format. For testing purposes only.
+const blogMetaJson = {
+  'next_post': blogSummaryJson,
+  'previous_post': blogSummaryJson,
+};
+
 /// Mock [Category] data. For testing purposes only.
 const category = Category(name: 'name', slug: 'slug');
 

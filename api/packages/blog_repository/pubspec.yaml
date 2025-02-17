@@ -1,0 +1,23 @@
+name: blog_repository
+description: A repository for fetching and managing blog data for delivery to the client.
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ^3.5.0
+
+dev_dependencies:
+  http: ^1.2.0
+  mocktail: ^1.0.4
+  test: ^1.25.8
+  very_good_analysis: ^6.0.0
+
+dependencies:
+  blog_html_builder:
+    path: ../blog_html_builder
+  blog_models:
+    path: ../blog_models
+  butter_cms_client:
+    path: ../butter_cms_client
+  
+

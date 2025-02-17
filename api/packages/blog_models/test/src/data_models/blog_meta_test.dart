@@ -18,11 +18,6 @@ void main() {
     });
 
     group('JSON Serialization', () {
-      final blogMetaJson = {
-        'next_post': blogSummaryJson,
-        'previous_post': blogSummaryJson,
-      };
-
       final emptyBlogMetaJson = {
         'next_post': null,
         'previous_post': null,
